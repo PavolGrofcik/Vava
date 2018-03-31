@@ -5,7 +5,7 @@ softwaroveho produktu.
 
 Autori Pavol Grofčík Michal Hebán
 
-<b>Názov</b> ###SkiGO
+<b>Názov</b> SkiGO
 
 <b>Téma</b> Aplikácia pre bežkárov, ktorá trackuje ich výkon, poskytuje informácie o udalostiach a počasí.
 
