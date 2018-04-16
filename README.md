@@ -14,6 +14,6 @@ Aplikácia pre bežkárov, ktorá trackuje ich výkon, poskytuje informácie o u
 
 ![alt text](https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.flacom.com%2Fcontent%2Fuploads%2F2013%2F10%2FJPAHibernate.jpg&f=1)
 
-![alt text](https://res.cloudinary.com/dtlzeilhd/image/upload/v1523904990/Vava_Data_Model.png)
+![alt text](https://res.cloudinary.com/dtlzeilhd/image/upload/v1523905973/Vava_Data_Model.png)
 
 
