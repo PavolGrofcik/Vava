@@ -4,10 +4,10 @@ Tento repozitár slúži na kolaboráciu pri vývoji
 softwaroveho produktu.
 
 Autori Pavol Grofčík Michal Hebán
+# SkiGo
 
-<b>Názov</b> ###SkiGO
-
-<b>Téma</b> Aplikácia pre bežkárov, ktorá trackuje ich výkon, poskytuje informácie o udalostiach a počasí.
+### Téma 
+Aplikácia pre bežkárov, ktorá trackuje ich výkon, poskytuje informácie o udalostiach a počasí.
 
 ![alt text](http://mikecann.co.uk/wp-content/uploads/2009/12/javafx_logo_color_1.jpg)
 
