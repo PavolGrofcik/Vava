@@ -8,10 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="customer")
@@ -27,9 +23,7 @@ public class Customer {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="date",nullable=false)			//Dátum narodenia - date vs string
-	@Temporal(TemporalType.TIMESTAMP)
-	@Type(type="date")
+	@Column(name="date")			//Dátum narodenia - date vs string
 	private Date date;
 	
 	@Column(name="sex")
@@ -44,7 +38,10 @@ public class Customer {
 	@Column(name="address")
 	private String address;
 	
-	
+	//Default konštruktor pre session.get() method
+	public Customer() {
+	}
+
 
 	public Customer(int id, String firstName, String lastName, char sex, String telNumber, String city,
 			String address) {
@@ -143,6 +140,7 @@ public class Customer {
 	
 	public void showCustomerInfo() {
 		System.out.println("Id: "+ id + " Name: " + firstName + " Surname: " + lastName  
-				+ " Sex: " + sex + " Date of birth: " + date + " Address: " + address);
+				+ " Sex: " + sex + " Date of birth: " + date +  " City: " + city + " Address: " + address
+				+ " Tel Number: " + telNumber);
 	}
 }

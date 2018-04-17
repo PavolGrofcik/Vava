@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import main.entities.Customer;
+import main.entities.Event;
 
 /**
  * Trieda Controller obsahuje hlavné metódy s prácou DB a perzistenciou JPA
@@ -19,7 +20,7 @@ public class Controller {
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
 	
-	//Private konštruktor - Singleton
+	
 	private Controller() {
 		this.factory = HibernateUtil.getSessionFactory();
 	}
@@ -34,20 +35,25 @@ public class Controller {
 	public static void main(String[] args) {
 		Controller controller = getInstance();
 		Customer cust;
+		Event event;
 		
 		 Session session = controller.factory.openSession();
 	     Transaction tx = session.beginTransaction();
 	     
-	     TypedQuery<Customer> query = session.createQuery("SELECT new Customer(id ,firstName, lastName, date, sex, telNumber, city, address)" +  ""
+	     /*TypedQuery<Customer> query = session.createQuery("SELECT new Customer(id ,firstName, lastName, date, sex, telNumber, city, address)" +  ""
 	     		+ "FROM Customer WHERE id = :param1", Customer.class);
 	     query.setParameter("param1", 1);
-	     cust = query.getResultList().get(0);
+	     */
+	     event=session.get(Event.class, 5);
+	     //cust = query.getResultList().get(0);
+	     cust = session.get(Customer.class, 1);
 	     
 	     tx.commit();
 				
 				
-	     cust.showCustomerInfo();							//How to solve date?????
-		
+	     //cust.showCustomerInfo();							//How to solve date?????
+		event.showEventInfo();
+	     
 	     session.close();
 	     controller.factory.close();						//Ukonèenie session nad DB
 	}

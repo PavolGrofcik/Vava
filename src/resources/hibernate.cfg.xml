@@ -20,6 +20,7 @@
 
 		<!-- mapping files & classes -->
 		<mapping class="main.entities.Customer" /> 
+		<mapping class = "main.entities.Event" />
 
 	</session-factory>
 </hibernate-configuration>
