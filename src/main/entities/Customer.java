@@ -1,11 +1,17 @@
 package main.entities;
 
+import java.text.ParseException;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="customer")
@@ -21,8 +27,10 @@ public class Customer {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="date")			//Dátum narodenia - date vs string
-	private String date;
+	@Column(name="date",nullable=false)			//Dátum narodenia - date vs string
+	@Temporal(TemporalType.TIMESTAMP)
+	@Type(type="date")
+	private Date date;
 	
 	@Column(name="sex")
 	private char sex;
@@ -37,20 +45,11 @@ public class Customer {
 	private String address;
 	
 	
-	
-	
-	
-	public Customer(String firstName, String lastName) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
-
-
 
 	public Customer(int id, String firstName, String lastName, char sex, String telNumber, String city,
 			String address) {
 		super();
+		
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -61,7 +60,21 @@ public class Customer {
 	}
 
 	
-	
+	public Customer(Integer id, String firstName, String lastName, Date date, char sex, String telNumber, String city,
+			String address) throws ParseException {
+		super();
+		
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.date = new Date();
+		this.date = date;
+		this.sex = sex;
+		this.telNumber = telNumber;
+		this.city = city;
+		this.address = address;
+	}
+
+
 	public int getId() {
 		return id;
 	}
@@ -86,11 +99,11 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
@@ -128,4 +141,8 @@ public class Customer {
 	
 	
 	
+	public void showCustomerInfo() {
+		System.out.println("Id: "+ id + " Name: " + firstName + " Surname: " + lastName  
+				+ " Sex: " + sex + " Date of birth: " + date + " Address: " + address);
+	}
 }

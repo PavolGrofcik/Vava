@@ -15,11 +15,10 @@
 		<!-- This property will automatically update our DDL schema from DB -->
 		<property name="hbm2ddl.auto">update</property>
 
-
 		<!-- this will show us all sql statements -->
 		<property name="hibernate.show_sql">true</property>
 
-		<!-- mapping files -->
+		<!-- mapping files & classes -->
 		<mapping class="main.entities.Customer" /> 
 
 	</session-factory>
