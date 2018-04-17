@@ -1,3 +1,0 @@
-Tento súbor slúži na akékoľvek pripomienky, návrhy
-k vyvíjanej aplikácia ak by nás niečo oboch napadlo.
-
