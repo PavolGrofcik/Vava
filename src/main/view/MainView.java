@@ -73,7 +73,7 @@ public class MainView extends Application {
 		login.setScaleY(1.2);
 		login.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
-				System.out.println("funguj");
+				System.out.println("fungfsdh gfh uj");
 			}
 		});
 	
