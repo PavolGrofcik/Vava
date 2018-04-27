@@ -46,10 +46,6 @@ public class Controller {
 		factory.close();
 	}
 	
-<<<<<<< HEAD
-
-
-=======
 	public int loginCustomer(TextField username, PasswordField password) throws NoSuchAlgorithmException {
 		
 		Session session = factory.openSession();
