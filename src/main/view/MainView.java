@@ -29,8 +29,10 @@ public class MainView extends Application {
 	private TextField user_text = new TextField();
 	private PasswordField password_text = new PasswordField();
 	private Button login = new Button("Login");
+	
 	Image background = new Image("File:resource/login2.png");
 	ImageView iv = new ImageView();
+	
 	Controller controller = Controller.getInstance();
 	
 	
