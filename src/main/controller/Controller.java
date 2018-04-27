@@ -44,7 +44,7 @@ public class Controller {
 	     		+ "FROM Customer WHERE id = :param1", Customer.class);
 	     query.setParameter("param1", 1);
 	     */
-	     event=session.get(Event.class, 5);
+	     event=session.get(Event.class, 1);
 	     //cust = query.getResultList().get(0);
 	     cust = session.get(Customer.class, 1);
 	     
