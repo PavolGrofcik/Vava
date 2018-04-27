@@ -5,7 +5,7 @@
 <hibernate-configuration>
 
 	<session-factory>
-		<property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/javaprojekt</property>
 		<property name="connection.driver_class">org.postgresql.Driver</property>
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="connection.username">postgres</property>
@@ -21,6 +21,7 @@
 		<!-- mapping files & classes -->
 		<mapping class="main.entities.Customer" /> 
 		<mapping class = "main.entities.Event" />
+		<mapping class = "main.entities.Account" />
 
 	</session-factory>
 </hibernate-configuration>

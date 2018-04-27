@@ -1,22 +1,21 @@
 package main.controller;
 
-<<<<<<< HEAD
 
-import org.hibernate.SessionFactory;
-
-=======
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 import javax.persistence.TypedQuery;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.entities.Account;
->>>>>>> logic
+
 
 /**
  * Trieda Controller obsahuje hlavné metódy pre prácu s DB a perzistenciou JPA
@@ -41,11 +40,11 @@ public class Controller {
 		return controller;
 	}
 	
-
 	public void shutDown() {
 		factory.close();
 	}
 	
+
 	public int loginCustomer(TextField username, PasswordField password) throws NoSuchAlgorithmException {
 		
 		Session session = factory.openSession();
@@ -61,6 +60,7 @@ public class Controller {
 		
 		try {
 			
+			@SuppressWarnings("unchecked")
 			TypedQuery<Account> query = session.createQuery("SELECT new Account(customerId, controlQuestionId, " +
 					"cash, username,password,answer) FROM Account WHERE username = :arg");
 			query.setParameter("arg", usernme);
@@ -107,5 +107,5 @@ public class Controller {
 		
 		return true;
 	}
->>>>>>> logic
+
 }
