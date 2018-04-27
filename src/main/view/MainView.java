@@ -3,6 +3,9 @@ package main.view;
 
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
+
+import java.security.NoSuchAlgorithmException;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -73,7 +76,13 @@ public class MainView extends Application {
 		login.setScaleY(1.2);
 		login.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
-				System.out.println("fungfsdh gfh uj");
+				try {
+					int status =controller.loginCustomer(user_text, password_text);
+					System.out.println(status);
+				} catch (NoSuchAlgorithmException e) {
+					e.printStackTrace();
+				}
+				
 			}
 		});
 	
