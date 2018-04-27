@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Vava Hibernate"/>
 	<classpathentry kind="lib" path="Hibernate/postgresql-42.2.2.jar"/>
-	<classpathentry kind="lib" path="Mail api/mail.jar"/>
+	<classpathentry kind="lib" path="Mail/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

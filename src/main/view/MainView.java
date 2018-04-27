@@ -29,7 +29,7 @@ public class MainView extends Application {
 	private TextField user_text = new TextField();
 	private PasswordField password_text = new PasswordField();
 	private Button login = new Button("Login");
-	Image background = new Image("File:resource/background.png");
+	Image background = new Image("File:resource/logo.png");
 	ImageView iv = new ImageView();
 	
 	
@@ -78,6 +78,7 @@ public class MainView extends Application {
 	
 		Scene scene = new Scene(pane,450,300);
 		primaryStage.setTitle("Login");
+		primaryStage.getIcons().add(new Image("File:resource/logo.png"));
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
