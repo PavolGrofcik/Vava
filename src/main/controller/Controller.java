@@ -3,20 +3,14 @@ package main.controller;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.entities.Account;
-import main.entities.Customer;
-import main.entities.Event;
 
 /**
  * Trieda Controller obsahuje hlavné metódy pre prácu s DB a perzistenciou JPA
