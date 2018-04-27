@@ -69,6 +69,7 @@ public class Controller {
 			
 			account = query.getResultList().get(0);
 			
+			//Hashing hesiel
 			String testString= password.getText();
 	        MessageDigest md = MessageDigest.getInstance("MD5");
 	        byte[] messageDigest = md.digest(testString.getBytes());

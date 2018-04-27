@@ -72,7 +72,10 @@ public class MainView extends Application {
 		login.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
 				try {
-					System.out.println(controller.loginCustomer(user_text, password_text));
+					int status = controller.loginCustomer(user_text, password_text);
+					if(status == 1) {
+						
+					}
 				} catch (NoSuchAlgorithmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
