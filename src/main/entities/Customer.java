@@ -23,8 +23,8 @@ public class Customer {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="date")			//Dátum narodenia - date vs string
-	private Date date;
+	@Column(name="birth")			//Dátum narodenia - date vs string
+	private Date birth;
 	
 	@Column(name="sex")
 	private char sex;
@@ -52,7 +52,7 @@ public class Customer {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.date = date;
+		this.birth = date;
 		this.sex = sex;
 		this.telNumber = telNumber;
 		this.city = city;
@@ -67,7 +67,7 @@ public class Customer {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.date = date;
+		this.birth = date;
 		this.sex = sex;
 		this.telNumber = telNumber;
 		this.city = city;
@@ -102,11 +102,11 @@ public class Customer {
 	}
 
 	public Date getDate() {
-		return date;
+		return birth;
 	}
 
 	public void setDate(Date date) {
-		this.date = date;
+		this.birth = date;
 	}
 
 	public char getSex() {
@@ -145,7 +145,7 @@ public class Customer {
 	
 	public void showCustomerInfo() {
 		System.out.println("Id: "+ id + " Name: " + firstName + " Surname: " + lastName  
-				+ " Sex: " + sex + " Date of birth: " + date +  " City: " + city + " Address: " + address
+				+ " Sex: " + sex + " Date of birth: " + birth +  " City: " + city + " Address: " + address
 				+ " Tel Number: " + telNumber);
 	}
 }
