@@ -21,6 +21,7 @@
 		<!-- mapping files & classes -->
 		<mapping class="main.entities.Customer" /> 
 		<mapping class = "main.entities.Event" />
+		<mapping class = "main.entities.Account" />
 
 	</session-factory>
 </hibernate-configuration>
