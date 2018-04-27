@@ -6,16 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -29,7 +25,7 @@ public class MainView extends Application {
 	private TextField user_text = new TextField();
 	private PasswordField password_text = new PasswordField();
 	private Button login = new Button("Login");
-	Image background = new Image("File:resource/background.png");
+	Image background = new Image("File:resource/login2.png");
 	ImageView iv = new ImageView();
 	
 	
