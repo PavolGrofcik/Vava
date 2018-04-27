@@ -20,6 +20,7 @@ import main.controller.Controller;
 
 public class MainView extends Application {
 
+	private Stage window;
 	private Label user = new Label("Username");
 	private Label password = new Label("Password");
 	private TextField user_text = new TextField();
@@ -27,12 +28,16 @@ public class MainView extends Application {
 	private Button login = new Button("Login");
 	Image background = new Image("File:resource/login2.png");
 	ImageView iv = new ImageView();
+	Controller controller = Controller.getInstance();
 	
+	
+	public static void main(String[] args) {
+		launch(args);
+	}	
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception  {
-		
-		Controller controller = Controller.getInstance();
+		window = primaryStage;
 		Pane pane = new Pane();
 		
 		iv.setImage(background);
@@ -73,17 +78,19 @@ public class MainView extends Application {
 		});
 	
 		Scene scene = new Scene(pane,450,300);
-		primaryStage.setTitle("Login");
-		primaryStage.getIcons().add(new Image("File:resource/logo.png"));
-		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
-		primaryStage.show();
+		window.setTitle("Login");
+		window.getIcons().add(new Image("File:resource/logo.png"));
+		window.setScene(scene);
+		window.setResizable(false);
+		window.show();
+		window.setOnCloseRequest(e -> closeProgram());
+		
 	}		
-
-	public static void main(String[] args) {
-		launch(args);
+	
+	private void closeProgram() {
+		controller.shutDown();
+		window.close();
 	}
-	
-	
+
 	
 }
