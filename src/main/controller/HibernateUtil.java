@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Trieda zodpovedná za vytvorenie Session nad DB
+ * Trieda zodpovedná za vytvorenie Session pre Hibernate Session DB
  * @author grofc
  *
  */

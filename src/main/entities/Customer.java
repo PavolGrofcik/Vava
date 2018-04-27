@@ -38,38 +38,43 @@ public class Customer {
 	@Column(name="address")
 	private String address;
 	
+	@Column(name="email")
+	private String email;
+	
 	//Default konštruktor pre session.get() method
 	public Customer() {
 	}
 
-
-	public Customer(int id, String firstName, String lastName, char sex, String telNumber, String city,
-			String address) {
-		super();
-		
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.sex = sex;
-		this.telNumber = telNumber;
-		this.city = city;
-		this.address = address;
-	}
-
 	
-	public Customer(Integer id, String firstName, String lastName, Date date, char sex, String telNumber, String city,
-			String address) throws ParseException {
+
+	public Customer(String firstName, String lastName, Date date, char sex, String telNumber, String city,
+			String address, String email) {
 		super();
-		
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.date = new Date();
 		this.date = date;
 		this.sex = sex;
 		this.telNumber = telNumber;
 		this.city = city;
 		this.address = address;
+		this.email = email;
 	}
+
+
+	public Customer(int id, String firstName, String lastName, Date date, char sex, String telNumber, String city,
+			String address, String email) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.date = date;
+		this.sex = sex;
+		this.telNumber = telNumber;
+		this.city = city;
+		this.address = address;
+		this.email = email;
+	}
+
 
 
 	public int getId() {

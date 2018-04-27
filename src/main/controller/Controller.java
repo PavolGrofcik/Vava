@@ -1,7 +1,5 @@
 package main.controller;
 
-import javax.persistence.TypedQuery;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,8 +7,8 @@ import main.entities.Customer;
 import main.entities.Event;
 
 /**
- * Trieda Controller obsahuje hlavné metódy s prácou DB a perzistenciou JPA
- * Používa sa návrhový vzor singleton
+ * Trieda Controller obsahuje hlavné metódy pre prácu s DB a perzistenciou JPA
+ * Používa sa návrhový vzor Singleton
  * @author grofc
  *
  */
@@ -50,9 +48,8 @@ public class Controller {
 	     
 	     tx.commit();
 				
-				
-	     //cust.showCustomerInfo();							//How to solve date?????
 		event.showEventInfo();
+		cust.showCustomerInfo();
 	     
 	     session.close();
 	     controller.factory.close();						//Ukonèenie session nad DB
