@@ -74,6 +74,7 @@ public class MainView extends Application {
 	
 		Scene scene = new Scene(pane,450,300);
 		primaryStage.setTitle("Login");
+		primaryStage.getIcons().add(new Image("File:resource/logo.png"));
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
