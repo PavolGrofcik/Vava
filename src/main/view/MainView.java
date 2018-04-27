@@ -73,7 +73,19 @@ public class MainView extends Application {
 		login.setScaleY(1.2);
 		login.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event) {
+<<<<<<< HEAD
 				System.out.println("fungfsdh gfh uj");
+=======
+				try {
+					int status = controller.loginCustomer(user_text, password_text);
+					if(status == 1) {
+						
+					}
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+>>>>>>> logic
 			}
 		});
 	
