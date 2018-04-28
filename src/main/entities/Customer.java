@@ -147,6 +147,16 @@ public class Customer {
 		this.address = address;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 	public void showCustomerInfo() {
 		System.out.println("Id: "+ id + " Name: " + firstName + " Surname: " + lastName  
 				+ " Sex: " + sex + " Date of birth: " + birth +  " City: " + city + " Address: " + address

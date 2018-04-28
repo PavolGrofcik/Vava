@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import mail.sender.Test;
 import main.entities.Account;
 import main.entities.Customer;
 
@@ -133,6 +134,8 @@ public class Controller {
 			
 			String newPassword = passwordHashing(password.getText());
 			account.setPassword(newPassword);
+			
+			Test.sendGmailMessage(customer.getEmail(), customer.getFirstName(), password.getText().toCharArray());
 			
 			session.saveOrUpdate(account);
 			
