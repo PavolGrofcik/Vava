@@ -7,9 +7,11 @@ import javafx.event.ActionEvent;
 import java.security.NoSuchAlgorithmException;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -26,15 +28,18 @@ public class MainView extends Application {
 	private Stage window;
 	private Label user = new Label("Username");
 	private Label password = new Label("Password");
+	
 	private TextField user_text = new TextField();
 	private PasswordField password_text = new PasswordField();
+	
 	private Button login = new Button("Login");
+	private Button newPassword = new Button("Forgot password");
 	
 	Image background = new Image("File:resource/login2.png");
 	ImageView iv = new ImageView();
 	
-	Controller controller = Controller.getInstance();
 	
+	Controller controller = Controller.getInstance();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -60,32 +65,38 @@ public class MainView extends Application {
 
 		
 		pane.getChildren().add(user_text);
-		user_text.setLayoutX(200);
-		user_text.setLayoutY(100);
-		user_text.setScaleX(1.2);
-		user_text.setScaleY(1.2);	
+		setNodePosition((Node)user_text, 200, 100, 1.2, 1.2);
 		
 		pane.getChildren().add(password_text);
-		password_text.setLayoutX(200);
-		password_text.setLayoutY(150);
-		password_text.setScaleX(1.2);
-		password_text.setScaleY(1.2);
+		setNodePosition((Node)password_text, 200, 150, 1.2, 1.2);
 		
 		pane.getChildren().add(login);
-		login.setLayoutX(220);
-		login.setLayoutY(200);
-		login.setScaleX(1.2);
-		login.setScaleY(1.2);
-		login.setOnAction(new EventHandler<ActionEvent>(){
-			public void handle(ActionEvent event) {
-				try {
-					int status =controller.loginCustomer(user_text, password_text);
-					System.out.println(status);
-				} catch (NoSuchAlgorithmException e) {
-					e.printStackTrace();
+		setNodePosition((Node)login, 200, 200, 1.2, 1.2);
+		
+		pane.getChildren().add(newPassword);
+		setNodePosition((Node)newPassword, 290, 200, 1.2, 1.2);
+		
+
+		login.setOnAction(e->{
+			try {
+				int status = controller.loginCustomer(user_text, password_text);
+				if(status == 1) {
+					System.out.println("Correct Password");
+					// New scene
+					
+					//window.hide(); 				Dokonèi aby sa obnovilo predchádzajúce okno???
 				}
-				
+				else if(status == -1) {
+				// Missing Values - Alert Box
+				System.out.println("Missing values!");
+				}
+			} catch (NoSuchAlgorithmException e1) {
+				e1.printStackTrace();
 			}
+		});
+		
+		newPassword.setOnAction(e->{
+			new NewPassword(controller);
 		});
 	
 		Scene scene = new Scene(pane,450,300);
@@ -98,10 +109,15 @@ public class MainView extends Application {
 		
 	}		
 	
+	private void setNodePosition(Node node, int x, int y, double scaleX, double scaleY) {
+		node.setLayoutX(x);
+		node.setLayoutY(y);
+		node.setScaleX(scaleX);
+		node.setScaleY(scaleY);
+	}
+
 	private void closeProgram() {
 		controller.shutDown();
 		window.close();
 	}
-
-	
 }

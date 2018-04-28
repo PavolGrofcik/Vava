@@ -33,12 +33,31 @@ public class Account {
 	@Column(name="answer")
 	private String answer;
 	
-	
-	
+
+	public Account(int id, int customerId, String username, String password, String answer) {
+		super();
+		this.id = id;
+		this.customerId = customerId;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
+	}
 
 	public Account(int customerId, int controlQuestionId, double cash, String username, String password,
 			String answer) {
 		super();
+		this.customerId = customerId;
+		this.controlQuestionId = controlQuestionId;
+		this.cash = cash;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
+	}
+
+	public Account(int id, int customerId, int controlQuestionId, double cash, String username, String password,
+			String answer) {
+		super();
+		this.id = id;
 		this.customerId = customerId;
 		this.controlQuestionId = controlQuestionId;
 		this.cash = cash;

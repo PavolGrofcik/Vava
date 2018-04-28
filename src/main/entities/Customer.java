@@ -41,11 +41,17 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	//Default konštruktor pre session.get() method
-	public Customer() {
+
+	public Customer(int id, String firstName, String lastName, char sex, String telNumber, String email) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.sex = sex;
+		this.telNumber = telNumber;
+		this.email = email;
 	}
 
-	
 
 	public Customer(String firstName, String lastName, Date date, char sex, String telNumber, String city,
 			String address, String email) {
@@ -140,8 +146,6 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
-	
 	
 	public void showCustomerInfo() {
 		System.out.println("Id: "+ id + " Name: " + firstName + " Surname: " + lastName  
