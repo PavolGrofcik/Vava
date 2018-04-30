@@ -1,9 +1,18 @@
 package main.controller;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.persistence.TypedQuery;
 
@@ -11,6 +20,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -28,24 +38,59 @@ import main.entities.Customer;
 
 public class Controller {
 	
+	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
+	private static final String PATH = "src/logfile.txt";
+	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
 	
+	
+	static {
+		try {
+			//Handler handler = new FileHandler("test%u.%g.txt");
+			//handler.setFormatter(new SimpleFormatter());
+			//handler.setEncoding("UTF-8");
+			FileHandler handler = new FileHandler(PATH);
+			//FileInputStream stream = new FileInputStream("src/resources/p.properties");
+			InputStream configFile = Controller.class.getResourceAsStream("p.properties");
+			//LogManager.getLogManager().readConfiguration(stream);
+			LogManager.getLogManager().readConfiguration(configFile);
+			handler.setFormatter(new SimpleFormatter());
+			LOGGER.addHandler(handler);
+			LOGGER.setUseParentHandlers(false);		//Logovanie nebude na konzole
+			LOGGER.log(Level.INFO, "info");
+				
+			LOGGER.setLevel(Level.WARNING);		//Logger global level
+		} catch (SecurityException e) {
+			LOGGER.log(Level.CONFIG, "Log config", e);
+		} catch (IOException e) {
+			LOGGER.log(Level.CONFIG, "IOexception", e);
+		}
+		System.out.println("Log level is: " + LOGGER.getLevel());
+	}
 	
 	private Controller() {
 		this.factory = HibernateUtil.getSessionFactory();
 	}
 
-	public static Controller getInstance() {
+	public static Controller getInstance() {		
 		return controller;
 	}
 	
 	public void shutDown() {
 		factory.close();
 	}
+
+	/*public int sendNewPassword(TextField username, TextField answer, TextField question) {
+		
+		
+	}
+	*/
+	
 	
 
 	public int loginCustomer(TextField username, PasswordField password) throws NoSuchAlgorithmException {
+		LOGGER.entering(this.getClass().getName(), "loginCustomer");
 		
 		Session session = factory.openSession();
 	
@@ -72,17 +117,24 @@ public class Controller {
 			account = query.getResultList().get(0);
 			
 	        String hashtext = passwordHashing(password.getText());
-			
-			if(!hashtext.equals(account.getPassword())) {
-				return -2;		// Invalid password
+	        
+			try {
+				if(!hashtext.equals(account.getPassword())) {
+					
+					return -2;		// Invalid password
+				}
+				
+			} catch (Exception e) {
+				LOGGER.log(Level.SEVERE, "Hash ex", e);
 			}
 			
 			transaction.commit();
 			
 		} catch (HibernateException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Hibernate Ex", e);
+
 			transaction.rollback();
-			return -3;		// Fatal Error occured
+			return -3;
 			
 		}finally {
 			session.close();
@@ -94,6 +146,7 @@ public class Controller {
 	
 	@SuppressWarnings("unchecked")
 	public int sendNewPassword(TextField email, PasswordField answer, PasswordField password) {
+		LOGGER.entering(this.getClass().getName(), "sendNewPassword");
 		
 		Session session = factory.openSession();
 		
@@ -141,8 +194,8 @@ public class Controller {
 			
 			transaction.commit();
 			
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate exception", e);
 			transaction.rollback();
 			return -4;
 		}finally {
@@ -154,12 +207,13 @@ public class Controller {
 	
 	
 	private String passwordHashing(String password) {
+		LOGGER.entering(this.getClass().getName(), "passwordHashing");
 		
 		MessageDigest md;
 		try {
-			md = MessageDigest.getInstance("MD5");
+			md = MessageDigest.getInstance("MD");
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Hash algorithm ex", e);
 			return null;
 		}
         
@@ -179,6 +233,10 @@ public class Controller {
 		
 		return true;
 	}
+	
+	/*private boolean checkInputs(String s, String s2, String s3) {
+		
+	}*/
 	
 	private boolean checkInput(String email, String answer, String password) {
 		if(email.isEmpty() || answer.isEmpty() || password.isEmpty()) {
