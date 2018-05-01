@@ -87,9 +87,11 @@ public class LoginView extends Application {
 		
 		pane.getChildren().add(userText);
 		setNodePosition((Node)userText, 950, 600, 1.5, 1.5);
+		userText.setPromptText("Type your username");
 		
 		pane.getChildren().add(passwordText);
 		setNodePosition((Node)passwordText, 950, 650, 1.5, 1.5);
+		passwordText.setPromptText("Type your password");
 		
 		pane.getChildren().add(login);
 		setNodePosition((Node)login, 950, 700, 1.5, 1.5);
@@ -116,6 +118,9 @@ public class LoginView extends Application {
 		link.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 		    	ForgottenPwd pwd = new ForgottenPwd(controller);
+		    	error.setText("");
+		    	userText.setText("");
+		    	passwordText.setText("");
 				window.setScene(pwd.setNewScene(window,loginScene,link));
 				window.show();
 				window.setTitle("Login");
@@ -127,9 +132,13 @@ public class LoginView extends Application {
 				int status = controller.loginCustomer(userText, passwordText);
 				if(status == 1) {
 					System.out.println("Correct Password");
+					// tu budem otvárať nové okno
 				}
 				else if(status == -1) {
-				error.setText("Some of fields are not filled !");
+					error.setText("Some of fields are not filled !");	
+				}
+				else if(status == -2) {
+					error.setText("Password or username are not correct !");
 				}
 			} catch (NoSuchAlgorithmException e1) {
 				e1.printStackTrace();
