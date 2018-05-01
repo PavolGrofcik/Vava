@@ -35,6 +35,15 @@ public class Account {
 	
 
 
+	public Account(int controlQuestionId, String username, String answer) {
+		super();
+		this.controlQuestionId = controlQuestionId;
+		this.username = username;
+		this.answer = answer;
+	}
+
+
+
 	public Account(int id, int controlQuestionId, String username, String answer) {
 		super();
 		this.id = id;

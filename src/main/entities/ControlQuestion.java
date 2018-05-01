@@ -18,6 +18,7 @@ public class ControlQuestion {
 	@Column(name="question")
 	private String question;
 
+	public ControlQuestion() {}
 
 	
 	public ControlQuestion(int id, String question) {

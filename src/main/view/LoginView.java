@@ -2,10 +2,7 @@ package main.view;
 
 
 import java.security.NoSuchAlgorithmException;
-<<<<<<< HEAD
 
-=======
->>>>>>> e0b5b62caa20927b7d99e5724edc16789e42c765
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +22,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import language.languageManager;
 import main.controller.Controller;
-
 
 public class LoginView extends Application {
 
@@ -133,7 +129,6 @@ public class LoginView extends Application {
 			try {
 				int status = controller.loginCustomer(userText, passwordText);
 				if(status == 1) {
-					System.out.println("Correct Password");
 					// tu budem otvárať nové okno
 				}
 				else if(status == -1) {

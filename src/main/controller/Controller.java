@@ -81,7 +81,7 @@ public class Controller {
 	public String getQuestionByUsername(TextField username) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
 		
-		if(checkInput(username.getText())) {
+		if(!checkInput(username.getText())) {
 			return null;
 		}
 		
@@ -94,13 +94,17 @@ public class Controller {
 			Transaction transaction = session.beginTransaction();
 			
 			@SuppressWarnings("unchecked")
-			TypedQuery<Account> query = session.createQuery("SELECT new Account(id,customerId, "
+			/*TypedQuery<Account> query = session.createQuery("SELECT new Account(id,customerId, "
 					+ "controlQuestionId, username, password, answer) FROM ControlQuestion WHERE "
-					+ "username = :arg");
+					+ "username = :arg");*/
+			TypedQuery<Account> query = session.createQuery("SELECT new Account(controlQuestionId, "
+					+ "username, password) FROM Account WHERE username = :arg");
+			
 			query.setParameter("arg", username.getText());
 			
 			try {
 				if(query.getResultList().isEmpty()) {
+					LOGGER.log(Level.WARNING, "Query not found");
 					return null;		// Username does not exist
 				}
 			} catch (Exception e) {
@@ -109,13 +113,17 @@ public class Controller {
 			}
 			
 			account = query.getResultList().get(0);
-			LOGGER.log(Level.FINE, "Account cQId", account.getControlQuestionId());
-			
+			LOGGER.log(Level.INFO, "Account cQId", account.getControlQuestionId());
+
 			question = session.get(ControlQuestion.class, account.getControlQuestionId());
+
+			LOGGER.log(Level.INFO, "Control Question", question.getQuestion());
 			
-			LOGGER.log(Level.FINE, "Contorl Question", question.getQuestion());
-			result= question.getQuestion();
+			if(question == null) {
+				return null;
+			}
 			
+			result = question.getQuestion();
 			transaction.commit();
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Hibernate ex", e);
