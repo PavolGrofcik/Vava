@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-máj 01, 2018 9:13:55 PM main.controller.Controller <clinit>
-=======
-May 01, 2018 9:28:58 PM main.controller.Controller <clinit>
->>>>>>> 62938a19a27121606f6c26093f71a15babd51d0b
+máj 01, 2018 9:59:09 PM main.controller.Controller <clinit>
 INFO: info
-máj 01, 2018 9:20:51 PM main.controller.Controller getQuestionByUsername
-WARNING: Query not found
+máj 01, 2018 9:59:18 PM main.controller.Controller loginCustomer
+INFO: Hash of password is 68e109f0f40ca72a15e05cc22786f8e6
