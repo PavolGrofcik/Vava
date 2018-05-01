@@ -20,9 +20,9 @@ import javax.mail.internet.MimeMultipart;
  *
  */
 
-public class Test {
+public class Sender {
 	
-	private static final String USERNAME = "skigosr@gmail.com";		//Prerobiù na char!(Security)
+	private static final String USERNAME = "skigosr@gmail.com";		//PrerobiÔøΩ na char!(Security)
 	private static final String PASSWORD = "DBadmin1";
 	
 	//Test method if is working to send an email
@@ -87,7 +87,7 @@ public class Test {
 		    }
 		}*/
 	
-	public static void sendGmailMessage(String account, String name,  char[] password) {
+	public static void sendGmailMessage(String account, String name,  String passwd) {
 		 Properties props = System.getProperties();
 		    props.put("mail.smtp.starttls.enable", true); 
 		    props.put("mail.smtp.host", "smtp.gmail.com");
@@ -123,7 +123,8 @@ public class Test {
 		        // Create the html part
 		        messageBodyPart = new MimeBodyPart();
 		        String htmlMessage = "Hello " + name + ",\n\n" + 					//	Text to send
-		        		"your password has been recently updated." + 
+		        		"your password has been recently updated.\n" +
+		        		"New Pasword: " + passwd + " " + 
 		        		"If you have any questions, please send us an email.";
 		        messageBodyPart.setContent(htmlMessage, "text/html");
 

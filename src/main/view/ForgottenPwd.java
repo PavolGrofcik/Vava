@@ -72,7 +72,10 @@ public class ForgottenPwd extends Stage {
 		setNodePosition((Node)send,940,660,1.5,1.5);
 		
 	
-		
+		send.setOnAction(e->{
+			int a = controller.sendNewPassword(usernameText, answerText, questionText);
+			System.out.println(a);
+		});
 		
 		
 		

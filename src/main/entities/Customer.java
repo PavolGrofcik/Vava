@@ -23,7 +23,7 @@ public class Customer {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(name="birth")			//Dátum narodenia - date vs string
+	@Column(name="birth")			//Dï¿½tum narodenia - date vs string
 	private Date birth;
 	
 	@Column(name="sex")
@@ -41,6 +41,7 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
+	public Customer() {}
 
 	public Customer(int id, String firstName, String lastName, char sex, String telNumber, String email) {
 		super();

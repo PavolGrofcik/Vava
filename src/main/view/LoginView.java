@@ -1,19 +1,13 @@
 package main.view;
-<<<<<<< HEAD:src/main/view/MainView.java
 
 
-=======
->>>>>>> 9d2a316071cde25073549147f13a240ca54a2844:src/main/view/LoginView.java
 import java.security.NoSuchAlgorithmException;
 import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-<<<<<<< HEAD:src/main/view/MainView.java
-=======
 import javafx.scene.paint.Color;
->>>>>>> 9d2a316071cde25073549147f13a240ca54a2844:src/main/view/LoginView.java
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
