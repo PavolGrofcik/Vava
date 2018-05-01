@@ -52,7 +52,6 @@ public class Controller {
 	
 	static {
 		try {
-			
 			FileHandler handler = new FileHandler(PATH);
 
 			InputStream configFile = Controller.class.getResourceAsStream("p.properties");
@@ -484,7 +483,7 @@ public class Controller {
 		
 		try {
 			if(answer.equals(answerDB)) {
-				LOGGER.log(Level.INFO, "Strings are " + answer + answerDB);
+				LOGGER.log(Level.INFO, "Strings are " + answer + " " + answerDB);
 				return true;
 			}
 		} catch (Exception e) {
