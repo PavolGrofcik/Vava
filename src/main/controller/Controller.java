@@ -44,6 +44,7 @@ public class Controller {
 	private static final String PATH = "Logger/logfile.txt";
 	
 	private static final int PASSWORD_LENGTH = 8;
+	private static final int TEL_NUMBER_LENGTH = 13;
 	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
@@ -126,7 +127,6 @@ public class Controller {
 				}
 			}
 		} else if (status >= 5) {
-
 			// status = 5 email
 			// status = 6 telNumber
 			// status = 7 All
@@ -456,8 +456,13 @@ public class Controller {
 			
 			switch (status) {
 			case 1: // Tel Number
-				customer.setTelNumber(telNumber);
-				break;
+				if(telNumber.length() > TEL_NUMBER_LENGTH) {
+					return -2;
+				}else {
+					customer.setTelNumber(telNumber);
+					break;
+				}
+				
 			case 2: // Email
 				customer.setEmail(email);
 				break;

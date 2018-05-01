@@ -1,4 +1,12 @@
-máj 01, 2018 9:59:09 PM main.controller.Controller <clinit>
+máj 01, 2018 10:07:49 PM main.controller.Controller <clinit>
 INFO: info
-máj 01, 2018 9:59:18 PM main.controller.Controller loginCustomer
+máj 01, 2018 10:08:06 PM main.controller.Controller loginCustomer
 INFO: Hash of password is 68e109f0f40ca72a15e05cc22786f8e6
+máj 01, 2018 10:08:16 PM main.controller.Controller changeAccountSettings
+INFO: Status selected 1
+máj 01, 2018 10:08:16 PM main.controller.Controller changeAccountSettings
+INFO: Returning value is -2
+máj 01, 2018 10:08:37 PM main.controller.Controller changeAccountSettings
+INFO: Status selected 1
+máj 01, 2018 10:08:37 PM main.controller.Controller changeAccountSettings
+INFO: Returning value is 1
