@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 máj 01, 2018 9:13:55 PM main.controller.Controller <clinit>
+=======
+May 01, 2018 9:28:58 PM main.controller.Controller <clinit>
+>>>>>>> 62938a19a27121606f6c26093f71a15babd51d0b
 INFO: info
 máj 01, 2018 9:20:51 PM main.controller.Controller getQuestionByUsername
 WARNING: Query not found

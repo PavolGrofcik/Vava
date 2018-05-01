@@ -34,6 +34,7 @@ public class LoginView extends Application {
 	private TextField userText = new TextField();
 	private PasswordField passwordText = new PasswordField();
 	private Button login = new Button("Login");
+	private Button register = new Button("Register");
 	private Scene loginScene;
     private Hyperlink link = new Hyperlink();
 	Color c = Color.web("#00BFFF");
@@ -92,9 +93,16 @@ public class LoginView extends Application {
 		passwordText.setPromptText("Type your password");
 		
 		pane.getChildren().add(login);
-		setNodePosition((Node)login, 950, 700, 1.5, 1.5);
+		setNodePosition((Node)login,830, 700, 1.5, 1.5);
 		login.setId("login");
+		login.setPrefWidth(100);
 	
+		pane.getChildren().add(register);
+		setNodePosition((Node)register, 1000, 700, 1.5, 1.5);
+		register.setId("register");
+		register.setPrefWidth(100);
+
+		
 		pane.getChildren().add(link);
 		setNodePosition(link, 810, 780, 1, 1);
 		link.setText("Did you forget your password ?");
