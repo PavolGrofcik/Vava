@@ -75,10 +75,12 @@ public class Controller {
 		factory.close();
 	}
 	
+	@SuppressWarnings("unused")
 	public String getQuestionByUsername(TextField username) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
-		
+
 		if(!checkInput(username.getText())) {
+
 			return null;
 		}
 		

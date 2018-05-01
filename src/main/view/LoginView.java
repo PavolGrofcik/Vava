@@ -35,7 +35,7 @@ public class LoginView extends Application {
 	private PasswordField passwordText = new PasswordField();
 	private Button login = new Button("Login");
 	private Scene loginScene;
-    Hyperlink link = new Hyperlink();
+    private Hyperlink link = new Hyperlink();
 	Color c = Color.web("#00BFFF");
 	Color h = Color.web("#000000");
 	Color r = Color.web("#FF0000");
@@ -129,7 +129,10 @@ public class LoginView extends Application {
 			try {
 				int status = controller.loginCustomer(userText, passwordText);
 				if(status == 1) {
-					// tu budem otvárať nové okno
+					UserView u = new UserView(controller);
+					window.setScene(u.setNewUserScene(window,loginScene,passwordText));
+					window.setTitle("User");
+					window.show();
 				}
 				else if(status == -1) {
 					error.setText("Some of fields are not filled !");	

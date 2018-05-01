@@ -1,7 +1,5 @@
 package main.view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -24,7 +22,7 @@ public class ForgottenPwd extends Stage {
 	
 	
 	private Controller controller;
-	static Scene forgotten_pwd_scene ;
+	private Scene forgotten_pwd_scene ;
 	private Label username = new Label("Username");
 	private Label controlQuestion = new Label("Question");
 	private Label answer = new Label("Answer");
@@ -43,6 +41,10 @@ public class ForgottenPwd extends Stage {
 	
 	
 	public ForgottenPwd(Controller arg) {
+<<<<<<< HEAD
+=======
+		super();
+>>>>>>> ac0b832a0b2fe6b61f3e709c93353e5672d681c1
 		this.controller = arg;
 	}
 	
@@ -74,13 +76,18 @@ public class ForgottenPwd extends Stage {
 		
 		pane.getChildren().add(usernameText);		
 		setNodePosition(usernameText, 1000, 420, 1.5, 1.5);
+		usernameText.setPromptText("Type your username");
+
 		
 		pane.getChildren().add(questionText);
 		setNodePosition((Node)questionText, 1000, 500, 1.5, 1.5);
 		questionText.setEditable(false);
+		questionText.setPromptText("Question");
+
 		
 		pane.getChildren().add(answerText);
 		setNodePosition((Node)answerText, 1000, 580, 1.5, 1.5);
+		answerText.setPromptText("Type your password");
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,940,660,1.5,1.5);
@@ -92,12 +99,13 @@ public class ForgottenPwd extends Stage {
 		
 		usernameText.setOnAction(e->{
 			String tmp =controller.getQuestionByUsername(usernameText);
-			
-			if(tmp.isEmpty()) {
+		
+			if(tmp==null) {
 				error.setText("Username is not correct !");
+				questionText.setText("");
 			}else {
-				System.out.println(tmp);
 				questionText.setText(tmp);
+				error.setText("");
 			}
 			
 		});
@@ -105,7 +113,11 @@ public class ForgottenPwd extends Stage {
 	
 		send.setOnAction(e->{
 			int a = controller.sendNewPassword(usernameText, answerText, questionText);
-			System.out.println(a);
+			if(a == 1) {
+				error.setText("Your password has been changed");
+			}else if(a ==-2) {
+				error.setText("Your answer is not correct !");
+			}
 		});
 			
 		
