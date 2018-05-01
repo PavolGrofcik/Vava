@@ -1,6 +1,2 @@
-máj 01, 2018 5:42:02 PM main.controller.Controller <clinit>
+máj 01, 2018 6:52:28 PM main.controller.Controller <clinit>
 INFO: info
-máj 01, 2018 5:42:13 PM main.controller.Controller getQuestionByUsername
-INFO: Account cQId
-máj 01, 2018 5:42:13 PM main.controller.Controller getQuestionByUsername
-INFO: Contorl Question

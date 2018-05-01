@@ -43,7 +43,6 @@ public class ForgottenPwd extends Stage {
 	
 	
 	public ForgottenPwd(Controller arg) {
-		//super();
 		this.controller = arg;
 	}
 	

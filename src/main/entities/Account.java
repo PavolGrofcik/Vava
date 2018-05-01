@@ -33,7 +33,7 @@ public class Account {
 	@Column(name="answer")
 	private String answer;
 	
-
+	public Account() {}
 
 	public Account(int controlQuestionId, String username, String answer) {
 		super();

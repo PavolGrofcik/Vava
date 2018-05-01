@@ -19,7 +19,6 @@ public class ControlQuestion {
 	private String question;
 
 	public ControlQuestion() {}
-
 	
 	public ControlQuestion(int id, String question) {
 		super();

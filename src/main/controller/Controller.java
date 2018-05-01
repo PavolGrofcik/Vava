@@ -43,13 +43,10 @@ public class Controller {
 	
 	static {
 		try {
-			//Handler handler = new FileHandler("test%u.%g.txt");
-			//handler.setFormatter(new SimpleFormatter());
-			//handler.setEncoding("UTF-8");
+			
 			FileHandler handler = new FileHandler(PATH);
-			//FileInputStream stream = new FileInputStream("src/resources/p.properties");
+
 			InputStream configFile = Controller.class.getResourceAsStream("p.properties");
-			//LogManager.getLogManager().readConfiguration(stream);
 			LogManager.getLogManager().readConfiguration(configFile);
 			handler.setFormatter(new SimpleFormatter());
 			
@@ -113,11 +110,11 @@ public class Controller {
 			}
 			
 			account = query.getResultList().get(0);
-			LOGGER.log(Level.INFO, "Account cQId", account.getControlQuestionId());
+			LOGGER.log(Level.INFO, "Account cQId " + account.getControlQuestionId());
 
 			question = session.get(ControlQuestion.class, account.getControlQuestionId());
 
-			LOGGER.log(Level.INFO, "Control Question", question.getQuestion());
+			LOGGER.log(Level.INFO, "Control Question " + question.getQuestion());
 			
 			if(question == null) {
 				return null;
@@ -187,9 +184,9 @@ public class Controller {
 			}
 			
 			customer = session.get(Customer.class, account.getCustomerId());
+			
+			LOGGER.log(Level.INFO, "Customer gmail " + customer.getEmail());
 			String tmp = PasswdGenerator.generate();
-
-			System.out.println("Your new passwd is " + tmp);
 
 			String newPassword = passwordHashing(tmp);
 			account.setPassword(newPassword);

@@ -31,10 +31,8 @@ public class Event {
 	@Column(name="insurance")
 	private boolean insurance;
 	
-	//Default konštruktor pre session.get() method
-	public Event() {
-		
-	}
+	//Default konï¿½truktor pre session.get() method
+	public Event() {}
 	
 
 	public Event(int id, String location, Date start, int length, double height, boolean insurance) {
