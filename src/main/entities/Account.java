@@ -34,6 +34,29 @@ public class Account {
 	private String answer;
 	
 
+
+	public Account(int id, int controlQuestionId, String username, String answer) {
+		super();
+		this.id = id;
+		this.controlQuestionId = controlQuestionId;
+		this.username = username;
+		this.answer = answer;
+	}
+	
+	
+
+	public Account(int id, int customerId, int controlQuestionId, String username, String password, String answer) {
+		super();
+		this.id = id;
+		this.customerId = customerId;
+		this.controlQuestionId = controlQuestionId;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
+	}
+
+
+
 	public Account(int id, int customerId, String username, String password, String answer) {
 		super();
 		this.id = id;

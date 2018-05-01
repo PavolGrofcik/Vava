@@ -1,4 +1,6 @@
 package main.view;
+
+
 import java.security.NoSuchAlgorithmException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
