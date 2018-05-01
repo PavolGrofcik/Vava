@@ -36,8 +36,7 @@ public class UserView extends Stage {
 	private Label repeatNewPasswordLabel = new Label("New password");
 	private Label emailLabel = new Label("Email");
 	private Label newEmailLabel = new Label("New email");
-	private Button changePassword = new Button("Change");
-	private Button changeEmail = new Button("Change");
+	private Button change = new Button("Change");
 
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
@@ -95,37 +94,30 @@ public class UserView extends Stage {
 		repeatNewPasswordLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 		repeatNewPasswordLabel.setTextFill(c);
 		
-		settingsPane.getChildren().add(changePassword);
-		setNodePosition((Node)changePassword, 240, 290, 1.5, 1.5);
-		changePassword.setOnAction(new EventHandler<ActionEvent>() {
-		    public void handle(ActionEvent e) {
-			  // tu rob co ches s heslom
-		    }
-		});
 		
 		settingsPane.getChildren().add(emailLabel);
-		setNodePosition((Node)emailLabel, 40, 370, 1, 1);
+		setNodePosition((Node)emailLabel, 40, 290, 1, 1);
 		emailLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 		emailLabel.setTextFill(c);
 		
 		settingsPane.getChildren().add(newEmailLabel);
-		setNodePosition((Node)newEmailLabel, 40, 450, 1, 1);
+		setNodePosition((Node)newEmailLabel, 40, 370, 1, 1);
 		newEmailLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 		newEmailLabel.setTextFill(c);
 		
 		settingsPane.getChildren().add(email);
-		setNodePosition((Node)email, 260, 370, 1.5, 1.5);
+		setNodePosition((Node)email, 260, 290, 1.5, 1.5);
 		email.setPromptText("Type your email");
 		email.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(newEmail);
-		setNodePosition((Node)newEmail, 260, 450, 1.5, 1.5);
+		setNodePosition((Node)newEmail, 260, 370, 1.5, 1.5);
 		newEmail.setPromptText("Type new email");
 		newEmail.setPrefWidth(150);
 		
-		settingsPane.getChildren().add(changeEmail);
-		setNodePosition((Node)changeEmail, 240, 530, 1.5, 1.5);
-		changeEmail.setOnAction(new EventHandler<ActionEvent>() {
+		settingsPane.getChildren().add(change);
+		setNodePosition((Node)change, 240, 450, 1.5, 1.5);
+		change.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 			  // tu rob co ches s emailom
 		    }

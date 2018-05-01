@@ -20,7 +20,11 @@
 }
 #setting{
 	-fx-background-image: url("File:resource/snow.png");
-	-fx-padding: 300px 250px;
+	-fx-padding: 250px 250px;
  	-fx-border-color: white;
  	-fx-border-width: 2;
+}
+#register{
+	-fx-font-size:12px;
+	-fx-padding: 3px 18px;
 }
