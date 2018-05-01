@@ -1,12 +1,2 @@
-May 01, 2018 6:52:19 PM main.controller.Controller <clinit>
+May 01, 2018 8:17:53 PM main.controller.Controller <clinit>
 INFO: info
-May 01, 2018 6:52:23 PM main.controller.Controller getQuestionByUsername
-WARNING: Query not found
-May 01, 2018 6:52:30 PM main.controller.Controller getQuestionByUsername
-WARNING: Query not found
-May 01, 2018 6:52:30 PM main.controller.Controller getQuestionByUsername
-WARNING: Query not found
-May 01, 2018 6:52:41 PM main.controller.Controller getQuestionByUsername
-INFO: Account cQId
-May 01, 2018 6:52:41 PM main.controller.Controller getQuestionByUsername
-INFO: Control Question
