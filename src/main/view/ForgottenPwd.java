@@ -41,10 +41,8 @@ public class ForgottenPwd extends Stage {
 	
 	
 	public ForgottenPwd(Controller arg) {
-<<<<<<< HEAD
-=======
+
 		super();
->>>>>>> ac0b832a0b2fe6b61f3e709c93353e5672d681c1
 		this.controller = arg;
 	}
 	
@@ -117,6 +115,9 @@ public class ForgottenPwd extends Stage {
 				error.setText("Your password has been changed");
 			}else if(a ==-2) {
 				error.setText("Your answer is not correct !");
+			}
+			else if (a == -1) {
+				error.setText("Some of fields are empty !");
 			}
 		});
 			
