@@ -73,13 +73,18 @@ public class ForgottenPwd extends Stage {
 		
 		pane.getChildren().add(usernameText);		
 		setNodePosition(usernameText, 1000, 420, 1.5, 1.5);
+		usernameText.setPromptText("Type your username");
+
 		
 		pane.getChildren().add(questionText);
 		setNodePosition((Node)questionText, 1000, 500, 1.5, 1.5);
 		questionText.setEditable(false);
+		questionText.setPromptText("Question");
+
 		
 		pane.getChildren().add(answerText);
 		setNodePosition((Node)answerText, 1000, 580, 1.5, 1.5);
+		answerText.setPromptText("Type your password");
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,940,660,1.5,1.5);
@@ -91,15 +96,13 @@ public class ForgottenPwd extends Stage {
 		
 		usernameText.setOnAction(e->{
 			String tmp =controller.getQuestionByUsername(usernameText);
-<<<<<<< HEAD
-=======
-			
->>>>>>> 05e91a25ad5ad9adc1e0f097644756d0c4f84490
-			if(tmp.isEmpty()) {
+		
+			if(tmp==null) {
 				error.setText("Username is not correct !");
+				questionText.setText("");
 			}else {
-				System.out.println(tmp);
 				questionText.setText(tmp);
+				error.setText("");
 			}
 			
 		});
@@ -107,7 +110,11 @@ public class ForgottenPwd extends Stage {
 	
 		send.setOnAction(e->{
 			int a = controller.sendNewPassword(usernameText, answerText, questionText);
-			System.out.println(a);
+			if(a == 1) {
+				error.setText("Your password has been changed");
+			}else if(a ==-2) {
+				error.setText("Your answer is not correct !");
+			}
 		});
 			
 		

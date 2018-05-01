@@ -1,11 +1,12 @@
-<<<<<<< HEAD
-May 01, 2018 5:45:20 PM main.controller.Controller <clinit>
+May 01, 2018 6:52:19 PM main.controller.Controller <clinit>
 INFO: info
-=======
-máj 01, 2018 5:42:02 PM main.controller.Controller <clinit>
-INFO: info
-máj 01, 2018 5:42:13 PM main.controller.Controller getQuestionByUsername
+May 01, 2018 6:52:23 PM main.controller.Controller getQuestionByUsername
+WARNING: Query not found
+May 01, 2018 6:52:30 PM main.controller.Controller getQuestionByUsername
+WARNING: Query not found
+May 01, 2018 6:52:30 PM main.controller.Controller getQuestionByUsername
+WARNING: Query not found
+May 01, 2018 6:52:41 PM main.controller.Controller getQuestionByUsername
 INFO: Account cQId
-máj 01, 2018 5:42:13 PM main.controller.Controller getQuestionByUsername
-INFO: Contorl Question
->>>>>>> 05e91a25ad5ad9adc1e0f097644756d0c4f84490
+May 01, 2018 6:52:41 PM main.controller.Controller getQuestionByUsername
+INFO: Control Question

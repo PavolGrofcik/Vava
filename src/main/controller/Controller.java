@@ -78,14 +78,12 @@ public class Controller {
 		factory.close();
 	}
 	
+	@SuppressWarnings("unused")
 	public String getQuestionByUsername(TextField username) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
-		
-<<<<<<< HEAD
-		if(	checkInput(username.getText())) {
-=======
+
 		if(!checkInput(username.getText())) {
->>>>>>> 05e91a25ad5ad9adc1e0f097644756d0c4f84490
+
 			return null;
 		}
 		
