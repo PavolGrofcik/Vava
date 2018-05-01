@@ -93,6 +93,7 @@ public class Controller {
 		try {
 			Transaction transaction = session.beginTransaction();
 			
+			@SuppressWarnings("unchecked")
 			TypedQuery<Account> query = session.createQuery("SELECT new Account(id,customerId, "
 					+ "controlQuestionId, username, password, answer) FROM ControlQuestion WHERE "
 					+ "username = :arg");
