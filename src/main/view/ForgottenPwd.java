@@ -1,5 +1,7 @@
 package main.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -26,6 +28,7 @@ public class ForgottenPwd extends Stage {
 	private Label username = new Label("Username");
 	private Label controlQuestion = new Label("Question");
 	private Label answer = new Label("Answer");
+	private Label error = new Label("");
 	private Hyperlink back = new Hyperlink();
 	private TextField questionText = new TextField();
 	private TextField answerText = new TextField();
@@ -36,7 +39,7 @@ public class ForgottenPwd extends Stage {
 	ImageView iv = new ImageView(background);
 	ImageView backArrowView = new ImageView(backArrow);
 	Color c = Color.web("#00BFFF");
-	
+	Color r = Color.web("#FF0000");
 	
 	
 	public ForgottenPwd(Controller arg) {
@@ -65,6 +68,11 @@ public class ForgottenPwd extends Stage {
 		answer.setFont(Font.font(null, FontWeight.BOLD, 20));
 		answer.setTextFill(c);
 		
+		pane.getChildren().add(error);
+		setNodePosition(error, 850, 800, 1, 1);
+		error.setFont(Font.font(null, FontWeight.BOLD, 20));
+		error.setTextFill(r);
+		
 		pane.getChildren().add(usernameText);		
 		setNodePosition(usernameText, 1000, 420, 1.5, 1.5);
 		
@@ -82,6 +90,17 @@ public class ForgottenPwd extends Stage {
 		pane.getChildren().add(back);
 		setNodePosition((Node)back,-50,880,-0.25,0.25);
 		back.setGraphic(backArrowView);
+		
+		usernameText.setOnAction(e->{
+			String tmp =controller.getQuestionByUsername(usernameText);
+			if(tmp.length()<1) {
+				error.setText("Username is not correct !");
+			}else {
+				System.out.println(tmp);
+				questionText.setText(tmp);
+			}
+			
+		});
 
 	
 		send.setOnAction(e->{

@@ -2,7 +2,10 @@ package main.view;
 
 
 import java.security.NoSuchAlgorithmException;
+<<<<<<< HEAD
 
+=======
+>>>>>>> e0b5b62caa20927b7d99e5724edc16789e42c765
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
