@@ -1,12 +1,16 @@
 package main.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -20,15 +24,18 @@ public class ForgottenPwd extends Stage {
 	private Controller controller;
 	static Scene forgotten_pwd_scene ;
 	private Label username = new Label("Username");
-	private Label controlQestion = new Label("Question");
+	private Label controlQuestion = new Label("Question");
 	private Label answer = new Label("Answer");
+	private Hyperlink back = new Hyperlink();
 	private TextField questionText = new TextField();
 	private TextField answerText = new TextField();
 	private TextField usernameText = new TextField();
 	private Button send = new Button("Send new password");
 	Image background = new Image("File:resource/hory.jpg");
-	ImageView iv = new ImageView();
-	Color c = Color.web("#FF4500");
+	Image backArrow = new Image("File:resource/back2.png");
+	ImageView iv = new ImageView(background);
+	ImageView backArrowView = new ImageView(backArrow);
+	Color c = Color.web("#00BFFF");
 	
 	
 	
@@ -37,10 +44,9 @@ public class ForgottenPwd extends Stage {
 		this.controller = arg;
 	}
 	
-	public  Scene setNewScene() {
+	public  Scene setNewScene(Stage window,Scene scene,Hyperlink link) {
 		
 		Pane pane = new Pane();
-		iv.setImage(background);
 		pane.getChildren().add(iv);
 		
 		pane.getChildren().add(username);		
@@ -49,10 +55,10 @@ public class ForgottenPwd extends Stage {
 		username.setTextFill(c);
 	
 		
-		pane.getChildren().add(controlQestion);
-		setNodePosition(controlQestion, 800, 500, 1, 1);
-		controlQestion.setFont(Font.font(null, FontWeight.BOLD, 20));
-		controlQestion.setTextFill(c);
+		pane.getChildren().add(controlQuestion);
+		setNodePosition(controlQuestion, 800, 500, 1, 1);
+		controlQuestion.setFont(Font.font(null, FontWeight.BOLD, 20));
+		controlQuestion.setTextFill(c);
 		
 		pane.getChildren().add(answer);
 		setNodePosition(answer, 800, 580, 1, 1);
@@ -64,6 +70,7 @@ public class ForgottenPwd extends Stage {
 		
 		pane.getChildren().add(questionText);
 		setNodePosition((Node)questionText, 1000, 500, 1.5, 1.5);
+		questionText.setEditable(false);
 		
 		pane.getChildren().add(answerText);
 		setNodePosition((Node)answerText, 1000, 580, 1.5, 1.5);
@@ -71,11 +78,20 @@ public class ForgottenPwd extends Stage {
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,940,660,1.5,1.5);
 		
-	
+		pane.getChildren().add(back);
+		setNodePosition((Node)back,-50,880,-0.25,0.25);
+		back.setGraphic(backArrowView);
 		
-		
-		
-		
+
+		back.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+				window.setScene(scene);
+				window.show();
+				window.setTitle("Forgotten password");
+				link.setVisited(false);
+				link.setBorder(Border.EMPTY);
+		    }
+		});
 		
 		forgotten_pwd_scene = new Scene(pane, 1920, 1080);
 		return forgotten_pwd_scene;

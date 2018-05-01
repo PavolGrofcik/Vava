@@ -1,9 +1,12 @@
 package main.view;
 import java.security.NoSuchAlgorithmException;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
@@ -23,13 +26,15 @@ public class LoginView extends Application {
 	private Label user = new Label("Username");
 	private Label password = new Label("Password");
 	private Label welcome = new Label("Welcome to SkiGo");
+	private Label error = new Label("");
 	private TextField userText = new TextField();
 	private PasswordField passwordText = new PasswordField();
 	private Button login = new Button("Login");
-	private Button forgetPassword = new Button("Forgotten password");
 	private Scene loginScene;
-	Color c = Color.web("#FF4500");
+	private Hyperlink link = new Hyperlink();
+	Color c = Color.web("#00BFFF");
 	Color h = Color.web("#000000");
+	Color r = Color.web("#FF0000");
 	Image background = new Image("File:resource/hory.jpg");
 	ImageView iv = new ImageView();
 	
@@ -68,6 +73,11 @@ public class LoginView extends Application {
 		welcome.setTextFill(h);
 		welcome.setId("header");
 		
+		pane.getChildren().add(error);
+		error.setLayoutX(810);
+		error.setLayoutY(850);
+		error.setFont(Font.font(null, FontWeight.BOLD, 22));
+		error.setTextFill(r);
 		
 		pane.getChildren().add(userText);
 		setNodePosition((Node)userText, 950, 600, 1.5, 1.5);
@@ -79,10 +89,11 @@ public class LoginView extends Application {
 		setNodePosition((Node)login, 950, 700, 1.5, 1.5);
 		login.setId("login");
 		
-		pane.getChildren().add(forgetPassword);
-		setNodePosition((Node)forgetPassword, 920, 750, 1.5, 1.5);
-		forgetPassword.setId("forget_password");
-	
+		pane.getChildren().add(link);
+		setNodePosition(link, 810, 780, 1, 1);
+		link.setText("Did you forget your password ?");
+		link.setFont(Font.font(null, FontWeight.BOLD, 20));
+		link.setTextFill(c);	
 	
 		loginScene = new Scene(pane,1920,1080);
 		loginScene.getStylesheets().add(this.getClass().getResource("/resources/model.css").toExternalForm());
@@ -94,12 +105,15 @@ public class LoginView extends Application {
 		window.setResizable(false);
 		window.show();
 		window.setOnCloseRequest(e -> closeProgram());
+			
 		
-		forgetPassword.setOnAction(e->{
-			ForgottenPwd pwd = new ForgottenPwd(controller);
-			window.setScene(pwd.setNewScene());
-			window.show();
-			window.setTitle("Forgotten password");
+		link.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	ForgottenPwd pwd = new ForgottenPwd(controller);
+				window.setScene(pwd.setNewScene(window,loginScene,link));
+				window.show();
+				window.setTitle("Login");
+		    }
 		});
 		
 		login.setOnAction(e->{
@@ -109,7 +123,7 @@ public class LoginView extends Application {
 					System.out.println("Correct Password");
 				}
 				else if(status == -1) {
-				System.out.println("Missing values!");
+				error.setText("Some of fields are not filled !");
 				}
 			} catch (NoSuchAlgorithmException e1) {
 				e1.printStackTrace();
