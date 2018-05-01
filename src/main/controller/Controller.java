@@ -56,7 +56,7 @@ public class Controller {
 			LOGGER.addHandler(handler);
 			LOGGER.setUseParentHandlers(false);		//Logovanie nebude na konzole
 			LOGGER.log(Level.INFO, "info");	
-			LOGGER.setLevel(Level.WARNING);		//Logger global level
+			LOGGER.setLevel(Level.INFO);		//Logger global level
 			
 		} catch (SecurityException e) {
 			LOGGER.log(Level.CONFIG, "Log config", e);
@@ -76,6 +76,54 @@ public class Controller {
 	
 	public void shutDown() {
 		factory.close();
+	}
+	
+	public String getQuestionByUsername(TextField username) {
+		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
+		
+		if(checkInput(username.getText())) {
+			return null;
+		}
+		
+		Session session = factory.openSession();
+		Account account;
+		ControlQuestion question;
+		String result = "";
+		
+		try {
+			Transaction transaction = session.beginTransaction();
+			
+			TypedQuery<Account> query = session.createQuery("SELECT new Account(id,customerId, "
+					+ "controlQuestionId, username, password, answer) FROM ControlQuestion WHERE "
+					+ "username = :arg");
+			query.setParameter("arg", username.getText());
+			
+			try {
+				if(query.getResultList().isEmpty()) {
+					return null;		// Username does not exist
+				}
+			} catch (Exception e) {
+				LOGGER.log(Level.SEVERE, "Query result list", e);
+				return null;
+			}
+			
+			account = query.getResultList().get(0);
+			LOGGER.log(Level.FINE, "Account cQId", account.getControlQuestionId());
+			
+			question = session.get(ControlQuestion.class, account.getControlQuestionId());
+			
+			LOGGER.log(Level.FINE, "Contorl Question", question.getQuestion());
+			result= question.getQuestion();
+			
+			transaction.commit();
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "Hibernate ex", e);
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(Controller.class.getName(), "getQuestionByUsername");
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -262,6 +310,13 @@ public class Controller {
 			return false;
 		}
 		
+		return true;
+	}
+	
+	private boolean checkInput(String username) {
+		if(username.isEmpty()) {
+			return false;
+		}
 		return true;
 	}
 	
