@@ -2,7 +2,6 @@ package main.view;
 
 
 import java.security.NoSuchAlgorithmException;
-import java.util.ResourceBundle;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
