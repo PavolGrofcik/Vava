@@ -81,7 +81,7 @@ public class Controller {
 	public String getQuestionByUsername(TextField username) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
 		
-		if(checkInput(username.getText())) {
+		if(	checkInput(username.getText())) {
 			return null;
 		}
 		

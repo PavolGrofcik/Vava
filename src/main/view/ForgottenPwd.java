@@ -1,7 +1,5 @@
 package main.view;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -24,7 +22,7 @@ public class ForgottenPwd extends Stage {
 	
 	
 	private Controller controller;
-	static Scene forgotten_pwd_scene ;
+	private Scene forgotten_pwd_scene ;
 	private Label username = new Label("Username");
 	private Label controlQuestion = new Label("Question");
 	private Label answer = new Label("Answer");
@@ -43,7 +41,7 @@ public class ForgottenPwd extends Stage {
 	
 	
 	public ForgottenPwd(Controller arg) {
-		//super();
+		super();
 		this.controller = arg;
 	}
 	
@@ -93,7 +91,7 @@ public class ForgottenPwd extends Stage {
 		
 		usernameText.setOnAction(e->{
 			String tmp =controller.getQuestionByUsername(usernameText);
-			if(tmp.length()<1) {
+			if(tmp.isEmpty()) {
 				error.setText("Username is not correct !");
 			}else {
 				System.out.println(tmp);
