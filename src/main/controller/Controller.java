@@ -28,6 +28,7 @@ import mail.sender.Sender;
 import main.entities.Account;
 import main.entities.ControlQuestion;
 import main.entities.Customer;
+import sun.security.util.Password;
 
 
 /**
@@ -83,8 +84,8 @@ public class Controller {
 		factory.close();
 	}
 	
-	public int changeAccountSettings(PasswordField passwdField, PasswordField confirmField,
-			TextField telField, TextField emailField) {
+	public int changeAccountSettings(PasswordField oldField, PasswordField passwdField, 
+			PasswordField confirmField, TextField telField, TextField emailField) {
 		
 		LOGGER.entering(this.getClass().getName(), "changeAccountSettings");
 		
@@ -93,7 +94,7 @@ public class Controller {
 		
 		LOGGER.log(Level.INFO, "Status selected "+ status);
 		
-		int retVal = -1;;
+		int retVal = -1;
 		
 		if (status <= 0) {
 			retVal = -1; // Missing values
@@ -103,13 +104,23 @@ public class Controller {
 			changeData(emailField.getText(), telField.getText(), 1);
 			retVal = changeData(emailField.getText(), telField.getText(), 2);
 		} else if (status == 4) { // Passwords only
-			boolean match = verifyStrings(passwdField.getText(), confirmField.getText());
-			LOGGER.log(Level.INFO, "Passwords matchings status " + match);
-
-			if (match == false) {
-				retVal = -2; // Passwords are not the same
+			if (oldField.getText().isEmpty()) {
+				retVal = -2;
 			} else {
-				retVal = changePassword(passwdField.getText(), confirmField.getText());
+
+				boolean match = verifyStrings(passwdField.getText(), confirmField.getText());
+				LOGGER.log(Level.INFO, "Passwords matchings status " + match);
+
+				if (match == false) {
+					retVal = -2; // Passwords are not the same
+				} else {
+					
+					if(checkPassword(oldField.getText())) {
+						retVal = changePassword(passwdField.getText(), confirmField.getText());	
+					}else {
+						retVal = -2;
+					}
+				}
 			}
 		} else if (status >= 5) {
 
@@ -122,27 +133,42 @@ public class Controller {
 
 			if (match == false) {
 				retVal = -2; // Passwords are not the same
-			} else {
 				switch (status) {
 				case 5:
 					changeData(emailField.getText(), telField.getText(), 2);
-					retVal = changePassword(passwdField.getText(), confirmField.getText());
 					break;
 				case 6:
 					changeData(emailField.getText(), telField.getText(), 1);
-					retVal = changePassword(passwdField.getText(), confirmField.getText());
 					break;
-				
 				case 7:
 					changeData(emailField.getText(), telField.getText(), 1);
 					changeData(emailField.getText(), telField.getText(), 2);
-					retVal = changePassword(passwdField.getText(), confirmField.getText());
+					break;
+				}
+			} else {
+				
+				if(checkPassword(oldField.getText())) {
+					retVal = changePassword(passwdField.getText(), confirmField.getText());	
+				}else {
+					retVal = -2;
+				}
+				
+				switch (status) {
+				case 5:
+					changeData(emailField.getText(), telField.getText(), 2);
+					break;
+				case 6:
+					changeData(emailField.getText(), telField.getText(), 1);
+					break;
+				case 7:
+					changeData(emailField.getText(), telField.getText(), 1);
+					changeData(emailField.getText(), telField.getText(), 2);
 					break;
 				}
 			}
 		}
 		
-		LOGGER.log(Level.INFO, "Returnig value is " + retVal);
+		LOGGER.log(Level.INFO, "Returning value is " + retVal);
 		LOGGER.exiting(this.getClass().getName(), "changeAccountSettings");
 		
 		return retVal;
@@ -444,6 +470,41 @@ public class Controller {
 		
 		LOGGER.exiting(Controller.class.getName(), "changeData");
 		return 1;
+	}
+	
+	private boolean checkPassword(String password) {
+		LOGGER.entering(this.getClass().getName(), "checkPassword");	
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		
+		Account account;
+		
+		try {
+			transaction=session.beginTransaction();
+			
+			try {
+				account = session.get(Account.class, accountID);	
+			} catch (Exception e) {
+				LOGGER.log(Level.SEVERE, "Session account get", e);
+				return false;
+			}
+			
+		
+			if(!account.getPassword().equals(passwordHashing(password))) {
+				return false;
+			}
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+			return false;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(Controller.class.getName(), "checkPassword");
+		return true;
 	}
 	
 	
