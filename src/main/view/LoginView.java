@@ -2,6 +2,7 @@ package main.view;
 
 
 import java.security.NoSuchAlgorithmException;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,7 +22,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import language.languageManager;
 import main.controller.Controller;
-
 
 public class LoginView extends Application {
 
@@ -129,10 +129,14 @@ public class LoginView extends Application {
 			try {
 				int status = controller.loginCustomer(userText, passwordText);
 				if(status == 1) {
+<<<<<<< HEAD
 					UserView u = new UserView(controller);
 					window.setScene(u.setNewUserScene(window,loginScene,passwordText));
 					window.setTitle("User");
 					window.show();
+=======
+					// tu budem otvárať nové okno
+>>>>>>> 05e91a25ad5ad9adc1e0f097644756d0c4f84490
 				}
 				else if(status == -1) {
 					error.setText("Some of fields are not filled !");	

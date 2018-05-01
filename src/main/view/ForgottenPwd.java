@@ -91,6 +91,10 @@ public class ForgottenPwd extends Stage {
 		
 		usernameText.setOnAction(e->{
 			String tmp =controller.getQuestionByUsername(usernameText);
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 05e91a25ad5ad9adc1e0f097644756d0c4f84490
 			if(tmp.isEmpty()) {
 				error.setText("Username is not correct !");
 			}else {
