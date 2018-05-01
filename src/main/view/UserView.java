@@ -29,8 +29,13 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
+<<<<<<< HEAD
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
+=======
+	private TextField email = new TextField();
+	private TextField telNumber = new TextField();
+>>>>>>> 8b447d1a475f00493998feead68437a8e294ca3a
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
 	private Label repeatNewPasswordLabel = new Label("New password");
@@ -110,16 +115,17 @@ public class UserView extends Stage {
 		newTelefon.setPromptText("Type your email");
 		newTelefon.setPrefWidth(150);
 		
-		settingsPane.getChildren().add(newEmail);
-		setNodePosition((Node)newEmail, 260, 370, 1.5, 1.5);
-		newEmail.setPromptText("Type new email");
-		newEmail.setPrefWidth(150);
+		settingsPane.getChildren().add(telNumber);
+		setNodePosition((Node)telNumber, 260, 370, 1.5, 1.5);
+		telNumber.setPromptText("Type new email");
+		telNumber.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(change);
 		setNodePosition((Node)change, 240, 450, 1.5, 1.5);
 		change.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-			  // tu rob co ches s emailom
+			  int status = controller.changeAccountSettings(oldPassword, newPassword, repeatNewPassword, telNumber, email);
+			  System.out.println("Status is " + status);
 		    }
 		});
 		

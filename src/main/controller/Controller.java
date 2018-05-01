@@ -43,6 +43,9 @@ public class Controller {
 	private static final Logger LOGGER = Logger.getLogger(Controller.class.getName());
 	private static final String PATH = "Logger/logfile.txt";
 	
+	private static final int PASSWORD_LENGTH = 8;
+	private static final int TEL_NUMBER_LENGTH = 13;
+	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
 	
@@ -104,7 +107,7 @@ public class Controller {
 			changeData(emailField.getText(), telField.getText(), 1);
 			retVal = changeData(emailField.getText(), telField.getText(), 2);
 		} else if (status == 4) { // Passwords only
-			if (oldField.getText().isEmpty()) {
+			if (oldField.getText().isEmpty() || confirmField.getText().length() < PASSWORD_LENGTH) {
 				retVal = -2;
 			} else {
 
@@ -118,12 +121,12 @@ public class Controller {
 					if(checkPassword(oldField.getText())) {
 						retVal = changePassword(passwdField.getText(), confirmField.getText());	
 					}else {
+						System.out.println("Old password is incorrect");
 						retVal = -2;
 					}
 				}
 			}
 		} else if (status >= 5) {
-
 			// status = 5 email
 			// status = 6 telNumber
 			// status = 7 All
@@ -147,7 +150,7 @@ public class Controller {
 				}
 			} else {
 				
-				if(checkPassword(oldField.getText())) {
+				if(checkPassword(oldField.getText()) && confirmField.getText().length() >= PASSWORD_LENGTH) {
 					retVal = changePassword(passwdField.getText(), confirmField.getText());	
 				}else {
 					retVal = -2;
@@ -342,6 +345,7 @@ public class Controller {
 			account = query.getResultList().get(0);
 			
 	        String hashtext = passwordHashing(password.getText());
+	        LOGGER.log(Level.INFO, "Hash of password is " + hashtext);
 	        
 			try {
 				if(!hashtext.equals(account.getPassword())) {	
@@ -452,8 +456,13 @@ public class Controller {
 			
 			switch (status) {
 			case 1: // Tel Number
-				customer.setTelNumber(telNumber);
-				break;
+				if(telNumber.length() > TEL_NUMBER_LENGTH) {
+					return -2;
+				}else {
+					customer.setTelNumber(telNumber);
+					break;
+				}
+				
 			case 2: // Email
 				customer.setEmail(email);
 				break;
