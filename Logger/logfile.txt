@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 máj 01, 2018 8:24:37 PM main.controller.Controller <clinit>
 INFO: info
 máj 01, 2018 8:24:41 PM main.controller.Controller getQuestionByUsername
@@ -6,3 +7,7 @@ máj 01, 2018 8:24:44 PM main.controller.Controller getQuestionByUsername
 INFO: Account cQId 4
 máj 01, 2018 8:24:44 PM main.controller.Controller getQuestionByUsername
 INFO: Control Question What is your dreamjob ?
+=======
+May 01, 2018 8:17:53 PM main.controller.Controller <clinit>
+INFO: info
+>>>>>>> cf71aab284f5b935729246b6065f883827aefea9
