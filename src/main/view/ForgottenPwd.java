@@ -85,7 +85,7 @@ public class ForgottenPwd extends Stage {
 		
 		pane.getChildren().add(answerText);
 		setNodePosition((Node)answerText, 1000, 580, 1.5, 1.5);
-		answerText.setPromptText("Type your password");
+		answerText.setPromptText("Type your answer");
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,940,660,1.5,1.5);

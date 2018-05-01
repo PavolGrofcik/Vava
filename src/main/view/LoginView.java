@@ -120,6 +120,17 @@ public class LoginView extends Application {
 		window.show();
 		window.setOnCloseRequest(e -> closeProgram());
 			
+		register.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	RegisterView w = new RegisterView(controller);
+		    	error.setText("");
+		    	userText.setText("");
+		    	passwordText.setText("");
+				window.setScene(w.RegisterScene(window,loginScene));
+				window.show();
+				window.setTitle("Register");
+		    }
+		});
 		
 		link.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {

@@ -29,12 +29,12 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-	private TextField email = new TextField();
+	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
 	private Label repeatNewPasswordLabel = new Label("New password");
-	private Label emailLabel = new Label("Email");
+	private Label newTelefonLabel = new Label("New telefon number");
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
 
@@ -95,20 +95,20 @@ public class UserView extends Stage {
 		repeatNewPasswordLabel.setTextFill(c);
 		
 		
-		settingsPane.getChildren().add(emailLabel);
-		setNodePosition((Node)emailLabel, 40, 290, 1, 1);
-		emailLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
-		emailLabel.setTextFill(c);
+		settingsPane.getChildren().add(newTelefonLabel);
+		setNodePosition((Node)newTelefonLabel, 40, 290, 1, 1);
+		newTelefonLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		newTelefonLabel.setTextFill(c);
 		
 		settingsPane.getChildren().add(newEmailLabel);
 		setNodePosition((Node)newEmailLabel, 40, 370, 1, 1);
 		newEmailLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
 		newEmailLabel.setTextFill(c);
 		
-		settingsPane.getChildren().add(email);
-		setNodePosition((Node)email, 260, 290, 1.5, 1.5);
-		email.setPromptText("Type your email");
-		email.setPrefWidth(150);
+		settingsPane.getChildren().add(newTelefon);
+		setNodePosition((Node)newTelefon, 260, 290, 1.5, 1.5);
+		newTelefon.setPromptText("Type your email");
+		newTelefon.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(newEmail);
 		setNodePosition((Node)newEmail, 260, 370, 1.5, 1.5);
