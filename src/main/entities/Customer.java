@@ -1,6 +1,6 @@
 package main.entities;
 
-import java.text.ParseException;
+
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -2,6 +2,8 @@ package main.view;
 
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ResourceBundle;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,13 +21,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import language.languageManager;
 import main.controller.Controller;
 
 
 public class LoginView extends Application {
 
+	languageManager m = new languageManager();
 	private Stage window;
-	private Label user = new Label("Username");
+	private Label user= new Label("Username");
 	private Label password = new Label("Password");
 	private Label welcome = new Label("Welcome to SkiGo");
 	private Label error = new Label("");
@@ -33,7 +37,7 @@ public class LoginView extends Application {
 	private PasswordField passwordText = new PasswordField();
 	private Button login = new Button("Login");
 	private Scene loginScene;
-	private Hyperlink link = new Hyperlink();
+    Hyperlink link = new Hyperlink();
 	Color c = Color.web("#00BFFF");
 	Color h = Color.web("#000000");
 	Color r = Color.web("#FF0000");
@@ -53,7 +57,7 @@ public class LoginView extends Application {
 		window = primaryStage;
 		window.setMaximized(true);
 		Pane pane = new Pane();
-		
+			
 		iv.setImage(background);
 		pane.getChildren().add(iv);
 		
@@ -90,7 +94,7 @@ public class LoginView extends Application {
 		pane.getChildren().add(login);
 		setNodePosition((Node)login, 950, 700, 1.5, 1.5);
 		login.setId("login");
-		
+	
 		pane.getChildren().add(link);
 		setNodePosition(link, 810, 780, 1, 1);
 		link.setText("Did you forget your password ?");

@@ -78,20 +78,17 @@ public class ForgottenPwd extends Stage {
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,940,660,1.5,1.5);
 		
-<<<<<<< HEAD
+
 		pane.getChildren().add(back);
 		setNodePosition((Node)back,-50,880,-0.25,0.25);
 		back.setGraphic(backArrowView);
-=======
+
 	
 		send.setOnAction(e->{
 			int a = controller.sendNewPassword(usernameText, answerText, questionText);
 			System.out.println(a);
 		});
-		
-		
->>>>>>> 6a8ab0bda1702803803db69c729dc4ed334ea9ef
-		
+			
 
 		back.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
