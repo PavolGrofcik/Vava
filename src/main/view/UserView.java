@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -28,10 +29,15 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
+	private TextField email = new TextField();
+	private TextField newEmail = new TextField();
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
 	private Label repeatNewPasswordLabel = new Label("New password");
+	private Label emailLabel = new Label("Email");
+	private Label newEmailLabel = new Label("New email");
 	private Button changePassword = new Button("Change");
+	private Button changeEmail = new Button("Change");
 
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
@@ -55,20 +61,23 @@ public class UserView extends Stage {
 		settingsPane.setPrefSize(500,400);
 		settingsPane.setId("setting");
 		pane.getChildren().add(settingsPane);
-		setNodePosition((Node)settingsPane, 800, 350, 1, 1);
+		setNodePosition((Node)settingsPane, 750, 300, 1, 1);
 		settingsPane.setVisible(false);
 		
 		settingsPane.getChildren().add(oldPassword);
 		setNodePosition((Node)oldPassword, 260, 50, 1.5, 1.5);
 		oldPassword.setPromptText("Type old password");
+		oldPassword.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(newPassword);
 		setNodePosition((Node)newPassword, 260, 130, 1.5, 1.5);
 		newPassword.setPromptText("Type new password");
+		newPassword.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(repeatNewPassword);
 		setNodePosition((Node)repeatNewPassword, 260, 210, 1.5, 1.5);
 		repeatNewPassword.setPromptText("Repeat new password");
+		repeatNewPassword.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(oldPasswordLabel);
 		setNodePosition((Node)oldPasswordLabel, 40, 50, 1, 1);
@@ -87,12 +96,42 @@ public class UserView extends Stage {
 		repeatNewPasswordLabel.setTextFill(c);
 		
 		settingsPane.getChildren().add(changePassword);
-		setNodePosition((Node)changePassword, 250, 260, 1.5, 1.5);
+		setNodePosition((Node)changePassword, 240, 290, 1.5, 1.5);
 		changePassword.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-			  // tu rob co ches
+			  // tu rob co ches s heslom
 		    }
 		});
+		
+		settingsPane.getChildren().add(emailLabel);
+		setNodePosition((Node)emailLabel, 40, 370, 1, 1);
+		emailLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		emailLabel.setTextFill(c);
+		
+		settingsPane.getChildren().add(newEmailLabel);
+		setNodePosition((Node)newEmailLabel, 40, 450, 1, 1);
+		newEmailLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		newEmailLabel.setTextFill(c);
+		
+		settingsPane.getChildren().add(email);
+		setNodePosition((Node)email, 260, 370, 1.5, 1.5);
+		email.setPromptText("Type your email");
+		email.setPrefWidth(150);
+		
+		settingsPane.getChildren().add(newEmail);
+		setNodePosition((Node)newEmail, 260, 450, 1.5, 1.5);
+		newEmail.setPromptText("Type new email");
+		newEmail.setPrefWidth(150);
+		
+		settingsPane.getChildren().add(changeEmail);
+		setNodePosition((Node)changeEmail, 240, 530, 1.5, 1.5);
+		changeEmail.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+			  // tu rob co ches s emailom
+		    }
+		});
+		
+		
 		
 		
 		pane.getChildren().add(settingText);
@@ -134,7 +173,7 @@ public class UserView extends Stage {
 		return userScene;
 	}
 	
-	private void setNodePosition(Node node, int x, int y, double scaleX, double scaleY) {
+	private void setNodePosition(Node node, int x, int y, double scaleX, double scaleY ) {
 		node.setLayoutX(x);
 		node.setLayoutY(y);
 		node.setScaleX(scaleX);

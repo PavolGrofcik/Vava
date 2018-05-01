@@ -19,7 +19,8 @@
 	-fx-padding: 3px 18px;
 }
 #setting{
-	-fx-padding: 200px 50px;
- 	-fx-border-color: black;
- 	-fx-border-width: 4;
+	-fx-background-image: url("File:resource/snow.png");
+	-fx-padding: 300px 250px;
+ 	-fx-border-color: white;
+ 	-fx-border-width: 2;
 }
