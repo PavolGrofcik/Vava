@@ -1,7 +1,10 @@
 package main.view;
 
+import java.util.List;
+
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -217,7 +220,33 @@ public class RegisterView extends Stage {
 		setNodePosition((Node)send,880,900,2,2);	
 		send.setOnAction(e->{
 			
+
+			
+			
+			
 		});
+		// Getting values from controller to comboBox
+		List<String> list = controller.getControlQuestions();
+		questionBox.setValue(list.get(0));
+		questionBox.getItems().addAll(list);
+		
+		// Only one of the checkbox can be selected at once
+		male.setOnAction(e->{
+			if(female.isSelected()) {
+				female.setSelected(false);
+			}else {
+				male.setSelected(true);
+			}
+		});
+		
+		female.setOnAction(e->{
+			if(male.isSelected()) {
+				male.setSelected(false);
+			}else {
+				female.setSelected(true);
+			}
+		});
+		
 		pane.getChildren().add(back);
 		setNodePosition((Node)back,-50,880,-0.25,0.25);
 		back.setGraphic(backArrowView);

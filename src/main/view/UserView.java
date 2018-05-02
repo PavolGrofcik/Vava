@@ -29,13 +29,13 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-<<<<<<< HEAD
+
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
-=======
+
 	private TextField email = new TextField();
 	private TextField telNumber = new TextField();
->>>>>>> 8b447d1a475f00493998feead68437a8e294ca3a
+
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
 	private Label repeatNewPasswordLabel = new Label("New password");

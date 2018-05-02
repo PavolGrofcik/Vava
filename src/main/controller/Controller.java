@@ -22,6 +22,7 @@ import org.hibernate.Transaction;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
+import antlr.collections.List;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import mail.sender.Sender;
@@ -378,6 +379,35 @@ public class Controller {
 		return 1;
 	}
 	
+	
+	public java.util.List<String> getControlQuestions(){
+		Session session = factory.openSession();
+		Transaction transaction = null;
+		
+		java.util.List<String> questions = null;;
+		
+		try {
+			transaction = session.beginTransaction();
+			Query query = session.createQuery("SELECT question FROM ControlQuestion");
+			
+			try {
+				if(!query.getResultList().isEmpty()) {
+					questions = query.getResultList();
+				}
+			} catch (Exception e) {
+				LOGGER.log(Level.SEVERE, "Query failed", e);
+				return null;
+			}
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exceptoin", e);
+		}finally {
+			session.close();
+		}
+		
+		return questions;
+	}
 	
 	
 	private String passwordHashing(String password) {
