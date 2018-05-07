@@ -1,6 +1,7 @@
 package main.entities;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="customer")
@@ -24,7 +27,8 @@ public class Customer {
 	private String lastName;
 	
 	@Column(name="birth")			//D�tum narodenia - date vs string
-	private Date birth;
+	//@Temporal(TemporalType.DATE)	//Iba date, calendar
+	private LocalDate birth;
 	
 	@Column(name="sex")
 	private char sex;
@@ -54,7 +58,7 @@ public class Customer {
 	}
 
 
-	public Customer(String firstName, String lastName, Date date, char sex, String telNumber, String city,
+	public Customer(String firstName, String lastName, LocalDate date, char sex, String telNumber, String city,
 			String address, String email) {
 		super();
 		this.firstName = firstName;
@@ -68,7 +72,7 @@ public class Customer {
 	}
 
 
-	public Customer(int id, String firstName, String lastName, Date date, char sex, String telNumber, String city,
+	public Customer(int id, String firstName, String lastName, LocalDate date, char sex, String telNumber, String city,
 			String address, String email) {
 		super();
 		this.id = id;
@@ -108,11 +112,11 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return birth;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.birth = date;
 	}
 

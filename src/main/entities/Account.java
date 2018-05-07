@@ -42,8 +42,6 @@ public class Account {
 		this.answer = answer;
 	}
 
-
-
 	public Account(int id, int controlQuestionId, String username, String answer) {
 		super();
 		this.id = id;
@@ -93,6 +91,18 @@ public class Account {
 		this.customerId = customerId;
 		this.controlQuestionId = controlQuestionId;
 		this.cash = cash;
+		this.username = username;
+		this.password = password;
+		this.answer = answer;
+	}
+	
+	
+	public Account(int customerId, String username, int controlQuestionId, String password, String answer) {
+		super();
+		
+		this.customerId = customerId;
+		this.controlQuestionId = controlQuestionId;
+		this.cash = 0;
 		this.username = username;
 		this.password = password;
 		this.answer = answer;
