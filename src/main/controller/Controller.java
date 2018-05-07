@@ -30,6 +30,7 @@ import mail.sender.Sender;
 import main.entities.Account;
 import main.entities.ControlQuestion;
 import main.entities.Customer;
+import qrcode.generator.QrGenerator;
 
 /**
  * Trieda Controller obsahuje hlavn� met�dy pre pr�cu s DB a perzistenciou JPA
@@ -142,6 +143,16 @@ public class Controller {
 			Account account = new Account(customerID, username.getText(), controlQuestionId,
 					passwordHashing(password.getText()), answer.getText());
 			session.save(account);
+			
+			// Vygenerovanie QR kódu
+			new Thread(() -> {
+				QrGenerator.createQRCode(account.getId(), account.getUsername());
+			}) .start();
+			
+			//Odoslanie na mail QR kód
+			new Thread(()->{
+				Sender.generateAndSendEmail(customer.getEmail());
+			}).start();
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -724,11 +735,15 @@ public class Controller {
 		System.out.println(info);
 	}
 	
+
+	
 	private boolean verifyRegistrationData(DatePicker date, TextField telNumber) {
 		LocalDate localDate = date.getValue();
 		
 		if(telNumber.getText().length() > 13 || localDate.isAfter(LocalDate.of(MIN_DATE_OF_BIRTH, 1, 1))) {
 			return false;
+		}else {
+			
 		}
 		
 		return true;
