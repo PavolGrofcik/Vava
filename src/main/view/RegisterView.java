@@ -1,10 +1,7 @@
 package main.view;
 
-<<<<<<< HEAD
 import java.util.ResourceBundle;
-=======
 import java.util.List;
->>>>>>> 666b5e5ef34d61ff55d27f4d0f8aa387a42e301f
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 

@@ -53,9 +53,8 @@ public class Controller {
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
 	
-	//Personal data of current customer
-	private int accountID;			// 	Login -> get accountId
-	private int customerID;			//	Login -> get customerId
+	private int accountID;			// Login
+	private int customerID;			
 	
 	
 	static {
@@ -103,19 +102,19 @@ public class Controller {
 		int status = InputController.verifyCustomerInput(name, surname, birth, male,female, 
 				telNumber, city, email, address);
 		int accountStatus = InputController.verifyAccountInput(username, password, confirm, answer, question);
-		LOGGER.log(Level.INFO, "Input status registration: " + status +"Acc " + accountStatus);
+		LOGGER.log(Level.INFO, "Input status registration: " + status +"Account status" + accountStatus);
 		
 		boolean sexCheckBox = false;
 		int customerID;
 		int controlQuestionId  = -1;
 		
 		if(status == 1 && accountStatus == 1) {
-			if(verifyRegistrationData(birth, telNumber) &&
-					verifyPasswords(password, confirm)) {
+			if(verifyRegistrationData(birth, telNumber) == true &&
+					verifyPasswords(password, confirm) == true) {
 				sexCheckBox = male.isSelected();
-				System.out.println("Quesit");
-				controlQuestionId = getQuestionID(question.getValue());
 				
+				controlQuestionId = getQuestionID(question.getValue());
+				System.out.println("Question get value is: " + question.getValue());
 				System.out.println("Control question id is: " + controlQuestionId);
 				
 				if(controlQuestionId == -1 || verifyUniqueUsername(username.getText()) != 1) {
@@ -598,8 +597,7 @@ public class Controller {
 		LOGGER.exiting(this.getClass().getName(), "getQuestionID");
 		return status;
 	}
-	
-	
+		
 	private int changeData(String email, String telNumber, int status) {
 		LOGGER.entering(this.getClass().getName(), "changeData");	
 		Session session = factory.openSession();
@@ -727,16 +725,6 @@ public class Controller {
 		return false;
 	}
 	
-	private void getDateFromDatePicker(DatePicker date) {
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(BIRTH_PATTERN);
-		
-		LocalDate localDate = date.getValue();
-		String info = localDate.toString();
-		System.out.println(info);
-	}
-	
-
-	
 	private boolean verifyRegistrationData(DatePicker date, TextField telNumber) {
 		LocalDate localDate = date.getValue();
 		
@@ -744,6 +732,13 @@ public class Controller {
 			return false;
 		}else {
 			
+			try {
+				long number = Long.parseLong(telNumber.getText().substring(1, 12));
+				System.out.println("Number is: " + number);
+			} catch (Exception e) {
+				System.out.println(telNumber.getText().substring(1, 12));
+				return false;
+			}
 		}
 		
 		return true;
