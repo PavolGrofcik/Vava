@@ -1,5 +1,7 @@
 package main.view;
 
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -23,12 +25,16 @@ public class UserView extends Stage {
 	
 	private Controller controller;
 	private Scene userScene ;
-	private Hyperlink link = new Hyperlink("Logout");
+	private Hyperlink link;
 	private Hyperlink settings = new Hyperlink();
 	private Label settingText = new Label("Settings");
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
+<<<<<<< HEAD
+	private TextField newTelefon = new TextField();
+	private TextField newEmail = new TextField();
+=======
 
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
@@ -36,10 +42,11 @@ public class UserView extends Stage {
 	private TextField email = new TextField();
 	private TextField telNumber = new TextField();
 
+>>>>>>> 666b5e5ef34d61ff55d27f4d0f8aa387a42e301f
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
 	private Label repeatNewPasswordLabel = new Label("New password");
-	private Label newTelefonLabel = new Label("New telefon number");
+	private Label newTelefonLabel = new Label("New number");
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
 
@@ -56,10 +63,11 @@ public class UserView extends Stage {
 		this.controller = arg;
 	}
 	
-	public Scene setNewUserScene(Stage window,Scene scene,PasswordField pwd) {
+	public Scene setNewUserScene(Stage window,Scene scene,PasswordField pwd,ResourceBundle resource) {
 		
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
+		link = new Hyperlink(resource.getString("key1-1"));
 		
 		Pane settingsPane = new Pane();
 		settingsPane.setPrefSize(500,400);
@@ -112,19 +120,19 @@ public class UserView extends Stage {
 		
 		settingsPane.getChildren().add(newTelefon);
 		setNodePosition((Node)newTelefon, 260, 290, 1.5, 1.5);
-		newTelefon.setPromptText("Type your email");
+		newTelefon.setPromptText("Type new number");
 		newTelefon.setPrefWidth(150);
 		
-		settingsPane.getChildren().add(telNumber);
-		setNodePosition((Node)telNumber, 260, 370, 1.5, 1.5);
-		telNumber.setPromptText("Type new email");
-		telNumber.setPrefWidth(150);
+		settingsPane.getChildren().add(newEmail);
+		setNodePosition((Node)newEmail, 260, 370, 1.5, 1.5);
+		newEmail.setPromptText("Type new email");
+		newEmail.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(change);
 		setNodePosition((Node)change, 240, 450, 1.5, 1.5);
 		change.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-			  int status = controller.changeAccountSettings(oldPassword, newPassword, repeatNewPassword, telNumber, email);
+			  int status = controller.changeAccountSettings(oldPassword, newPassword, repeatNewPassword, newTelefon, newEmail);
 			  System.out.println("Status is " + status);
 		    }
 		});

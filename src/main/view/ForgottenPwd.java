@@ -1,5 +1,7 @@
 package main.view;
 
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -23,15 +25,15 @@ public class ForgottenPwd extends Stage {
 	
 	private Controller controller;
 	private Scene forgotten_pwd_scene ;
-	private Label username = new Label("Username");
-	private Label controlQuestion = new Label("Question");
-	private Label answer = new Label("Answer");
+	private Label username =new Label();
+	private Label controlQuestion= new Label();
+	private Label answer= new Label();
 	private Label error = new Label("");
 	private Hyperlink back = new Hyperlink();
 	private TextField questionText = new TextField();
 	private TextField answerText = new TextField();
 	private TextField usernameText = new TextField();
-	private Button send = new Button("Send new password");
+	private Button send = new Button();
 	Image background = new Image("File:resource/hory.jpg");
 	Image backArrow = new Image("File:resource/back2.png");
 	ImageView iv = new ImageView(background);
@@ -46,16 +48,23 @@ public class ForgottenPwd extends Stage {
 		this.controller = arg;
 	}
 	
-	public  Scene setNewScene(Stage window,Scene scene,Hyperlink link) {
+	public  Scene setNewScene(Stage window,Scene scene,Hyperlink link,ResourceBundle resource) {
 		
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
+		
+		username.setText(resource.getString("key2-1"));
+		controlQuestion.setText(resource.getString("key2-6"));
+		answer.setText(resource.getString("key2-2"));
+		questionText.setPromptText(resource.getString("key2-6"));
+		answerText.setPromptText(resource.getString("key2-5"));
+		usernameText.setPromptText(resource.getString("key2-4"));
+		send.setText(resource.getString("key2-3"));
 		
 		pane.getChildren().add(username);		
 		setNodePosition(username, 800, 420, 1, 1);
 		username.setFont(Font.font(null, FontWeight.BOLD, 20));
 		username.setTextFill(c);
-	
 		
 		pane.getChildren().add(controlQuestion);
 		setNodePosition(controlQuestion, 800, 500, 1, 1);
@@ -74,18 +83,13 @@ public class ForgottenPwd extends Stage {
 		
 		pane.getChildren().add(usernameText);		
 		setNodePosition(usernameText, 1000, 420, 1.5, 1.5);
-		usernameText.setPromptText("Type your username");
-
 		
 		pane.getChildren().add(questionText);
 		setNodePosition((Node)questionText, 1000, 500, 1.5, 1.5);
 		questionText.setEditable(false);
-		questionText.setPromptText("Question");
-
 		
 		pane.getChildren().add(answerText);
 		setNodePosition((Node)answerText, 1000, 580, 1.5, 1.5);
-		answerText.setPromptText("Type your answer");
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,940,660,1.5,1.5);
@@ -99,7 +103,7 @@ public class ForgottenPwd extends Stage {
 			String tmp =controller.getQuestionByUsername(usernameText);
 		
 			if(tmp==null) {
-				error.setText("Username is not correct !");
+				error.setText(resource.getString("key2-10"));
 				questionText.setText("");
 			}else {
 				questionText.setText(tmp);
@@ -112,12 +116,12 @@ public class ForgottenPwd extends Stage {
 		send.setOnAction(e->{
 			int a = controller.sendNewPassword(usernameText, answerText, questionText);
 			if(a == 1) {
-				error.setText("Your password has been changed");
+				error.setText(resource.getString("key2-7"));
 			}else if(a ==-2) {
-				error.setText("Your answer is not correct !");
+				error.setText(resource.getString("key2-8"));
 			}
 			else if (a == -1) {
-				error.setText("Some of fields are empty !");
+				error.setText(resource.getString("key2-9"));
 			}
 		});
 			
@@ -127,7 +131,7 @@ public class ForgottenPwd extends Stage {
 		    public void handle(ActionEvent e) {
 				window.setScene(scene);
 				window.show();
-				window.setTitle("Forgotten password");
+				window.setTitle(resource.getString("key2-11"));
 				link.setVisited(false);
 				link.setBorder(Border.EMPTY);
 		    }

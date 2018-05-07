@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 máj 07, 2018 9:53:39 PM main.controller.Controller <clinit>
+=======
+<<<<<<< HEAD
+May 07, 2018 9:59:11 PM main.controller.Controller <clinit>
+INFO: info
+=======
+máj 07, 2018 12:39:10 PM main.controller.Controller <clinit>
+>>>>>>> 45b4ad32a01b340f6e7b6f8681f9c4320a561f68
 INFO: info
 máj 07, 2018 9:54:27 PM main.controller.Controller registrateCustomer
 INFO: Input status registration: 1Acc 1
+<<<<<<< HEAD
 máj 07, 2018 9:54:27 PM main.controller.Controller registrateCustomer
 SEVERE: Hibernate Exception
 org.hibernate.exception.ConstraintViolationException: could not execute statement
@@ -92,3 +101,8 @@ Caused by: org.postgresql.util.PSQLException: ERROR: insert or update on table "
 	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:175)
 	... 70 more
 
+=======
+máj 07, 2018 12:40:31 PM main.controller.Controller loginCustomer
+INFO: Hash of password is ffecba6889b7f73d28b55794d9727593
+>>>>>>> 666b5e5ef34d61ff55d27f4d0f8aa387a42e301f
+>>>>>>> 45b4ad32a01b340f6e7b6f8681f9c4320a561f68
