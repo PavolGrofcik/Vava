@@ -220,18 +220,18 @@ public class RegisterView extends Stage {
 		setNodePosition((Node)send,880,900,2,2);	
 		send.setOnAction(e->{
 			
-
-			
+			//Registration
+			controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText, adressText, female,male,
+					usernameText,passwordText,confirmPasswordText,answerText,questionBox);
 			
 			
 		});
-		// Getting values from controller to comboBox
 		List<String> list = controller.getControlQuestions();
 		questionBox.setValue(list.get(0));
 		questionBox.getItems().addAll(list);
 		
 		// Only one of the checkbox can be selected at once
-		male.setOnAction(e->{
+		male.setOnAction(e->{ 
 			if(female.isSelected()) {
 				female.setSelected(false);
 			}else {

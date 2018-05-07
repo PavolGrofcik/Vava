@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -13,24 +14,22 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder.Case;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
-import antlr.collections.List;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import mail.sender.Sender;
 import main.entities.Account;
 import main.entities.ControlQuestion;
 import main.entities.Customer;
-import sun.security.util.Password;
-
 
 /**
  * Trieda Controller obsahuje hlavn� met�dy pre pr�cu s DB a perzistenciou JPA
@@ -46,12 +45,15 @@ public class Controller {
 	
 	private static final int PASSWORD_LENGTH = 8;
 	private static final int TEL_NUMBER_LENGTH = 13;
+	private static final String BIRTH_PATTERN = "yyyy-MM-dd";
+	private static final int MIN_DATE_OF_BIRTH = 2000;
+	
 	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
 	
 	//Personal data of current customer
-	private int accountID;			// Login -> get accountId
+	private int accountID;			// 	Login -> get accountId
 	private int customerID;			//	Login -> get customerId
 	
 	
@@ -88,6 +90,75 @@ public class Controller {
 		factory.close();
 	}
 	
+	
+	// Metóda vytvorí registráciu nového zákaznika a úloží údaje do DB
+	public int registrateCustomer(TextField name, TextField surname, DatePicker birth,
+			TextField telNumber, TextField city, TextField email, TextField address, 
+			CheckBox female, CheckBox male, TextField username, PasswordField password,
+			PasswordField confirm, TextField answer, ComboBox<String> question) {
+		
+		LOGGER.entering(this.getClass().getName(), "registrateCustomer");
+		
+		int status = InputController.verifyCustomerInput(name, surname, birth, male,female, 
+				telNumber, city, email, address);
+		int accountStatus = InputController.verifyAccountInput(username, password, confirm, answer, question);
+		LOGGER.log(Level.INFO, "Input status registration: " + status +"Acc " + accountStatus);
+		
+		boolean sexCheckBox = false;
+		int customerID;
+		int controlQuestionId  = -1;
+		
+		if(status == 1 && accountStatus == 1) {
+			if(verifyRegistrationData(birth, telNumber) &&
+					verifyPasswords(password, confirm)) {
+				sexCheckBox = male.isSelected();
+				System.out.println("Quesit");
+				controlQuestionId = getQuestionID(question.getValue());
+				
+				System.out.println("Control question id is: " + controlQuestionId);
+				
+				if(controlQuestionId == -1 || verifyUniqueUsername(username.getText()) != 1) {
+					System.out.println("Username not unique or other");
+					return -3;
+				}
+			}
+		}
+		else {
+			return -1;
+		}
+
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		try {
+			Customer customer = new Customer(name.getText(), surname.getText(), birth.getValue(),
+					sexCheckBox == true ? 'M' : 'F', telNumber.getText(), city.getText(), address.getText(),
+					email.getText());
+			session.save(customer);
+			
+			customerID =customer.getId();
+			System.out.println("Cust_id je: " + customerID);
+			
+			Account account = new Account(customerID, username.getText(), controlQuestionId,
+					passwordHashing(password.getText()), answer.getText());
+			session.save(account);
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+			return -3;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(this.getClass().getName(), "registrateCustomer");
+		return 0;
+	}
+	
+	
+	
+	// Metóda zmení prihlasovacie údaje zákazníka
 	public int changeAccountSettings(PasswordField oldField, PasswordField passwdField, 
 			PasswordField confirmField, TextField telField, TextField emailField) {
 		
@@ -178,7 +249,7 @@ public class Controller {
 		return retVal;
 	}
 	
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "unchecked" })
 	public String getQuestionByUsername(TextField username) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
 
@@ -194,10 +265,6 @@ public class Controller {
 		try {
 			Transaction transaction = session.beginTransaction();
 			
-			@SuppressWarnings("unchecked")
-			/*TypedQuery<Account> query = session.createQuery("SELECT new Account(id,customerId, "
-					+ "controlQuestionId, username, password, answer) FROM ControlQuestion WHERE "
-					+ "username = :arg");*/
 			TypedQuery<Account> query = session.createQuery("SELECT new Account(controlQuestionId, "
 					+ "username, password) FROM Account WHERE username = :arg");
 			
@@ -315,7 +382,6 @@ public class Controller {
 		
 		return 1;
 	}
-	
 
 	public int loginCustomer(TextField username, PasswordField password) throws NoSuchAlgorithmException {
 		LOGGER.entering(this.getClass().getName(), "loginCustomer");
@@ -379,12 +445,12 @@ public class Controller {
 		return 1;
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	public java.util.List<String> getControlQuestions(){
 		Session session = factory.openSession();
 		Transaction transaction = null;
 		
-		java.util.List<String> questions = null;;
+		java.util.List<String> questions = null;
 		
 		try {
 			transaction = session.beginTransaction();
@@ -409,7 +475,6 @@ public class Controller {
 		return questions;
 	}
 	
-	
 	private String passwordHashing(String password) {
 		LOGGER.entering(this.getClass().getName(), "passwordHashing");
 
@@ -431,7 +496,6 @@ public class Controller {
 
 		return hashtext;
 	}
-	
 	
 	private int changePassword(String password, String confirmPass) {
 		LOGGER.entering(this.getClass().getName(), "changePasswords");	
@@ -466,7 +530,65 @@ public class Controller {
 		return 1;
 	}
 	
-	//Email or TelNumber
+	private int getQuestionID(String question) {
+		LOGGER.entering(this.getClass().getName(), "getQuestionID");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		int question_id = -1;
+		
+		try {
+			Query query = session.createQuery("SELECT id FROM ControlQuestion WHERE question = :arg");
+			query.setParameter("arg", question);
+			
+			if(query.getResultList().isEmpty()) {
+				LOGGER.log(Level.SEVERE, "Question not found");
+				return question_id;
+			}
+			
+			question_id = (int) query.getResultList().get(0);
+			System.out.println(question_id);
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			return question_id;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(this.getClass().getName(), "getQuestionID");
+		return question_id;
+	}
+	
+	private int verifyUniqueUsername(String username) {
+		LOGGER.entering(this.getClass().getName(), "verifyUniqueUsername");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		int status = -1;
+		try {
+			Query query = session.createQuery("SELECT id FROM Account WHERE username = :arg");
+			query.setParameter("arg", username);
+			
+			if(query.getResultList().isEmpty()) {
+				status = 1;
+			}
+			else {
+				LOGGER.log(Level.SEVERE, "Username already exists!");
+			}
+		} catch (HibernateException e) {
+			transaction.rollback();
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			return status;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(this.getClass().getName(), "getQuestionID");
+		return status;
+	}
+	
+	
 	private int changeData(String email, String telNumber, int status) {
 		LOGGER.entering(this.getClass().getName(), "changeData");	
 		Session session = factory.openSession();
@@ -546,7 +668,6 @@ public class Controller {
 		return true;
 	}
 	
-	
 	private int selectDataToUpdate(String passwd, String confirmPasswd, String email,
 			String telNumber) {
 		
@@ -595,6 +716,31 @@ public class Controller {
 		return false;
 	}
 	
+	private void getDateFromDatePicker(DatePicker date) {
+		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(BIRTH_PATTERN);
+		
+		LocalDate localDate = date.getValue();
+		String info = localDate.toString();
+		System.out.println(info);
+	}
+	
+	private boolean verifyRegistrationData(DatePicker date, TextField telNumber) {
+		LocalDate localDate = date.getValue();
+		
+		if(telNumber.getText().length() > 13 || localDate.isAfter(LocalDate.of(MIN_DATE_OF_BIRTH, 1, 1))) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean verifyPasswords(PasswordField password, PasswordField confirm) {
+		if(!password.getText().equals(confirm.getText())) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 	private boolean checkInputs(String username, String password) {
 		if(username.isEmpty()|| password.isEmpty()) {
