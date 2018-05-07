@@ -1,5 +1,7 @@
 package main.view;
 
+import java.util.ResourceBundle;
+
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
 
 import javafx.event.ActionEvent;
@@ -29,23 +31,23 @@ public class RegisterView extends Stage {
 	private Controller controller;
 	private Scene registerScene ;
 	private Hyperlink back = new Hyperlink();
-	private Button send = new Button("Register");
+	private Button send = new Button();
 	
-	private Label username = new Label("Username");
-	private Label password = new Label("Password");
-	private Label confirmPassword = new Label("Confirm password");
-	private Label question = new Label("Question");
-	private Label answer = new Label("Answer");
-	private Label firstName = new Label("First nane");
-	private Label lastName = new Label("Last  name");
-	private Label birth = new Label("Date of birth");
-	private Label sex = new Label("Sex");
-	private Label number = new Label("Telefon number");
-	private Label city = new Label("City");
-	private Label adress = new Label("Adress");
-	private Label email = new Label("Email");
-	private Label account = new Label("Account information");
-	private Label customer = new Label("Customer information");
+	private Label username;
+	private Label password;
+	private Label confirmPassword;
+	private Label question;
+	private Label answer;
+	private Label firstName;
+	private Label lastName;
+	private Label birth;
+	private Label sex;
+	private Label number;
+	private Label city;
+	private Label adress;
+	private Label email;
+	private Label account;
+	private Label customer;
 	
 	private TextField usernameText = new TextField();
 	private PasswordField passwordText = new PasswordField();
@@ -55,8 +57,8 @@ public class RegisterView extends Stage {
 	private TextField firstNameText = new TextField();
 	private TextField lastNameText = new TextField();
 	private DatePicker birthDate = new DatePicker();
-	private CheckBox male = new CheckBox("Male");
-	private CheckBox female = new CheckBox("Female");
+	private CheckBox male;
+	private CheckBox female;
 	private TextField telefonText = new TextField();
 	private TextField cityText = new TextField();
 	private TextField adressText = new TextField();
@@ -83,7 +85,26 @@ public class RegisterView extends Stage {
 		this.controller = arg;
 	}
 	
-	public  Scene RegisterScene(Stage window,Scene scene) {
+	public  Scene RegisterScene(Stage window,Scene scene,ResourceBundle resource) {
+		
+		username = new Label(resource.getString("key3-0"));
+		password = new Label(resource.getString("key3-1"));
+		confirmPassword = new Label(resource.getString("key3-2"));
+		question = new Label(resource.getString("key3-3"));
+		answer = new Label(resource.getString("key3-4"));
+		firstName = new Label(resource.getString("key3-5"));
+		lastName = new Label(resource.getString("key3-6"));
+		birth = new Label(resource.getString("key3-7"));
+		sex = new Label(resource.getString("key3-8"));
+		number = new Label(resource.getString("key3-9"));
+		city = new Label(resource.getString("key3-10"));
+		adress = new Label(resource.getString("key3-11"));
+		email = new Label(resource.getString("key3-12"));
+	    account = new Label(resource.getString("key3-13"));
+		customer = new Label(resource.getString("key3-14"));
+		male = new CheckBox(resource.getString("key3-15"));
+		female = new CheckBox(resource.getString("key3-16"));
+		send.setText(resource.getString("key3-18"));
 		
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -225,7 +246,7 @@ public class RegisterView extends Stage {
 		    public void handle(ActionEvent e) {
 				window.setScene(scene);
 				window.show();
-				window.setTitle("Forgotten password");
+				window.setTitle(resource.getString("key3-17"));
 		    }
 		});
 		
