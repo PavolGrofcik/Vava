@@ -46,6 +46,7 @@ public class Event {
 		this.insurance = insurance;
 	}
 	
+
 	public Event(String location, int length, double height, boolean insurance,double price) {
 		super();
 		this.location = location;
@@ -112,6 +113,14 @@ public class Event {
 
 	public void setInsurance(boolean insurance) {
 		this.insurance = insurance;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 	public void showEventInfo() {
