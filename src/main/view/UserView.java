@@ -1,10 +1,7 @@
 package main.view;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-
-import com.sun.jmx.snmp.Timestamp;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -118,7 +115,7 @@ public class UserView extends Stage {
         insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
       
-        eventList = controller.getEventList();
+        //eventList = controller.getEventList();
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);

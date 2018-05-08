@@ -27,6 +27,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 import mail.sender.Sender;
 import main.entities.Account;
@@ -89,8 +90,14 @@ public class Controller {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Event> getEventList(){
+	public ArrayList<Event> getEventList(TextField location, DatePicker date, Spinner<Integer> length,
+			Spinner<Integer> price){
 		LOGGER.entering(this.getClass().getName(), "getEventList");
+		
+		if(InputController.verifyFilterInput(location, date, length, price) == 0) {
+			LOGGER.log(Level.INFO, "Empty fields");
+			return null;
+		}
 
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
@@ -98,7 +105,6 @@ public class Controller {
 		ArrayList<Event> events = null;
 		
 		try {
-
 			Query query = session.createQuery("FROM Event");
 			events = (ArrayList<Event>) query.getResultList();
 			
@@ -804,6 +810,21 @@ public class Controller {
 			}
 		
 		return -1; //Error encountered
+	}
+	
+	//Ošetriť
+	private int selectDataToFilter(TextField location, DatePicker date, Spinner<Integer> length,
+			Spinner<Integer> price) {
+		
+		LocalDate localDate = date.getValue();
+		String loc = location.getText();
+		int leng = length.getValue().intValue();
+		int pric = price.getValue().intValue();
+		
+		if(localDate == null && loc.isEmpty() && leng == 0 && pric != 0) {
+			return 1;
+		}else if( )
+		
 	}
 	
 	private boolean verifyAnswers(String answer, String answerDB) {
