@@ -538,6 +538,33 @@ public class Controller {
 		return user;
 	}
 	
+	// Metóda pridá dobije cash status používateľovi
+	public int setUserBalance(TextField balance) {
+		LOGGER.entering(this.getClass().getName(), "setUserBalance");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		if(!verifyCashFormat(balance)) {
+			return -1;
+		}
+		
+		try {
+			Account account = session.get(Account.class, accountID);
+			account.addCash(Double.parseDouble(balance.getText()));
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+			return -1;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(Controller.class.getName(), "setUserBalance");
+		return 1;
+	}
+	
 	// Metóda vráti stav účtu aktuálne prihlásenému používateľovi
 	public String getUserBalance() {
 		LOGGER.entering(this.getClass().getName(), "getUserBalance");
@@ -561,9 +588,9 @@ public class Controller {
 		
 		LOGGER.exiting(Controller.class.getName(), "getUserBalance");
 		return balance;
-		
 	}
 	
+	// Metóda overí či existuje control question v DB, pri registrácií nového zákazníka
 	private int getQuestionID(String question) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionID");
 		Session session = factory.openSession();
@@ -777,6 +804,21 @@ public class Controller {
 			return false;
 		}
 	
+		return true;
+	}
+	
+	private boolean verifyCashFormat(TextField cash) {
+		if (cash.getText().isEmpty()) {
+			return false;
+		}
+		try {
+			@SuppressWarnings("unused")
+			double num = Double.parseDouble(cash.getText().toString());
+			
+		} catch (Exception e) {
+			return false;
+		}
+
 		return true;
 	}
 	

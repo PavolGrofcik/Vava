@@ -139,7 +139,11 @@ public class Account {
 	public void setCash(double cash) {
 		this.cash = cash;
 	}
-
+	
+	public void addCash(double cash) {
+		this.cash += cash;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
