@@ -27,10 +27,20 @@ public class UserView extends Stage {
 	private Scene userScene ;
 	private Hyperlink link;
 	private Hyperlink settings = new Hyperlink();
-	private Label settingText = new Label("Settings");
+	private Label settingText;
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
+<<<<<<< HEAD
+	private TextField newTelefon = new TextField();
+	private TextField newEmail = new TextField();
+	private Label oldPasswordLabel;
+	private Label newPasswordLabel;
+	private Label repeatNewPasswordLabel;
+	private Label newTelefonLabel;
+	private Label newEmailLabel;
+	private Button change;
+=======
 
 
 	private TextField newTelefon = new TextField();
@@ -45,6 +55,7 @@ public class UserView extends Stage {
 	private Label newTelefonLabel = new Label("New number");
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
+>>>>>>> 2a367453faafc269ae5fd4fe41f8ebd6fc3144f3
 
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
@@ -61,9 +72,19 @@ public class UserView extends Stage {
 	
 	public Scene setNewUserScene(Stage window,Scene scene,PasswordField pwd,ResourceBundle resource) {
 		
+		link = new Hyperlink(resource.getString("key1-1"));
+		settingText = new Label(resource.getString("key1-2"));
+	    oldPasswordLabel = new Label(resource.getString("key1-3"));
+		newPasswordLabel = new Label(resource.getString("key1-4"));
+		repeatNewPasswordLabel = new Label(resource.getString("key1-5"));
+		newTelefonLabel = new Label(resource.getString("key1-6"));
+		newEmailLabel = new Label(resource.getString("key1-7"));
+		change = new Button(resource.getString("key1-8"));
+		
+		
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
-		link = new Hyperlink(resource.getString("key1-1"));
+		
 		
 		Pane settingsPane = new Pane();
 		settingsPane.setPrefSize(500,400);
@@ -74,17 +95,14 @@ public class UserView extends Stage {
 		
 		settingsPane.getChildren().add(oldPassword);
 		setNodePosition((Node)oldPassword, 260, 50, 1.5, 1.5);
-		oldPassword.setPromptText("Type old password");
 		oldPassword.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(newPassword);
 		setNodePosition((Node)newPassword, 260, 130, 1.5, 1.5);
-		newPassword.setPromptText("Type new password");
 		newPassword.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(repeatNewPassword);
 		setNodePosition((Node)repeatNewPassword, 260, 210, 1.5, 1.5);
-		repeatNewPassword.setPromptText("Repeat new password");
 		repeatNewPassword.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(oldPasswordLabel);
@@ -116,12 +134,10 @@ public class UserView extends Stage {
 		
 		settingsPane.getChildren().add(newTelefon);
 		setNodePosition((Node)newTelefon, 260, 290, 1.5, 1.5);
-		newTelefon.setPromptText("Type new number");
 		newTelefon.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(newEmail);
 		setNodePosition((Node)newEmail, 260, 370, 1.5, 1.5);
-		newEmail.setPromptText("Type new email");
 		newEmail.setPrefWidth(150);
 		
 		settingsPane.getChildren().add(change);

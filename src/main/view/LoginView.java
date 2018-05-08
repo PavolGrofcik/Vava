@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -58,10 +59,8 @@ public class LoginView extends Application {
 	}	
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception  {
-		
+	public void start(Stage primaryStage) throws Exception  { 
 		resource=m.englishLanguage();
-		
 		welcome = new Label(resource.getString("key3"));
 		login = new Button(resource.getString("key4"));
 		register = new Button(resource.getString("key5"));
@@ -74,7 +73,7 @@ public class LoginView extends Application {
 			
 		iv.setImage(background);
 		pane.getChildren().add(iv);
-		
+
 		pane.getChildren().add(welcome);
 		welcome.setLayoutX(300);
 		welcome.setLayoutY(150);
@@ -129,6 +128,7 @@ public class LoginView extends Application {
 		window.setResizable(false);
 		window.show();
 		window.setOnCloseRequest(e -> closeProgram());
+		pane.requestFocus();
 			
 		register.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
