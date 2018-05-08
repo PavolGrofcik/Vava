@@ -31,10 +31,6 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-<<<<<<< HEAD
-=======
-
->>>>>>> 1ddaf65c351a0963f5dc04486cfee25e045e9d1d
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
 	private Label oldPasswordLabel = new Label("Password");
@@ -43,11 +39,9 @@ public class UserView extends Stage {
 	private Label newTelefonLabel = new Label("New number");
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
+	private Label errorSettings = new Label("");
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 1ddaf65c351a0963f5dc04486cfee25e045e9d1d
 	// dashboard
 
 	private Label loggedUser;
@@ -57,11 +51,7 @@ public class UserView extends Stage {
 	private Button addBalanceWindow;
 	private TextField sum = new TextField();
 	private Button addBalance;
-	
-<<<<<<< HEAD
 
-=======
->>>>>>> 1ddaf65c351a0963f5dc04486cfee25e045e9d1d
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
 	Image settingWheel = new Image("File:resource/userSetting.png");
@@ -69,6 +59,7 @@ public class UserView extends Stage {
 	Image settingsBackground = new Image("File:resource/wood.png");
 	ImageView settingsBackgroundView = new ImageView(settingsBackground);
 	Color c = Color.web("#000000");
+	Color r = Color.web("#FF0000");
 
 	public UserView(Controller arg) {
 		super();
@@ -129,31 +120,28 @@ public class UserView extends Stage {
 		
 		addBalacePane.getChildren().add(addBalance);
 		setNodePosition((Node)addBalance,80, 70 , 1.2, 1.2);
+		addBalance.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+			   controller.setUserBalance(sum);
+			   balanceText.setText(controller.getUserBalance());
+		    }
+		});
 		
 		pane.getChildren().add(addBalanceWindow);
 		setNodePosition((Node)addBalanceWindow, 180, 60, 1.2, 1.2);
 		addBalanceWindow.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-			  if(addBalacePane.isVisible()) {
+			  sum.setText("");
+		    	if(addBalacePane.isVisible()) {
 				  addBalacePane.setVisible(false);
 			  }
 			  else
 				  addBalacePane.setVisible(true);
 		    }
-		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		});	
 		
 		Pane settingsPane = new Pane();
-		settingsPane.setPrefSize(500,500);
+		settingsPane.setPrefSize(490,560);
 		settingsPane.setId("setting");
 		pane.getChildren().add(settingsPane);
 		setNodePosition((Node)settingsPane, 750, 300, 1, 1);
@@ -206,12 +194,24 @@ public class UserView extends Stage {
 		setNodePosition((Node)newEmail, 260, 370, 1.5, 1.5);
 		newEmail.setPrefWidth(150);
 		
+		settingsPane.getChildren().add(errorSettings);
+		setNodePosition((Node)errorSettings, 140, 500, 1, 1);
+		errorSettings.setFont(Font.font(null, FontWeight.BOLD, 20));
+		errorSettings.setTextFill(r);
+		
+		
 		settingsPane.getChildren().add(change);
 		setNodePosition((Node)change, 240, 450, 1.5, 1.5);
 		change.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 			  int status = controller.changeAccountSettings(oldPassword, newPassword, repeatNewPassword, newTelefon, newEmail);
-			  System.out.println("Status is " + status);
+			  switch(status) {
+			  case -1: errorSettings.setText(resource.getString("key1-13"));break;
+			  case -2: errorSettings.setText(resource.getString("key1-14"));break;
+			  case -3: errorSettings.setText(resource.getString("key1-15"));break;
+			  case 0: errorSettings.setText(resource.getString("key1-16"));break; 
+			  }
+			  
 		    }
 		});
 		
@@ -243,6 +243,7 @@ public class UserView extends Stage {
 		settings.setGraphic(settingView);
 		settings.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
+		    	errorSettings.setText("");
 				if(settingsPane.isVisible())
 					settingsPane.setVisible(false);
 		    	else
