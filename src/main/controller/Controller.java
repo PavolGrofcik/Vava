@@ -33,8 +33,8 @@ import main.entities.Customer;
 import qrcode.generator.QrGenerator;
 
 /**
- * Trieda Controller obsahuje hlavn� met�dy pre pr�cu s DB a perzistenciou JPA
- * Pou��va sa n�vrhov� vzor Singleton
+ * Controller je hlavná trieda zodpovedná za aplikačnú
+ * logiku, rovnako aj prácu s DB
  * @author grofc
  *
  */
@@ -46,30 +46,24 @@ public class Controller {
 	
 	private static final int PASSWORD_LENGTH = 8;
 	private static final int TEL_NUMBER_LENGTH = 13;
-	private static final String BIRTH_PATTERN = "yyyy-MM-dd";
 	private static final int MIN_DATE_OF_BIRTH = 2000;
-	
 	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
 	
-	//Personal data of current customer
-	private int accountID;			// 	Login -> get accountId
-	private int customerID;			//	Login -> get customerId
-	
+	private int accountID;
+	private int customerID;			
 	
 	static {
 		try {
 			FileHandler handler = new FileHandler(PATH);
-
 			InputStream configFile = Controller.class.getResourceAsStream("p.properties");
 			LogManager.getLogManager().readConfiguration(configFile);
 			handler.setFormatter(new SimpleFormatter());
 			
 			LOGGER.addHandler(handler);
-			LOGGER.setUseParentHandlers(false);		//	Logovanie nebude na konzole
-			LOGGER.log(Level.INFO, "info");	
-			LOGGER.setLevel(Level.INFO);			//	Logger global level
+			LOGGER.setUseParentHandlers(false);
+			LOGGER.setLevel(Level.INFO);
 			
 		} catch (SecurityException e) {
 			LOGGER.log(Level.CONFIG, "Log config", e);
@@ -91,85 +85,92 @@ public class Controller {
 		factory.close();
 	}
 	
-	
-	// Metóda vytvorí registráciu nového zákaznika a úloží údaje do DB
-	public int registrateCustomer(TextField name, TextField surname, DatePicker birth,
-			TextField telNumber, TextField city, TextField email, TextField address, 
-			CheckBox female, CheckBox male, TextField username, PasswordField password,
-			PasswordField confirm, TextField answer, ComboBox<String> question) {
-		
+	public int registrateCustomer(TextField name, TextField surname, DatePicker birth, TextField telNumber,
+			TextField city, TextField email, TextField address, CheckBox female, CheckBox male, TextField username,
+			PasswordField password, PasswordField confirm, TextField answer, ComboBox<String> question) {
+
 		LOGGER.entering(this.getClass().getName(), "registrateCustomer");
-		
-		int status = InputController.verifyCustomerInput(name, surname, birth, male,female, 
-				telNumber, city, email, address);
+
+		int status = InputController.verifyCustomerInput(name, surname, birth, male, female, telNumber, city, email,
+				address);
+
 		int accountStatus = InputController.verifyAccountInput(username, password, confirm, answer, question);
-		LOGGER.log(Level.INFO, "Input status registration: " + status +"Acc " + accountStatus);
-		
+		LOGGER.log(Level.INFO, "Input status registration: " + status + " Account status" + accountStatus);
+
 		boolean sexCheckBox = false;
 		int customerID;
-		int controlQuestionId  = -1;
-		
-		if(status == 1 && accountStatus == 1) {
-			if(verifyRegistrationData(birth, telNumber) &&
-					verifyPasswords(password, confirm)) {
+		int controlQuestionId = -1;
+
+		if (status == 1 && accountStatus == 1) {
+			
+			LOGGER.log(Level.INFO, "Verify registration data status:  " + verifyRegistrationData(birth, telNumber));
+			LOGGER.log(Level.INFO, "Verify Passwords status: " + verifyPasswords(password, confirm));
+			
+			if(!verifyPasswords(password, confirm)) {
+				return 0;
+			}
+			
+			if(!verifyRegistrationData(birth, telNumber)) {
+				return -2;
+			}
+			
+			if (verifyRegistrationData(birth, telNumber) == true && verifyPasswords(password, confirm) == true) {
 				sexCheckBox = male.isSelected();
-				System.out.println("Quesit");
 				controlQuestionId = getQuestionID(question.getValue());
 				
-				System.out.println("Control question id is: " + controlQuestionId);
+				LOGGER.log(Level.INFO, "Question is: " + question.getValue());
+				LOGGER.log(Level.INFO, "Control question ID: " + controlQuestionId);
 				
-				if(controlQuestionId == -1 || verifyUniqueUsername(username.getText()) != 1) {
-					System.out.println("Username not unique or other");
+				if(!verifyTelNumber(telNumber)) {
+					return -4;
+				}
+
+				if (controlQuestionId == -1 || verifyUniqueUsername(username.getText()) != 1) {
+					LOGGER.log(Level.WARNING, "Username already exists");
 					return -3;
 				}
 			}
-		}
-		else {
+		} else {
 			return -1;
 		}
-
+		
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
-		
+
 		try {
 			Customer customer = new Customer(name.getText(), surname.getText(), birth.getValue(),
 					sexCheckBox == true ? 'M' : 'F', telNumber.getText(), city.getText(), address.getText(),
 					email.getText());
 			session.save(customer);
-			
-			customerID =customer.getId();
-			System.out.println("Cust_id je: " + customerID);
-			
+
+			customerID = customer.getId();
+			LOGGER.log(Level.INFO, "New Customer ID: " + customerID);
+
 			Account account = new Account(customerID, username.getText(), controlQuestionId,
 					passwordHashing(password.getText()), answer.getText());
 			session.save(account);
-			
-			// Vygenerovanie QR kódu
+
 			new Thread(() -> {
 				QrGenerator.createQRCode(account.getId(), account.getUsername());
-			}) .start();
-			
-			//Odoslanie na mail QR kód
-			new Thread(()->{
+			}).start();
+
+			new Thread(() -> {
 				Sender.generateAndSendEmail(customer.getEmail());
 			}).start();
-			
+
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
 			transaction.rollback();
-			return -3;
-		}finally {
+			return 0;
+		} finally {
 			session.close();
 		}
-		
+
 		LOGGER.exiting(this.getClass().getName(), "registrateCustomer");
-		return 0;
+		return 1;
 	}
 	
-	
-	
-	// Metóda zmení prihlasovacie údaje zákazníka
 	public int changeAccountSettings(PasswordField oldField, PasswordField passwdField, 
 			PasswordField confirmField, TextField telField, TextField emailField) {
 		
@@ -194,26 +195,25 @@ public class Controller {
 				retVal = -2;
 			} else {
 
-				boolean match = verifyStrings(passwdField.getText(), confirmField.getText());
+				boolean match = verifyAnswers(passwdField.getText(), confirmField.getText());
 				LOGGER.log(Level.INFO, "Passwords matchings status " + match);
 
 				if (match == false) {
 					retVal = -2; // Passwords are not the same
-				} else {
-					
+				} else {	
 					if(checkPassword(oldField.getText())) {
 						retVal = changePassword(passwdField.getText(), confirmField.getText());	
 					}else {
-						System.out.println("Old password is incorrect");
+						LOGGER.log(Level.WARNING, "Incorrect passwords");
 						retVal = -2;
 					}
 				}
 			}
 		} else if (status >= 5) {
-			// status = 5 email
-			// status = 6 telNumber
+			// status = 5 + email
+			// status = 6 + telNumber
 			// status = 7 All
-			boolean match = verifyStrings(passwdField.getText(), confirmField.getText());
+			boolean match = verifyAnswers(passwdField.getText(), confirmField.getText());
 
 			LOGGER.log(Level.INFO, "Passwords matchings status " + match);
 
@@ -232,7 +232,6 @@ public class Controller {
 					break;
 				}
 			} else {
-				
 				if(checkPassword(oldField.getText()) && confirmField.getText().length() >= PASSWORD_LENGTH) {
 					retVal = changePassword(passwdField.getText(), confirmField.getText());	
 				}else {
@@ -278,13 +277,12 @@ public class Controller {
 			
 			TypedQuery<Account> query = session.createQuery("SELECT new Account(controlQuestionId, "
 					+ "username, password) FROM Account WHERE username = :arg");
-			
 			query.setParameter("arg", username.getText());
-			
+
 			try {
 				if(query.getResultList().isEmpty()) {
-					LOGGER.log(Level.WARNING, "Query not found");
-					return null;		// Username does not exist
+					LOGGER.log(Level.WARNING, "Username not found");
+					return null;
 				}
 			} catch (Exception e) {
 				LOGGER.log(Level.SEVERE, "Query result list", e);
@@ -317,80 +315,77 @@ public class Controller {
 	@SuppressWarnings("unchecked")
 	public int sendNewPassword(TextField username, TextField answer, TextField question) {
 		LOGGER.entering(this.getClass().getName(), "sendNewPassword");
-		
+
 		Session session = factory.openSession();
-		
-		if(!checkInput(username.getText(), answer.getText(), question.getText())) {
+
+		if (!checkInput(username.getText(), answer.getText(), question.getText())) {
 			return -1;
 		}
-		
+
 		String user = username.getText();
-		
+
 		Account account;
 		ControlQuestion cq;
 		Customer customer;
-		
+
 		try {
 			Transaction transaction = session.beginTransaction();
-			
-			TypedQuery<ControlQuestion> query = session.createQuery(
-					"SELECT new ControlQuestion(id, question) " + "FROM ControlQuestion WHERE question = :arg");
+
+			TypedQuery<ControlQuestion> query = session
+					.createQuery("SELECT new ControlQuestion(id, question) FROM ControlQuestion WHERE question = :arg");
 			query.setParameter("arg", question.getText());
-			
+
 			try {
-				if(query.getResultList().isEmpty()) {
-					return - 2;		// Username does not exist
+				if (query.getResultList().isEmpty()) {
+					return -2; // Username does not exist
 				}
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Query result list", e);
+				LOGGER.log(Level.WARNING, "Query result list", e);
 				return -3;
 			}
 
-			cq=query.getResultList().get(0);
-			
-			Query query2 = session.createQuery("SELECT new Account(id, customerId, "
-					+ "controlQuestionId, username, password, answer) "
-					+ "FROM Account WHERE controlQuestionId = :arg AND username = :arg2");
-			query2.setParameter("arg", 	cq.getId());
+			cq = query.getResultList().get(0);
+
+			Query query2 = session.createQuery(
+					"SELECT new Account(id, customerId, " + "controlQuestionId, username, password, answer) "
+							+ "FROM Account WHERE controlQuestionId = :arg AND username = :arg2");
+			query2.setParameter("arg", cq.getId());
 			query2.setParameter("arg2", user);
-			
+
 			try {
 				account = (Account) query2.getResultList().get(0);
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Query2 result list", e);
+				LOGGER.log(Level.WARNING, "Query2 result list", e);
 				return -3;
 			}
-			
-			if(!verifyStrings(account.getAnswer(), answer.getText())) {
-				return -2;	//Do not match
+
+			if (!verifyAnswers(account.getAnswer(), answer.getText())) {
+				return -2; // Do not match
 			}
-			
+
 			customer = session.get(Customer.class, account.getCustomerId());
-			
+
 			LOGGER.log(Level.INFO, "Customer gmail " + customer.getEmail());
 			String tmp = PasswdGenerator.generate();
 
 			String newPassword = passwordHashing(tmp);
 			account.setPassword(newPassword);
-		
-		
-			new Thread(() -> {	// Odoslanie mailu zákazníkovi
+
+			new Thread(() -> { // Send an email to customer
 				Sender.sendGmailMessage(customer.getEmail(), account.getUsername(), tmp);
 			}).start();
-			
-			
+
 			session.saveOrUpdate(account);
 			transaction.commit();
-			
+
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Ex", e);
 			return -3;
-		}finally {
+		} finally {
 			session.close();
 		}
-		
+
 		LOGGER.exiting(Controller.class.getName(), "sendNewPassword");
-		
 		return 1;
 	}
 
@@ -410,7 +405,6 @@ public class Controller {
 		Transaction transaction = session.beginTransaction();
 	
 		try {
-			
 			@SuppressWarnings("unchecked")
 			TypedQuery<Account> query = session.createQuery("SELECT new Account(id, customerId, controlQuestionId, " 
 					+ "cash, username, password, answer) FROM Account WHERE username = :arg");
@@ -423,7 +417,7 @@ public class Controller {
 			account = query.getResultList().get(0);
 			
 	        String hashtext = passwordHashing(password.getText());
-	        LOGGER.log(Level.INFO, "Hash of password is " + hashtext);
+	        LOGGER.log(Level.INFO, "Hashed passwd: " + hashtext);
 	        
 			try {
 				if(!hashtext.equals(account.getPassword())) {	
@@ -431,7 +425,7 @@ public class Controller {
 				}
 				
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Hash ex", e);
+				LOGGER.log(Level.WARNING, "Incorrect passwd", e);
 			}
 
 			LOGGER.log(Level.CONFIG, "Account ID of logged user" + account.getId());
@@ -444,7 +438,6 @@ public class Controller {
 			
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Ex", e);
-
 			transaction.rollback();
 			return -3;
 			
@@ -465,7 +458,8 @@ public class Controller {
 		
 		try {
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("SELECT question FROM ControlQuestion");
+			Query query;
+			query = session.createQuery("SELECT question FROM ControlQuestion");
 			
 			try {
 				if(!query.getResultList().isEmpty()) {
@@ -479,33 +473,12 @@ public class Controller {
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exceptoin", e);
+			transaction.rollback();
 		}finally {
 			session.close();
 		}
 		
 		return questions;
-	}
-	
-	private String passwordHashing(String password) {
-		LOGGER.entering(this.getClass().getName(), "passwordHashing");
-
-		MessageDigest md;
-		
-		try {
-			md = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			LOGGER.log(Level.SEVERE, "Hash algorithm ex", e);
-			return null;
-		}
-
-		byte[] messageDigest = md.digest(password.getBytes());
-
-		BigInteger number = new BigInteger(1, messageDigest);
-		String hashtext = number.toString(16);
-
-		LOGGER.exiting(Controller.class.getName(), "passwordHashing");
-
-		return hashtext;
 	}
 	
 	private int changePassword(String password, String confirmPass) {
@@ -521,11 +494,11 @@ public class Controller {
 			try {
 				account = session.get(Account.class, accountID);	
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Session account get", e);
+				LOGGER.log(Level.SEVERE, "Session account get failed", e);
 				return -3;
 			}
 			
-			LOGGER.log(Level.INFO, "Hashed Password" + passwordHashing(confirmPass));
+			LOGGER.log(Level.INFO, "Hashed Password is: " + passwordHashing(confirmPass));
 			account.setPassword(passwordHashing(confirmPass));
 			
 			transaction.commit();		
@@ -553,12 +526,12 @@ public class Controller {
 			query.setParameter("arg", question);
 			
 			if(query.getResultList().isEmpty()) {
-				LOGGER.log(Level.SEVERE, "Question not found");
+				LOGGER.log(Level.WARNING, "Question not found");
 				return question_id;
 			}
 			
 			question_id = (int) query.getResultList().get(0);
-			System.out.println(question_id);
+
 		} catch (HibernateException e) {
 			transaction.rollback();
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
@@ -585,7 +558,7 @@ public class Controller {
 				status = 1;
 			}
 			else {
-				LOGGER.log(Level.SEVERE, "Username already exists!");
+				LOGGER.log(Level.WARNING, "Username already exists!");
 			}
 		} catch (HibernateException e) {
 			transaction.rollback();
@@ -595,11 +568,10 @@ public class Controller {
 			session.close();
 		}
 		
-		LOGGER.exiting(this.getClass().getName(), "getQuestionID");
+		LOGGER.exiting(this.getClass().getName(), "verifyUniqueUsername");
 		return status;
 	}
-	
-	
+		
 	private int changeData(String email, String telNumber, int status) {
 		LOGGER.entering(this.getClass().getName(), "changeData");	
 		Session session = factory.openSession();
@@ -613,7 +585,7 @@ public class Controller {
 			try {
 				customer = session.get(Customer.class, customerID);	
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Session customer get", e);
+				LOGGER.log(Level.SEVERE, "Session customer get failed", e);
 				return -3;
 			}
 			
@@ -624,8 +596,7 @@ public class Controller {
 				}else {
 					customer.setTelNumber(telNumber);
 					break;
-				}
-				
+				}	
 			case 2: // Email
 				customer.setEmail(email);
 				break;
@@ -657,11 +628,10 @@ public class Controller {
 			try {
 				account = session.get(Account.class, accountID);	
 			} catch (Exception e) {
-				LOGGER.log(Level.SEVERE, "Session account get", e);
+				LOGGER.log(Level.SEVERE, "Session account get failed", e);
 				return false;
 			}
 			
-		
 			if(!account.getPassword().equals(passwordHashing(password))) {
 				return false;
 			}
@@ -677,6 +647,28 @@ public class Controller {
 		
 		LOGGER.exiting(Controller.class.getName(), "checkPassword");
 		return true;
+	}
+
+	private String passwordHashing(String password) {
+		LOGGER.entering(this.getClass().getName(), "passwordHashing");
+
+		MessageDigest md;
+		
+		try {
+			md = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			LOGGER.log(Level.SEVERE, "Hash algorithm ex", e);
+			return null;
+		}
+
+		byte[] messageDigest = md.digest(password.getBytes());
+
+		BigInteger number = new BigInteger(1, messageDigest);
+		String hashtext = number.toString(16);
+
+		LOGGER.exiting(Controller.class.getName(), "passwordHashing");
+
+		return hashtext;
 	}
 	
 	private int selectDataToUpdate(String passwd, String confirmPasswd, String email,
@@ -710,7 +702,7 @@ public class Controller {
 		return -1; //Error encountered
 	}
 	
-	private boolean verifyStrings(String answer, String answerDB) {
+	private boolean verifyAnswers(String answer, String answerDB) {
 		LOGGER.entering(this.getClass().getName(), "verifyStrings");
 		
 		try {
@@ -719,7 +711,7 @@ public class Controller {
 				return true;
 			}
 		} catch (Exception e) {
-			LOGGER.log(Level.WARNING, "Comparing Strings", e);
+			LOGGER.log(Level.WARNING, "Non identical answers", e);
 			return false;
 		}
 		
@@ -727,23 +719,22 @@ public class Controller {
 		return false;
 	}
 	
-	private void getDateFromDatePicker(DatePicker date) {
-		//DateTimeFormatter formatter = DateTimeFormatter.ofPattern(BIRTH_PATTERN);
-		
-		LocalDate localDate = date.getValue();
-		String info = localDate.toString();
-		System.out.println(info);
-	}
+	private boolean verifyTelNumber(TextField telNumber) {
+		try {
+			@SuppressWarnings("unused")
+			long number = Long.parseLong(telNumber.getText().substring(1, 12));
+		} catch (Exception e) {
+			return false;
+		}
 	
-
+		return true;
+	}
 	
 	private boolean verifyRegistrationData(DatePicker date, TextField telNumber) {
 		LocalDate localDate = date.getValue();
 		
 		if(telNumber.getText().length() > 13 || localDate.isAfter(LocalDate.of(MIN_DATE_OF_BIRTH, 1, 1))) {
 			return false;
-		}else {
-			
 		}
 		
 		return true;
@@ -751,6 +742,14 @@ public class Controller {
 	
 	private boolean verifyPasswords(PasswordField password, PasswordField confirm) {
 		if(!password.getText().equals(confirm.getText())) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean checkInput(String email, String answer, String password) {
+		if(email.isEmpty() || answer.isEmpty() || password.isEmpty()) {
 			return false;
 		}
 		
@@ -772,13 +771,4 @@ public class Controller {
 		return true;
 	}
 	
-	
-	private boolean checkInput(String email, String answer, String password) {
-		if(email.isEmpty() || answer.isEmpty() || password.isEmpty()) {
-			return false;
-		}
-		
-		return true;
-	}
-
 }

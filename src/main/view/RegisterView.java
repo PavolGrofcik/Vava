@@ -1,6 +1,9 @@
 package main.view;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2a367453faafc269ae5fd4fe41f8ebd6fc3144f3
 import java.util.ResourceBundle;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -62,9 +65,6 @@ public class RegisterView extends Stage {
 	private TextField cityText = new TextField();
 	private TextField adressText = new TextField();
 	private TextField emailText = new TextField();
-
-
-
 	
 	Image background = new Image("File:resource/hory.jpg");
 	Image backArrow = new Image("File:resource/back2.png");
@@ -73,10 +73,6 @@ public class RegisterView extends Stage {
 	Color c = Color.web("#00BFFF");
 	Color r = Color.web("#FF0000");
 	Color b = Color.web("#000000");
-	
-	
-	
-	
 	
 	public RegisterView(Controller arg) {
 
@@ -241,6 +237,7 @@ public class RegisterView extends Stage {
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,880,900,2,2);	
+<<<<<<< HEAD
 		send.setOnAction(e->{
 			error.setText("");
 			//Registration
@@ -257,6 +254,15 @@ public class RegisterView extends Stage {
 			}
 			
 			
+=======
+		send.setOnAction(e -> {
+
+			// Registration
+			int status = controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText,
+					adressText, female, male, usernameText, passwordText, confirmPasswordText, answerText, questionBox);
+			System.out.println("Status of registration is: " + status);
+
+>>>>>>> 2a367453faafc269ae5fd4fe41f8ebd6fc3144f3
 		});
 		List<String> list = controller.getControlQuestions();
 		questionBox.setValue(list.get(0));

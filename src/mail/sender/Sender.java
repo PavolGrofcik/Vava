@@ -43,7 +43,6 @@ public class Sender {
 	private static final String SUBJECT = "New registration in SkiGoSR";
 
 	
-	//Odoslanie nového hesla
 	public static void sendGmailMessage(String account, String name, String passwd) {
 
 		Properties props = System.getProperties();
@@ -57,18 +56,13 @@ public class Sender {
 		Session session = Session.getInstance(props, null);
 		MimeMessage message = new MimeMessage(session);
 
-		// LOGGER.log(Level.INFO, "Port is " + session.getProperty("mail.smtp.port"));
-
-		// Create the email addresses involved
 		try {
 			InternetAddress from = new InternetAddress(USERNAME);
 			message.setSubject("New password"); // Name of subject message
 			message.setFrom(from);
 			message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(account)); // To
 
-			// LOGGER.log(Level.INFO, "Recipient is " + account);
 
-			// Create a multi-part to combine the parts
 			Multipart multipart = new MimeMultipart("alternative");
 
 			// Create your text message part
@@ -99,10 +93,9 @@ public class Sender {
 			transport.sendMessage(message, message.getAllRecipients());
 
 		} catch (AddressException e) {
-			// LOGGER.log(Level.SEVERE, "Addres Exception", e);
-
+			e.printStackTrace();
 		} catch (MessagingException e) {
-			// LOGGER.log(Level.SEVERE, "Message Exception", e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -156,8 +149,6 @@ public class Sender {
             multipart.addBodyPart(messageBodyPart);
  
             messageBodyPart = new MimeBodyPart();
- 
-            // Valid file location
        
             String filename = "./Images/QRCode.png";
             
