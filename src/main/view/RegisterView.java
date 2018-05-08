@@ -1,8 +1,5 @@
 package main.view;
-<<<<<<< HEAD
-=======
 
->>>>>>> 193ac71f166844a97fdfebde7ac89779ceadcdbd
 import java.util.ResourceBundle;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -252,15 +249,9 @@ public class RegisterView extends Stage {
 				case -2: error.setText(resource.getString("key3-22"));break;
 				case -3: error.setText(resource.getString("key3-23"));break;
 				case -4: error.setText(resource.getString("key3-24"));break;
-<<<<<<< HEAD
-
 			}
 		});
-=======
-			}});
 
-
->>>>>>> 193ac71f166844a97fdfebde7ac89779ceadcdbd
 
 
 		List<String> list = controller.getControlQuestions();

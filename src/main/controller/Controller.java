@@ -185,14 +185,18 @@ public class Controller {
 		
 		if (status <= 0) {
 			retVal = -1; // Missing values
+			return retVal;
 		} else if (status <= 2) {
 			retVal = changeData(emailField.getText(), telField.getText(), status);
+			return retVal;
 		} else if (status == 3) { // Both email & telNumber
 			changeData(emailField.getText(), telField.getText(), 1);
 			retVal = changeData(emailField.getText(), telField.getText(), 2);
+			return retVal;
 		} else if (status == 4) { // Passwords only
 			if (oldField.getText().isEmpty() || confirmField.getText().length() < PASSWORD_LENGTH) {
-				retVal = -2;
+				retVal = -3;
+				return retVal;
 			} else {
 
 				boolean match = verifyAnswers(passwdField.getText(), confirmField.getText());
@@ -200,13 +204,16 @@ public class Controller {
 
 				if (match == false) {
 					retVal = -2; // Passwords are not the same
+					return retVal;
 				} else {	
 					if(checkPassword(oldField.getText())) {
 						retVal = changePassword(passwdField.getText(), confirmField.getText());	
+						System.out.println("Change password retval is: " + retVal);
 					}else {
 						LOGGER.log(Level.WARNING, "Incorrect passwords");
 						retVal = -2;
 					}
+					return retVal;
 				}
 			}
 		} else if (status >= 5) {
@@ -219,25 +226,15 @@ public class Controller {
 
 			if (match == false) {
 				retVal = -2; // Passwords are not the same
-				switch (status) {
-				case 5:
-					changeData(emailField.getText(), telField.getText(), 2);
-					break;
-				case 6:
-					changeData(emailField.getText(), telField.getText(), 1);
-					break;
-				case 7:
-					changeData(emailField.getText(), telField.getText(), 1);
-					changeData(emailField.getText(), telField.getText(), 2);
-					break;
-				}
+				return retVal;
+			
 			} else {
 				if(checkPassword(oldField.getText()) && confirmField.getText().length() >= PASSWORD_LENGTH) {
 					retVal = changePassword(passwdField.getText(), confirmField.getText());	
 				}else {
-					retVal = -2;
-				}
-				
+					retVal = -3;
+					return retVal;
+				}	
 				switch (status) {
 				case 5:
 					changeData(emailField.getText(), telField.getText(), 2);
@@ -250,6 +247,8 @@ public class Controller {
 					changeData(emailField.getText(), telField.getText(), 2);
 					break;
 				}
+				
+				retVal = 1;
 			}
 		}
 		
