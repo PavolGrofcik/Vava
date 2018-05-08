@@ -1,11 +1,10 @@
 @font-face {
-    src: url("resources/Ailerons-Typeface.otf"),
+    src: url("Ailerons-Typeface.otf"),
 }
 
 #header{ 
 	-fx-font-size: 140px;
 	-fx-font-weight: bold;
-	-fx-font: "Ailerons";
 	-fx-font-family: "Ailerons";
 	-fx-font-color: #0000FF;
 }

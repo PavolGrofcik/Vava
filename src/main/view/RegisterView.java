@@ -1,14 +1,8 @@
 package main.view;
 
-<<<<<<< HEAD
+
 import java.util.ResourceBundle;
-=======
 import java.util.List;
->>>>>>> 666b5e5ef34d61ff55d27f4d0f8aa387a42e301f
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Text;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -37,7 +31,6 @@ public class RegisterView extends Stage {
 	private Scene registerScene ;
 	private Hyperlink back = new Hyperlink();
 	private Button send = new Button();
-	
 	private Label username;
 	private Label password;
 	private Label confirmPassword;
@@ -53,6 +46,7 @@ public class RegisterView extends Stage {
 	private Label email;
 	private Label account;
 	private Label customer;
+	private Label error;
 	
 	private TextField usernameText = new TextField();
 	private PasswordField passwordText = new PasswordField();
@@ -110,6 +104,7 @@ public class RegisterView extends Stage {
 		male = new CheckBox(resource.getString("key3-15"));
 		female = new CheckBox(resource.getString("key3-16"));
 		send.setText(resource.getString("key3-18"));
+		error = new Label("");
 		
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -239,13 +234,27 @@ public class RegisterView extends Stage {
 		pane.getChildren().add(emailText);
 		setNodePosition((Node)emailText, 1250, 810, 1.5, 1.5);
 		
+		pane.getChildren().add(error);
+		setNodePosition((Node)error, 800, 1000, 1, 1);
+		error.setFont(Font.font(null, FontWeight.BOLD, 20));
+		error.setTextFill(r);
+		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,880,900,2,2);	
 		send.setOnAction(e->{
-			
+			error.setText("");
 			//Registration
-			controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText, adressText, female,male,
+			int status = controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText, adressText, female,male,
 					usernameText,passwordText,confirmPasswordText,answerText,questionBox);
+			System.out.println(status);
+			switch(status) {
+				case 0: error.setText(resource.getString("key3-19"));break;	
+				case 1: error.setText(resource.getString("key3-20"));break;
+				case -1: error.setText(resource.getString("key3-21"));break;
+				case -2: error.setText(resource.getString("key3-22"));break;
+				case -3: error.setText(resource.getString("key3-23"));break;
+				case -4: error.setText(resource.getString("key3-24"));break;
+			}
 			
 			
 		});
@@ -278,6 +287,7 @@ public class RegisterView extends Stage {
 				window.setScene(scene);
 				window.show();
 				window.setTitle(resource.getString("key3-17"));
+				error.setText("");
 		    }
 		});
 		
