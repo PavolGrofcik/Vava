@@ -19,6 +19,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
+
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -456,7 +458,8 @@ public class Controller {
 		
 		try {
 			transaction = session.beginTransaction();
-			Query query = session.createQuery("SELECT question FROM ControlQuestion");
+			Query query;
+			query = session.createQuery("SELECT question FROM ControlQuestion");
 			
 			try {
 				if(!query.getResultList().isEmpty()) {

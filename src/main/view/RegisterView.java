@@ -65,9 +65,6 @@ public class RegisterView extends Stage {
 	private TextField cityText = new TextField();
 	private TextField adressText = new TextField();
 	private TextField emailText = new TextField();
-
-
-
 	
 	Image background = new Image("File:resource/hory.jpg");
 	Image backArrow = new Image("File:resource/back2.png");
@@ -76,10 +73,6 @@ public class RegisterView extends Stage {
 	Color c = Color.web("#00BFFF");
 	Color r = Color.web("#FF0000");
 	Color b = Color.web("#000000");
-	
-	
-	
-	
 	
 	public RegisterView(Controller arg) {
 
