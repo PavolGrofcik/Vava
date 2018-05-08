@@ -2,15 +2,20 @@ package main.view;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7c4a9ba5eff851dc8792dbcc5fc094a05fb95e6e
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -63,7 +68,15 @@ public class UserView extends Stage {
 	private TableView<Event> eventsTable = new TableView<Event>();
 	private ArrayList<Event> eventList = new ArrayList<Event>();
 	private Button find = new Button();
-	
+	private TextField locationnFilter = new TextField();
+	private DatePicker dateFilter = new DatePicker();
+	private Spinner<Integer> lengthFilter = new Spinner<Integer>(0,2000,10,1);
+	private Spinner<Integer> priceFilter = new Spinner<Integer>(0,2000,5,1);
+	private Label locationLabel;
+	private Label dateLabel;
+	private Label lengthLabel;
+	private Label priceLabel;
+
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
@@ -102,6 +115,10 @@ public class UserView extends Stage {
 	    TableColumn height = new TableColumn(resource.getString("key1-21"));
         TableColumn insurance = new TableColumn(resource.getString("key1-22"));
         TableColumn price = new TableColumn(resource.getString("key1-23"));
+        locationLabel = new Label(resource.getString("key1-25"));
+    	dateLabel = new Label(resource.getString("key1-26"));
+    	lengthLabel = new Label(resource.getString("key1-27"));
+    	priceLabel = new Label(resource.getString("key1-28"));
         location.setPrefWidth(200);
         date.setPrefWidth(200);
         length.setPrefWidth(90);
@@ -114,8 +131,19 @@ public class UserView extends Stage {
         height.setCellValueFactory(new PropertyValueFactory<>("height"));
         insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
+<<<<<<< HEAD
       
         //eventList = controller.getEventList();
+=======
+        location.setResizable(false);
+        date.setResizable(false);
+        length.setResizable(false);
+        height.setResizable(false);
+        insurance.setResizable(false);
+        price.setResizable(false);
+        
+        eventList = controller.getEventList();
+>>>>>>> 7c4a9ba5eff851dc8792dbcc5fc094a05fb95e6e
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -206,6 +234,42 @@ public class UserView extends Stage {
 		
 		eventsPane.getChildren().add(find);
 		setNodePosition((Node)find,380, 460, 1.5, 1.5);
+		
+		eventsPane.getChildren().add(locationnFilter);
+		setNodePosition((Node)locationnFilter,60, 60, 1.5, 1.5);
+		locationnFilter.setPrefWidth(100);
+		
+		eventsPane.getChildren().add(dateFilter);
+		setNodePosition((Node)dateFilter,250, 60, 1.5, 1.5);
+		dateFilter.setPrefWidth(100);
+		
+		eventsPane.getChildren().add(lengthFilter);
+		setNodePosition((Node)lengthFilter,440, 60, 1.5, 1.5);
+		lengthFilter.setPrefWidth(100);
+		
+		eventsPane.getChildren().add(priceFilter);
+		setNodePosition((Node)priceFilter,630, 60, 1.5, 1.5);
+		priceFilter.setPrefWidth(100);
+		
+		eventsPane.getChildren().add(locationLabel);
+		setNodePosition((Node)locationLabel, 60, 20, 1, 1);
+		locationLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		locationLabel.setTextFill(c);
+		
+		eventsPane.getChildren().add(dateLabel);
+		setNodePosition((Node)dateLabel, 250, 20, 1, 1);
+		dateLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		dateLabel.setTextFill(c);
+		
+		eventsPane.getChildren().add(lengthLabel);
+		setNodePosition((Node)lengthLabel, 440, 20, 1, 1);
+		lengthLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		lengthLabel.setTextFill(c);
+		
+		eventsPane.getChildren().add(priceLabel);
+		setNodePosition((Node)priceLabel, 630, 20, 1, 1);
+		priceLabel.setFont(Font.font(null, FontWeight.BOLD, 20));
+		priceLabel.setTextFill(c);
 		
 		find.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
