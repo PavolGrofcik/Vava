@@ -98,14 +98,9 @@ public class Controller {
 		ArrayList<Event> events = null;
 		
 		try {
-<<<<<<< HEAD
-			Query query = session.createQuery("SELECT * FROM Event");
-			events = query.getResultList();
-=======
+
 			Query query = session.createQuery("FROM Event");
 			events = (ArrayList<Event>) query.getResultList();
-			//events = session.createSQLQuery("FROM Event").addEntity(Event.class).list();
->>>>>>> 18f2161a42dfb9213925ce75a5ba1a2fa11460f9
 			
 			transaction.commit();
 		} catch (HibernateException e) {
