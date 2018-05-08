@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
@@ -30,6 +31,7 @@ import mail.sender.Sender;
 import main.entities.Account;
 import main.entities.ControlQuestion;
 import main.entities.Customer;
+import main.entities.Event;
 import qrcode.generator.QrGenerator;
 
 /**
@@ -83,6 +85,31 @@ public class Controller {
 	
 	public void shutDown() {
 		factory.close();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<String> getEventList(){
+		LOGGER.entering(this.getClass().getName(), "getEventList");
+
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		List<String> events = null;
+		
+		try {
+			Query query = session.createQuery("SELECT * FROM Event");
+			events = query.getResultList();
+			//events = session.createSQLQuery("FROM Event").addEntity(Event.class).list();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+			return null;
+		}
+		
+		LOGGER.exiting(this.getClass().getName(), "getEventList");
+		return events;
 	}
 	
 	public int registrateCustomer(TextField name, TextField surname, DatePicker birth, TextField telNumber,

@@ -42,10 +42,6 @@ public class UserView extends Stage {
 	private Button change = new Button("Change");
 	private Label errorSettings = new Label("");
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6db2b6506d604e9e0965bbb8d154771574c261e4
 	// dashboard
 
 	private Label loggedUser;
@@ -142,13 +138,8 @@ public class UserView extends Stage {
 			  else
 				  addBalacePane.setVisible(true);
 		    }
-<<<<<<< HEAD
+
 		});	
-
-=======
-
-		});
->>>>>>> 6db2b6506d604e9e0965bbb8d154771574c261e4
 		
 		addBalance.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
