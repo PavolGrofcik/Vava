@@ -99,7 +99,6 @@ public class Controller {
 		try {
 			Query query = session.createQuery("SELECT * FROM Event");
 			events = query.getResultList();
-			//events = session.createSQLQuery("FROM Event").addEntity(Event.class).list();
 			
 			transaction.commit();
 		} catch (HibernateException e) {
