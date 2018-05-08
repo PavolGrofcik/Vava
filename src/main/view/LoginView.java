@@ -189,6 +189,7 @@ public class LoginView extends Application {
 			try {
 				int status = controller.loginCustomer(userText, passwordText);
 				if(status == 1) {
+					error.setText("");
 					UserView u = new UserView(controller);
 					window.setScene(u.setNewUserScene(window,loginScene,passwordText,resource));
 					window.setTitle(resource.getString("key10"));
