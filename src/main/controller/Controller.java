@@ -46,7 +46,7 @@ public class Controller {
 	
 	private static final int PASSWORD_LENGTH = 8;
 	private static final int TEL_NUMBER_LENGTH = 13;
-	private static final int MIN_DATE_OF_BIRTH = 2000;
+	private static final int MIN_DATE_OF_BIRTH = 2003;
 	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
