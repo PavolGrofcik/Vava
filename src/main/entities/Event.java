@@ -31,9 +31,10 @@ public class Event {
 	@Column(name="insurance")
 	private boolean insurance;
 	
-	//Default kon�truktor pre session.get() method
-	public Event() {}
+	@Column(name="price")
+	private double price;
 	
+	public Event() {}
 
 	public Event(int id, String location, Date start, int length, double height, boolean insurance) {
 		super();
@@ -43,6 +44,17 @@ public class Event {
 		this.length = length;
 		this.height = height;
 		this.insurance = insurance;
+	}
+
+	public Event(int id, String location, Date start, int length, double height, boolean insurance, double price) {
+		super();
+		this.id = id;
+		this.location = location;
+		this.start = start;
+		this.length = length;
+		this.height = height;
+		this.insurance = insurance;
+		this.price = price;
 	}
 
 	public int getId() {

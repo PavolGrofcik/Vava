@@ -1,9 +1,5 @@
 package main.view;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 2a367453faafc269ae5fd4fe41f8ebd6fc3144f3
 import java.util.ResourceBundle;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -237,7 +233,6 @@ public class RegisterView extends Stage {
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,880,900,2,2);	
-<<<<<<< HEAD
 		send.setOnAction(e->{
 			error.setText("");
 			//Registration
@@ -252,18 +247,8 @@ public class RegisterView extends Stage {
 				case -3: error.setText(resource.getString("key3-23"));break;
 				case -4: error.setText(resource.getString("key3-24"));break;
 			}
-			
-			
-=======
-		send.setOnAction(e -> {
-
-			// Registration
-			int status = controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText,
-					adressText, female, male, usernameText, passwordText, confirmPasswordText, answerText, questionBox);
-			System.out.println("Status of registration is: " + status);
-
->>>>>>> 2a367453faafc269ae5fd4fe41f8ebd6fc3144f3
 		});
+
 		List<String> list = controller.getControlQuestions();
 		questionBox.setValue(list.get(0));
 		questionBox.getItems().addAll(list);

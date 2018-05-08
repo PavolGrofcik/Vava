@@ -31,23 +31,9 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-<<<<<<< HEAD
-	private TextField newTelefon = new TextField();
-	private TextField newEmail = new TextField();
-	private Label oldPasswordLabel;
-	private Label newPasswordLabel;
-	private Label repeatNewPasswordLabel;
-	private Label newTelefonLabel;
-	private Label newEmailLabel;
-	private Button change;
-=======
-
 
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
-
-	private TextField email = new TextField();
-	private TextField telNumber = new TextField();
 
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
@@ -55,7 +41,7 @@ public class UserView extends Stage {
 	private Label newTelefonLabel = new Label("New number");
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
->>>>>>> 2a367453faafc269ae5fd4fe41f8ebd6fc3144f3
+
 
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);

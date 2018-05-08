@@ -46,7 +46,7 @@ public class Controller {
 	
 	private static final int PASSWORD_LENGTH = 8;
 	private static final int TEL_NUMBER_LENGTH = 13;
-	private static final int MIN_DATE_OF_BIRTH = 2000;
+	private static final int MIN_DATE_OF_BIRTH = 2003;
 	
 	private SessionFactory factory;
 	private static Controller controller = new Controller();
@@ -512,6 +512,56 @@ public class Controller {
 		
 		LOGGER.exiting(Controller.class.getName(), "changePasswords");
 		return 1;
+	}
+	
+	// Metóda vráti meno a priezvisko používateľa po prihlásení
+	public String getUser() {
+		LOGGER.entering(this.getClass().getName(), "getUser");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		String user = null;
+		try {
+			Customer customer = session.get(Customer.class, customerID);
+			user = customer.getFirstName() + " " + customer.getLastName();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+			return user;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(Controller.class.getName(), "getUser");
+		return user;
+	}
+	
+	// Metóda vráti stav účtu aktuálne prihlásenému používateľovi
+	public String getUserBalance() {
+		LOGGER.entering(this.getClass().getName(), "getUserBalance");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		String balance = null;
+		try {
+			Account account = session.get(Account.class, accountID);
+			
+			balance = new Double(account.getCash()).toString() + " €";
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+			return balance;
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(Controller.class.getName(), "getUserBalance");
+		return balance;
+		
 	}
 	
 	private int getQuestionID(String question) {
