@@ -31,6 +31,7 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
+<<<<<<< HEAD
 
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
@@ -43,6 +44,26 @@ public class UserView extends Stage {
 	private Button change = new Button("Change");
 
 
+=======
+	private TextField newTelefon = new TextField();
+	private TextField newEmail = new TextField();
+	private Label oldPasswordLabel;
+	private Label newPasswordLabel;
+	private Label repeatNewPasswordLabel;
+	private Label newTelefonLabel;
+	private Label newEmailLabel;
+	private Button change;
+
+	
+	// dashboard
+
+	private Label loggedUser;
+	private Label loggedUserName = new Label("");
+	private Label balance;
+	private Label balanceText= new Label();
+	private Button addBalance;
+	
+>>>>>>> 084881ac8a26ae769bff8fe4e04027f889dd615f
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
 	Image settingWheel = new Image("File:resource/userSetting.png");
@@ -66,10 +87,48 @@ public class UserView extends Stage {
 		newTelefonLabel = new Label(resource.getString("key1-6"));
 		newEmailLabel = new Label(resource.getString("key1-7"));
 		change = new Button(resource.getString("key1-8"));
-		
-		
+		loggedUser= new Label(resource.getString("key1-9"));
+		balance = new Label(resource.getString("key1-10"));
+		addBalance = new Button(resource.getString("key1-11"));
+	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
+		
+		pane.getChildren().add(loggedUser);
+		setNodePosition((Node)loggedUser, 20, 20, 1, 1);
+		loggedUser.setFont(Font.font(null, FontWeight.BOLD, 20));
+		loggedUser.setTextFill(c);
+		
+		pane.getChildren().add(loggedUserName);
+		setNodePosition((Node)loggedUserName, 110, 20, 1, 1);
+		loggedUserName.setFont(Font.font(null, FontWeight.BOLD, 20));
+		loggedUserName.setTextFill(c);
+		loggedUserName.setText("tu daj meno užívate+a reálne");
+		
+		pane.getChildren().add(balance);
+		setNodePosition((Node)balance, 20, 60, 1, 1);
+		balance.setFont(Font.font(null, FontWeight.BOLD, 20));
+		balance.setTextFill(c);
+		
+		pane.getChildren().add(balanceText);
+		setNodePosition((Node)balanceText, 110, 60, 1, 1);
+		balanceText.setFont(Font.font(null, FontWeight.BOLD, 20));
+		balanceText.setTextFill(c);
+		balanceText.setText("112 €");
+		
+		pane.getChildren().add(addBalance);
+		setNodePosition((Node)addBalance, 180, 60, 1.2, 1.2);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		Pane settingsPane = new Pane();

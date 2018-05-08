@@ -1,5 +1,8 @@
 package main.view;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 084881ac8a26ae769bff8fe4e04027f889dd615f
 import java.util.ResourceBundle;
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -178,6 +181,7 @@ public class RegisterView extends Stage {
 		pane.getChildren().add(birthDate);
 		setNodePosition((Node)birthDate, 1250, 410, 1.5, 1.5);
 		birthDate.setPrefWidth(150);
+		birthDate.setPromptText("15+");
 		
 		pane.getChildren().add(sex);
 		setNodePosition((Node)sex, 1000, 490, 1, 1);
@@ -198,9 +202,11 @@ public class RegisterView extends Stage {
 		setNodePosition((Node)number, 1000, 570, 1, 1);
 		number.setFont(Font.font(null, FontWeight.BOLD, 20));
 		number.setTextFill(c);
+	
 		
 		pane.getChildren().add(telefonText);
 		setNodePosition((Node)telefonText, 1250, 570, 1.5, 1.5);
+		telefonText.setPromptText("+XXXXXXXXXXXX");
 		
 		pane.getChildren().add(city);
 		setNodePosition((Node)city, 1000, 650, 1, 1);
@@ -233,6 +239,10 @@ public class RegisterView extends Stage {
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,880,900,2,2);	
+<<<<<<< HEAD
+=======
+
+>>>>>>> 084881ac8a26ae769bff8fe4e04027f889dd615f
 		send.setOnAction(e->{
 			error.setText("");
 			//Registration
@@ -247,8 +257,14 @@ public class RegisterView extends Stage {
 				case -3: error.setText(resource.getString("key3-23"));break;
 				case -4: error.setText(resource.getString("key3-24"));break;
 			}
+<<<<<<< HEAD
 		});
 
+=======
+		});	
+
+	
+>>>>>>> 084881ac8a26ae769bff8fe4e04027f889dd615f
 		List<String> list = controller.getControlQuestions();
 		questionBox.setValue(list.get(0));
 		questionBox.getItems().addAll(list);
