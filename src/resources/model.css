@@ -19,11 +19,18 @@
 	-fx-padding: 3px 18px;
 }
 #setting{
-	-fx-background-image: url("File:resource/snow.png");
-	-fx-padding: 250px 250px;
+	-fx-background-image: url("File:resource/blue.png");
  	-fx-border-color: white;
  	-fx-border-width: 2;
 }
+
+#funds{
+	-fx-background-image: url("File:resource/blue.png");
+ 	-fx-border-color: white;
+ 	-fx-border-width: 2;
+}
+
+
 #register{
 	-fx-font-size:12px;
 	-fx-padding: 3px 18px;

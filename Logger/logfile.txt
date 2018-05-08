@@ -1,8 +1,2 @@
-máj 08, 2018 8:05:55 PM main.controller.Controller registrateCustomer
-INFO: Input status registration: 0 Account status0
-máj 08, 2018 8:06:02 PM main.controller.Controller registrateCustomer
-INFO: Input status registration: 1 Account status1
-máj 08, 2018 8:06:02 PM main.controller.Controller registrateCustomer
-INFO: Verify registration data status:  false
-máj 08, 2018 8:06:02 PM main.controller.Controller registrateCustomer
-INFO: Verify Passwords status: false
+May 08, 2018 8:39:29 PM main.controller.Controller loginCustomer
+INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9

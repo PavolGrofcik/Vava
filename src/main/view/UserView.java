@@ -31,11 +31,8 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-<<<<<<< HEAD
-
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
-
 	private Label oldPasswordLabel = new Label("Password");
 	private Label newPasswordLabel = new Label("New password");
 	private Label repeatNewPasswordLabel = new Label("New password");
@@ -43,27 +40,17 @@ public class UserView extends Stage {
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
 
-
-=======
-	private TextField newTelefon = new TextField();
-	private TextField newEmail = new TextField();
-	private Label oldPasswordLabel;
-	private Label newPasswordLabel;
-	private Label repeatNewPasswordLabel;
-	private Label newTelefonLabel;
-	private Label newEmailLabel;
-	private Button change;
-
-	
 	// dashboard
 
 	private Label loggedUser;
 	private Label loggedUserName = new Label("");
 	private Label balance;
 	private Label balanceText= new Label();
+	private Button addBalanceWindow;
+	private TextField sum = new TextField();
 	private Button addBalance;
 	
->>>>>>> 084881ac8a26ae769bff8fe4e04027f889dd615f
+
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
 	Image settingWheel = new Image("File:resource/userSetting.png");
@@ -89,7 +76,8 @@ public class UserView extends Stage {
 		change = new Button(resource.getString("key1-8"));
 		loggedUser= new Label(resource.getString("key1-9"));
 		balance = new Label(resource.getString("key1-10"));
-		addBalance = new Button(resource.getString("key1-11"));
+		addBalanceWindow = new Button(resource.getString("key1-11"));
+		addBalance = new Button(resource.getString("key1-12"));
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -103,7 +91,7 @@ public class UserView extends Stage {
 		setNodePosition((Node)loggedUserName, 110, 20, 1, 1);
 		loggedUserName.setFont(Font.font(null, FontWeight.BOLD, 20));
 		loggedUserName.setTextFill(c);
-		loggedUserName.setText("tu daj meno užívate+a reálne");
+		loggedUserName.setText(controller.getUser());
 		
 		pane.getChildren().add(balance);
 		setNodePosition((Node)balance, 20, 60, 1, 1);
@@ -114,12 +102,34 @@ public class UserView extends Stage {
 		setNodePosition((Node)balanceText, 110, 60, 1, 1);
 		balanceText.setFont(Font.font(null, FontWeight.BOLD, 20));
 		balanceText.setTextFill(c);
-		balanceText.setText("112 €");
-		
-		pane.getChildren().add(addBalance);
-		setNodePosition((Node)addBalance, 180, 60, 1.2, 1.2);
+		balanceText.setText(controller.getUserBalance());
 		
 		
+		Pane addBalacePane = new Pane();
+		pane.getChildren().add(addBalacePane);
+		setNodePosition((Node)addBalacePane, 10, 100, 1, 1);
+		addBalacePane.setId("funds");
+		addBalacePane.setPrefSize(220,120);
+		addBalacePane.setVisible(false);
+		
+		addBalacePane.getChildren().add(sum);
+		setNodePosition((Node)sum,50, 20 , 1.5, 1.5);
+		sum.setPrefWidth(120);
+		
+		addBalacePane.getChildren().add(addBalance);
+		setNodePosition((Node)addBalance,80, 70 , 1.2, 1.2);
+		
+		pane.getChildren().add(addBalanceWindow);
+		setNodePosition((Node)addBalanceWindow, 180, 60, 1.2, 1.2);
+		addBalanceWindow.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+			  if(addBalacePane.isVisible()) {
+				  addBalacePane.setVisible(false);
+			  }
+			  else
+				  addBalacePane.setVisible(true);
+		    }
+		});
 		
 		
 		
@@ -132,7 +142,7 @@ public class UserView extends Stage {
 		
 		
 		Pane settingsPane = new Pane();
-		settingsPane.setPrefSize(500,400);
+		settingsPane.setPrefSize(500,500);
 		settingsPane.setId("setting");
 		pane.getChildren().add(settingsPane);
 		setNodePosition((Node)settingsPane, 750, 300, 1, 1);
