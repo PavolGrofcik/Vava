@@ -181,6 +181,10 @@ public class UserView extends Stage {
 			  }
 		    }
 		});	
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 2865b278239114f19e47e00414f15021c7e9d4db
 		addBalance.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 		    	controller.setUserBalance(sum);
