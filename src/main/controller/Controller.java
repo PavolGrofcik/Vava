@@ -33,7 +33,7 @@ import main.entities.Customer;
 import qrcode.generator.QrGenerator;
 
 /**
- * Trieda Controller je hlavná trieda zodpovedná za aplikačnú
+ * Controller je hlavná trieda zodpovedná za aplikačnú
  * logiku, rovnako aj prácu s DB
  * @author grofc
  *

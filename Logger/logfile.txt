@@ -1,0 +1,12 @@
+máj 08, 2018 6:56:12 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 0 Account status1
+máj 08, 2018 6:56:25 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 0 Account status1
+máj 08, 2018 6:56:53 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 0 Account status1
+máj 08, 2018 6:56:59 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 08, 2018 6:56:59 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  false
+máj 08, 2018 6:56:59 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: false
