@@ -45,7 +45,11 @@ public class Event {
 		this.height = height;
 		this.insurance = insurance;
 	}
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 18f2161a42dfb9213925ce75a5ba1a2fa11460f9
 	public Event(int id, String location, Date start, int length, double height, boolean insurance, double price) {
 		super();
 		this.id = id;

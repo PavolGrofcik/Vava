@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 máj 08, 2018 11:56:03 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
 máj 08, 2018 11:56:10 PM main.controller.Controller changeAccountSettings
 INFO: Status selected 0
+=======
+May 09, 2018 12:00:41 AM main.controller.Controller loginCustomer
+INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
+May 09, 2018 12:00:57 AM main.controller.Controller loginCustomer
+INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
+>>>>>>> 18f2161a42dfb9213925ce75a5ba1a2fa11460f9

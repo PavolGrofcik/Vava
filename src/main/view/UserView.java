@@ -1,6 +1,7 @@
 package main.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.sun.jmx.snmp.Timestamp;
@@ -38,15 +39,15 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-
-	private TextField newTelefon = new TextField();
-	private TextField newEmail = new TextField();
-	private Label oldPasswordLabel = new Label("Password");
-	private Label newPasswordLabel = new Label("New password");
-	private Label repeatNewPasswordLabel = new Label("New password");
-	private Label newTelefonLabel = new Label("New number");
-	private Label newEmailLabel = new Label("New email");
-	private Button change = new Button("Change");
+	private TextField newTelefon= new TextField();
+	private TextField newEmail= new TextField();
+	
+	private Label oldPasswordLabel;
+	private Label newPasswordLabel;
+	private Label repeatNewPasswordLabel;
+	private Label newTelefonLabel;
+	private Label newEmailLabel;
+	private Button change;
 	private Label errorSettings = new Label("");
 
 	// dashboard
@@ -64,6 +65,7 @@ public class UserView extends Stage {
 	private Hyperlink showUpcomingEvents;
 	private TableView<Event> eventsTable = new TableView<Event>();
 	private ArrayList<Event> eventList = new ArrayList<Event>();
+	private Button find = new Button();
 	
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
@@ -95,6 +97,7 @@ public class UserView extends Stage {
 		balance = new Label(resource.getString("key1-10"));
 		addBalanceWindow = new Button(resource.getString("key1-11"));
 		addBalance = new Button(resource.getString("key1-12"));
+		find.setText(resource.getString("key1-24"));
 		showUpcomingEvents = new Hyperlink(resource.getString("key1-17"));
 		TableColumn location = new TableColumn(resource.getString("key1-18"));
 	    TableColumn date = new TableColumn(resource.getString("key1-19"));
@@ -114,7 +117,8 @@ public class UserView extends Stage {
         height.setCellValueFactory(new PropertyValueFactory<>("height"));
         insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
-       
+      
+        eventList = controller.getEventList();
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -179,7 +183,8 @@ public class UserView extends Stage {
 			  }
 		    }
 		});	
-		
+
+
 		addBalance.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 		    	controller.setUserBalance(sum);
@@ -202,13 +207,24 @@ public class UserView extends Stage {
 		showUpcomingEvents.setTextFill(c);
 		showUpcomingEvents.setBorder(Border.EMPTY);
 		
+		eventsPane.getChildren().add(find);
+		setNodePosition((Node)find,380, 460, 1.5, 1.5);
+		
+		find.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	eventsTable.getItems().clear();
+		    	for(int i = 0;i<eventList.size();i++) {
+		    		eventsTable.getItems().add(eventList.get(i));
+		    	}
+			 }
+		});
+		
 		eventsPane.getChildren().add(eventsTable);
 		setNodePosition((Node)eventsTable,20, 100, 1, 1);
 		eventsTable.setPrefSize(760,350);
-		eventsTable.getColumns().addAll(location,/*date,*/length,height,insurance,price);
+		eventsTable.getColumns().addAll(location,date,length,height,insurance,price);
 		eventsTable.setEditable(false);
 	
-		
 		
 		
 		showUpcomingEvents.setOnAction(new EventHandler<ActionEvent>() {
