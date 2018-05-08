@@ -1,6 +1,9 @@
 package main.view;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import com.sun.jmx.snmp.Timestamp;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,7 +13,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -20,6 +26,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import main.controller.Controller;
+import main.entities.Event;
 
 public class UserView extends Stage {
 	
@@ -42,10 +49,6 @@ public class UserView extends Stage {
 	private Button change = new Button("Change");
 	private Label errorSettings = new Label("");
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 6db2b6506d604e9e0965bbb8d154771574c261e4
 	// dashboard
 
 	private Label loggedUser;
@@ -56,6 +59,13 @@ public class UserView extends Stage {
 	private TextField sum = new TextField();
 	private Button addBalance;
 
+	//table
+	
+	private Hyperlink showUpcomingEvents;
+	private TableView<Event> eventsTable = new TableView<Event>();
+	private ArrayList<Event> eventList = new ArrayList<Event>();
+	
+	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
 	Image settingWheel = new Image("File:resource/userSetting.png");
@@ -70,6 +80,7 @@ public class UserView extends Stage {
 		this.controller = arg;
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Scene setNewUserScene(Stage window,Scene scene,PasswordField pwd,ResourceBundle resource) {
 		
 		link = new Hyperlink(resource.getString("key1-1"));
@@ -84,9 +95,31 @@ public class UserView extends Stage {
 		balance = new Label(resource.getString("key1-10"));
 		addBalanceWindow = new Button(resource.getString("key1-11"));
 		addBalance = new Button(resource.getString("key1-12"));
+		showUpcomingEvents = new Hyperlink(resource.getString("key1-17"));
+		TableColumn location = new TableColumn(resource.getString("key1-18"));
+	    TableColumn date = new TableColumn(resource.getString("key1-19"));
+	    TableColumn length = new TableColumn(resource.getString("key1-20"));
+	    TableColumn height = new TableColumn(resource.getString("key1-21"));
+        TableColumn insurance = new TableColumn(resource.getString("key1-22"));
+        TableColumn price = new TableColumn(resource.getString("key1-23"));
+        location.setPrefWidth(200);
+        date.setPrefWidth(200);
+        length.setPrefWidth(90);
+        height.setPrefWidth(90);
+        insurance.setPrefWidth(90);
+        price.setPrefWidth(85);
+        location.setCellValueFactory(new PropertyValueFactory<>("location"));
+        date.setCellValueFactory(new PropertyValueFactory<>("start"));
+        length.setCellValueFactory(new PropertyValueFactory<>("length"));
+        height.setCellValueFactory(new PropertyValueFactory<>("height"));
+        insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
+        price.setCellValueFactory(new PropertyValueFactory<>("price"));
+       
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
+		
+		// miesto pre balanc a ucet
 		
 		pane.getChildren().add(loggedUser);
 		setNodePosition((Node)loggedUser, 20, 20, 1, 1);
@@ -138,18 +171,16 @@ public class UserView extends Stage {
 			  sum.setText("");
 		    	if(addBalacePane.isVisible()) {
 				  addBalacePane.setVisible(false);
+				  showUpcomingEvents.setVisible(true);
 			  }
-			  else
+			  else {
 				  addBalacePane.setVisible(true);
+				  showUpcomingEvents.setVisible(false);
+			  }
 		    }
-<<<<<<< HEAD
+
 		});	
 
-=======
-
-		});
->>>>>>> 6db2b6506d604e9e0965bbb8d154771574c261e4
-		
 		addBalance.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 		    	controller.setUserBalance(sum);
@@ -157,6 +188,40 @@ public class UserView extends Stage {
 		    }
 		});
 
+		// miesto pre eventy
+		
+		Pane eventsPane = new Pane();
+		eventsPane.setPrefSize(800,500);
+		eventsPane.setId("funds");
+		pane.getChildren().add(eventsPane);
+		setNodePosition((Node)eventsPane, 20, 260, 1, 1);
+		eventsPane.setVisible(false);
+
+		pane.getChildren().add(showUpcomingEvents);
+		setNodePosition((Node)showUpcomingEvents,20, 200, 1, 1);
+		showUpcomingEvents.setFont(Font.font(null, FontWeight.BOLD, 20));
+		showUpcomingEvents.setTextFill(c);
+		showUpcomingEvents.setBorder(Border.EMPTY);
+		
+		eventsPane.getChildren().add(eventsTable);
+		setNodePosition((Node)eventsTable,20, 100, 1, 1);
+		eventsTable.setPrefSize(760,350);
+		eventsTable.getColumns().addAll(location,/*date,*/length,height,insurance,price);
+		eventsTable.setEditable(false);
+	
+		
+		
+		
+		showUpcomingEvents.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+			  if(eventsPane.isVisible())
+				  eventsPane.setVisible(false);
+			  else 
+				  eventsPane.setVisible(true);
+			 }
+		});
+		
+		// miesto pre settingpane
 		
 		Pane settingsPane = new Pane();
 		settingsPane.setPrefSize(490,560);
