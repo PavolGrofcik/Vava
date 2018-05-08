@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -88,17 +89,17 @@ public class Controller {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<String> getEventList(){
+	public ArrayList<Event> getEventList(){
 		LOGGER.entering(this.getClass().getName(), "getEventList");
 
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		List<String> events = null;
+		ArrayList<Event> events = null;
 		
 		try {
-			Query query = session.createQuery("SELECT * FROM Event");
-			events = query.getResultList();
+			Query query = session.createQuery("FROM Event");
+			events = (ArrayList<Event>) query.getResultList();
 			//events = session.createSQLQuery("FROM Event").addEntity(Event.class).list();
 			
 			transaction.commit();

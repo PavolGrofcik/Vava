@@ -1,6 +1,7 @@
 package main.view;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.sun.jmx.snmp.Timestamp;
@@ -114,7 +115,8 @@ public class UserView extends Stage {
         height.setCellValueFactory(new PropertyValueFactory<>("height"));
         insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
-       
+      
+        eventList = controller.getEventList();
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -178,15 +180,7 @@ public class UserView extends Stage {
 				  showUpcomingEvents.setVisible(false);
 			  }
 		    }
-<<<<<<< HEAD
-
 		});	
-
-=======
-
-		});	
-		
->>>>>>> 21237bd2a0ae41612a4a179b18c482ed50f4da64
 		addBalance.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 		    	controller.setUserBalance(sum);
@@ -212,11 +206,10 @@ public class UserView extends Stage {
 		eventsPane.getChildren().add(eventsTable);
 		setNodePosition((Node)eventsTable,20, 100, 1, 1);
 		eventsTable.setPrefSize(760,350);
-		eventsTable.getColumns().addAll(location,/*date,*/length,height,insurance,price);
+		eventsTable.getColumns().addAll(location,date,length,height,insurance,price);
 		eventsTable.setEditable(false);
 	
-		
-		
+		eventsTable.getItems().add(eventList.get(0));
 		
 		showUpcomingEvents.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {

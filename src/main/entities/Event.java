@@ -46,15 +46,6 @@ public class Event {
 		this.insurance = insurance;
 	}
 	
-	public Event(String location, int length, double height, boolean insurance,double price) {
-		super();
-		this.location = location;
-		this.length = length;
-		this.height = height;
-		this.insurance = insurance;
-		this.price = price;
-	}
-
 	public Event(int id, String location, Date start, int length, double height, boolean insurance, double price) {
 		super();
 		this.id = id;
