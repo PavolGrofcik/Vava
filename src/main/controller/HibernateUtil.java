@@ -5,7 +5,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Trieda zodpovedná za vytvorenie Session pre Hibernate Session DB
+ * Trieda zodpovednÃ¡ za vytvorenie SessionFactory pri 
+ * pouÅ¾Ã­vanÃ­ ORM (Hibernate)
  * @author grofc
  *
  */
@@ -14,7 +15,7 @@ public class HibernateUtil {
 	
 	private static SessionFactory factory;
 	
-	//Nabindovanie session
+	//Bind config xml file
 	static {
 		try {
 			factory = new Configuration().configure("resources/hibernate.cfg.xml").buildSessionFactory();
@@ -24,14 +25,10 @@ public class HibernateUtil {
 		}
 	}
 	
-	
-	//Metóda vráti Session factory pre Controllera
 	public static SessionFactory getSessionFactory() {
 		return factory;
 	}
-
 	
-	//Metóda skonèí session s DB
 	public static void closeSession() {
 		factory.close();
 	}

@@ -1,4 +1,46 @@
-máj 07, 2018 10:27:07 PM main.controller.Controller <clinit>
-INFO: info
-máj 07, 2018 10:28:17 PM main.controller.Controller registrateCustomer
-INFO: Input status registration: 1Acc 1
+máj 08, 2018 2:25:40 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 08, 2018 2:25:40 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  false
+máj 08, 2018 2:25:40 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: false
+máj 08, 2018 2:25:56 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 08, 2018 2:25:56 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  false
+máj 08, 2018 2:25:56 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: true
+máj 08, 2018 2:26:08 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 08, 2018 2:26:08 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  true
+máj 08, 2018 2:26:08 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: true
+máj 08, 2018 2:26:08 PM main.controller.Controller registrateCustomer
+INFO: Question is: What is your favorite color ?
+máj 08, 2018 2:26:08 PM main.controller.Controller registrateCustomer
+INFO: Control question ID: 1
+máj 08, 2018 2:26:21 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 08, 2018 2:26:21 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  true
+máj 08, 2018 2:26:21 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: true
+máj 08, 2018 2:26:21 PM main.controller.Controller registrateCustomer
+INFO: Question is: What is your favorite color ?
+máj 08, 2018 2:26:21 PM main.controller.Controller registrateCustomer
+INFO: Control question ID: 1
+máj 08, 2018 2:26:53 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 08, 2018 2:26:53 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  true
+máj 08, 2018 2:26:53 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: true
+máj 08, 2018 2:26:53 PM main.controller.Controller registrateCustomer
+INFO: Question is: What is your favorite color ?
+máj 08, 2018 2:26:53 PM main.controller.Controller registrateCustomer
+INFO: Control question ID: 1
+máj 08, 2018 2:26:53 PM main.controller.Controller registrateCustomer
+INFO: New Customer ID: 15
+máj 08, 2018 2:27:36 PM main.controller.Controller loginCustomer
+INFO: Hashed passwd: ffecba6889b7f73d28b55794d9727593

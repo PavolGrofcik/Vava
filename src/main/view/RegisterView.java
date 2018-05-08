@@ -238,13 +238,13 @@ public class RegisterView extends Stage {
 		
 		pane.getChildren().add(send);
 		setNodePosition((Node)send,880,900,2,2);	
-		send.setOnAction(e->{
-			
-			//Registration
-			controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText, adressText, female,male,
-					usernameText,passwordText,confirmPasswordText,answerText,questionBox);
-			
-			
+		send.setOnAction(e -> {
+
+			// Registration
+			int status = controller.registrateCustomer(firstNameText, lastNameText, birthDate, telefonText, cityText, emailText,
+					adressText, female, male, usernameText, passwordText, confirmPasswordText, answerText, questionBox);
+			System.out.println("Status of registration is: " + status);
+
 		});
 		List<String> list = controller.getControlQuestions();
 		questionBox.setValue(list.get(0));

@@ -2,6 +2,12 @@ package language;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+/**
+ * Trieda slúžiaca na prepínanie jazykov EN,SK 
+ * pre aplikáciu
+ * @author grofc
+ *
+ */
 
 public class languageManager {
 
