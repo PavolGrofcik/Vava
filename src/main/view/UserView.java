@@ -31,10 +31,7 @@ public class UserView extends Stage {
 	private PasswordField oldPassword = new PasswordField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField repeatNewPassword = new PasswordField();
-<<<<<<< HEAD
-=======
 
->>>>>>> 1ddaf65c351a0963f5dc04486cfee25e045e9d1d
 	private TextField newTelefon = new TextField();
 	private TextField newEmail = new TextField();
 	private Label oldPasswordLabel = new Label("Password");
@@ -44,10 +41,6 @@ public class UserView extends Stage {
 	private Label newEmailLabel = new Label("New email");
 	private Button change = new Button("Change");
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1ddaf65c351a0963f5dc04486cfee25e045e9d1d
 	// dashboard
 
 	private Label loggedUser;
@@ -57,11 +50,7 @@ public class UserView extends Stage {
 	private Button addBalanceWindow;
 	private TextField sum = new TextField();
 	private Button addBalance;
-	
-<<<<<<< HEAD
 
-=======
->>>>>>> 1ddaf65c351a0963f5dc04486cfee25e045e9d1d
 	Image background = new Image("File:resource/userBack.png");
 	ImageView iv = new ImageView(background);
 	Image settingWheel = new Image("File:resource/userSetting.png");
@@ -142,15 +131,12 @@ public class UserView extends Stage {
 		    }
 		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		addBalance.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	controller.setUserBalance(sum);
+		    	balanceText.setText(controller.getUserBalance());
+		    }
+		});
 		
 		Pane settingsPane = new Pane();
 		settingsPane.setPrefSize(500,500);

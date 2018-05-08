@@ -812,9 +812,11 @@ public class Controller {
 			return false;
 		}
 		try {
-			@SuppressWarnings("unused")
+
 			double num = Double.parseDouble(cash.getText().toString());
-			
+			if(num <= 0 || num > 500) {
+				return false;
+			}
 		} catch (Exception e) {
 			return false;
 		}
