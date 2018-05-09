@@ -178,7 +178,7 @@ public class Controller {
 		ArrayList<Event> events = null;
 		
 		try {
-			Query query = session.createNamedQuery("FROM CustomerEvent WHERE"
+			Query query = session.createQuery("FROM CustomerEvent WHERE"
 					+ " customerId = :arg");
 			query.setParameter("arg", customerID);
 			
