@@ -157,7 +157,10 @@ public class Controller {
 		try {
 			Event event = session.get(Event.class, eventID);
 			url = event.getUrl();
+<<<<<<< HEAD
 		
+=======
+>>>>>>> c62de80065fe48ca21c04ac2de06b9d892ee577e
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);

@@ -1,4 +1,33 @@
+<<<<<<< HEAD
 máj 09, 2018 3:45:45 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
 máj 09, 2018 3:45:47 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
+=======
+May 09, 2018 4:08:44 PM main.controller.Controller loginCustomer
+INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
+May 09, 2018 4:09:17 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 0 Account status0
+May 09, 2018 4:10:38 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+May 09, 2018 4:10:38 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  true
+May 09, 2018 4:10:38 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: true
+May 09, 2018 4:10:38 PM main.controller.Controller registrateCustomer
+INFO: Question is: What was your first car ?
+May 09, 2018 4:10:38 PM main.controller.Controller registrateCustomer
+INFO: Control question ID: 2
+May 09, 2018 4:10:38 PM main.controller.Controller registrateCustomer
+INFO: New Customer ID: 43
+May 09, 2018 4:10:57 PM main.controller.Controller loginCustomer
+INFO: Hashed passwd: 25d55ad283aa400af464c76d713c07ad
+May 09, 2018 4:11:32 PM main.controller.Controller getQuestionByUsername
+INFO: Account cQId 2
+May 09, 2018 4:11:32 PM main.controller.Controller getQuestionByUsername
+INFO: Control Question What was your first car ?
+May 09, 2018 4:11:37 PM main.controller.Controller verifyAnswers
+INFO: Strings are ziadne ziadne
+May 09, 2018 4:11:37 PM main.controller.Controller sendNewPassword
+INFO: Customer gmail mimiko.mimiko@centrum.sk
+>>>>>>> c62de80065fe48ca21c04ac2de06b9d892ee577e
