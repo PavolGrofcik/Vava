@@ -18,7 +18,7 @@ public class CustomerEvent {
 	@Column(name = "event_id")
 	private int eventId;
 
-	@Column(name = "customer_id")
+	@Column(name = "cust_id")
 	private int customerId;
 
 	@Column(name = "specification")
