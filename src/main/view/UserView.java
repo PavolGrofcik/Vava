@@ -449,6 +449,7 @@ public class UserView extends Stage {
 				  myEventsPane.setVisible(false);
 			  else {
 				  myEventList = controller.getUserRegisteredEvents();
+				  System.out.println("Len is: " + myEventList.size());
 					if (myEventList == null) {
 						System.out.println("Empty list");
 					} else {

@@ -175,7 +175,8 @@ public class Controller {
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		ArrayList<Event> events = null;
+		ArrayList<CustomerEvent> events = null;
+		ArrayList<Event> events2 = null;
 		
 		try {
 			Query query = session.createQuery("FROM CustomerEvent WHERE"
@@ -183,8 +184,23 @@ public class Controller {
 			query.setParameter("arg", customerID);
 			
 			if(!query.getResultList().isEmpty()) {
-				events = (ArrayList<Event>) query.getResultList();
+				events = (ArrayList<CustomerEvent>) query.getResultList();
+				
+				String string = "";
+				for(int i = 0;i<events.size();i++) {
+					if(i == events.size() - 1) {
+						string += Integer.toString(events.get(i).getEventId());
+					}else {
+					string +=  Integer.toString(events.get(i).getEventId()) + ",";
+					}
+				}
+				System.out.println("STr is : " + string);
+				
+				Query query2 = session.createQuery("FROM Event WHERE id IN(" + string + ")");
+				events2 = (ArrayList<Event>) query2.getResultList();
 			}
+			
+			
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -195,7 +211,7 @@ public class Controller {
 		}
 		
 		LOGGER.exiting(this.getClass().getName(), "getUserRegisteredEvents");
-		return events;
+		return events2;
 	}
 	
 	// Metóda vyfiltruje eventy podľa daných filtrov a vráti ich ako list
