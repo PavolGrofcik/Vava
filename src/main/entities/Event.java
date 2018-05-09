@@ -34,6 +34,9 @@ public class Event {
 	@Column(name="price")
 	private double price;
 	
+	@Column(name = "url")
+	private String url;
+	
 	public Event() {}
 
 	public Event(int id, String location, Date start, int length, double height, boolean insurance) {
@@ -55,6 +58,19 @@ public class Event {
 		this.height = height;
 		this.insurance = insurance;
 		this.price = price;
+	}
+
+	public Event(int id, String location, Date start, int length, double height, boolean insurance, double price,
+			String url) {
+		super();
+		this.id = id;
+		this.location = location;
+		this.start = start;
+		this.length = length;
+		this.height = height;
+		this.insurance = insurance;
+		this.price = price;
+		this.url = url;
 	}
 
 	public int getId() {
@@ -113,6 +129,14 @@ public class Event {
 		this.price = price;
 	}
 	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public void showEventInfo() {
 		System.out.println("Id: " + id + " Location: " + location + " Start: " + start + 
 				" Length: " + length + " Height: " + height + " Insurance: " + insurance);
