@@ -6,11 +6,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
@@ -154,6 +157,27 @@ public class UserView extends Stage {
         registerForEvent.setText(resource.getString("key1-29"));
         accept.setText(resource.getString("key1-30"));
         exit.setGraphic(exitView);
+        
+        Alert alertOk = new Alert(AlertType.INFORMATION);
+        alertOk.setTitle(resource.getString("key1-31"));
+        alertOk.setHeaderText(null);
+        alertOk.setContentText(resource.getString("key1-32"));
+        
+        Alert alertNoMoney = new Alert(AlertType.INFORMATION);
+        alertNoMoney.setTitle(resource.getString("key1-33"));
+        alertNoMoney.setHeaderText(null);
+        alertNoMoney.setContentText(resource.getString("key1-34"));
+        
+        Alert alertNoCheck = new Alert(AlertType.INFORMATION);
+        alertNoCheck.setTitle(resource.getString("key1-35"));
+        alertNoCheck.setHeaderText(null);
+        alertNoCheck.setContentText(resource.getString("key1-36"));
+        
+        Alert alertAlreadyRegistrated = new Alert(AlertType.INFORMATION);
+        alertAlreadyRegistrated.setTitle(resource.getString("key1-37"));
+        alertAlreadyRegistrated.setHeaderText(null);
+        alertAlreadyRegistrated.setContentText(resource.getString("key1-38"));
+      
         
        /* eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
         		priceFilter);*/
@@ -332,11 +356,12 @@ public class UserView extends Stage {
 		setNodePosition((Node)registerForEvent,780, 750, 1.5, 1.5);
 		registerForEvent.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-		    	int status = controller.registerToEvent(tmp,accept);
+		    	int status = controller.registrateToEvent(tmp,accept);
 		    	switch(status) {
-		    	case 1:break;
-		    	case-1:break;
-		    	case-2:break;
+		    	case 1:alertOk.showAndWait();balanceText.setText(controller.getUserBalance());break;
+		    	case-1:alertNoCheck.showAndWait();break;
+		    	case-2:alertNoMoney.showAndWait();break;
+		    	case-3:alertAlreadyRegistrated.showAndWait();break;
 		    	}
 			 }
 		});
@@ -367,17 +392,8 @@ public class UserView extends Stage {
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            int rowData = row.getItem().getId();
-<<<<<<< HEAD
 		            tmp = rowData;
 		            engine.load(controller.getEventUrl(rowData));
-=======
-<<<<<<< HEAD
-		            engine.load(controller.getEventUrl(rowData));
-=======
-		            String url = controller.getEventUrl(rowData);
-		            System.out.println(url);
->>>>>>> 2c95cd562492afb9bbc08cce2fc9af3a493e5426
->>>>>>> 45b9bf2bb86ea6aff4dce34cd1c8dc0794d2a71b
 		            addBalacePane.setVisible(false);
 		            eventsPane.setVisible(false);
 		            settingsPane.setVisible(false);
