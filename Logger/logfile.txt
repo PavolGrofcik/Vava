@@ -1,22 +1,2 @@
-<<<<<<< HEAD
-May 09, 2018 1:29:57 PM main.controller.Controller loginCustomer
+May 09, 2018 2:00:53 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
-=======
-<<<<<<< HEAD
-máj 09, 2018 1:55:56 PM main.controller.Controller loginCustomer
-=======
-<<<<<<< HEAD
-May 09, 2018 1:21:43 PM main.controller.Controller loginCustomer
-INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
-May 09, 2018 1:22:12 PM main.controller.Controller loginCustomer
-INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
-May 09, 2018 1:22:49 PM main.controller.Controller getQuestionByUsername
-INFO: Account cQId 4
-May 09, 2018 1:22:49 PM main.controller.Controller getQuestionByUsername
-INFO: Control Question What is your dreamjob ?
-=======
-máj 09, 2018 1:26:59 PM main.controller.Controller loginCustomer
->>>>>>> 256bc9c7b2f1008550569149c46fe252a5601341
-INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
->>>>>>> 68ac91fdae77d0fcc1917c214a71e2c17c02887b
->>>>>>> e5baf6310478f4636b25ce73503206827915fb4a

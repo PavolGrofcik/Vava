@@ -77,12 +77,8 @@ public class UserView extends Stage {
 	private Label priceLabel;
 	private Button registerForEvent = new Button();
 	private Hyperlink exit = new Hyperlink();
-	private final WebEngine webEngine = new WebEngine(getClass().getResource("map.html").toString());
-    //private final WebView webView = new WebView(webEngine);
-    
-    static { // use system proxy settings when standalone application
-        System.setProperty("java.net.useSystemProxies", "true");
-    }
+	
+   
 
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
