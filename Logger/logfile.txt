@@ -1,2 +1,19 @@
+<<<<<<< HEAD
 May 09, 2018 4:29:04 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
+=======
+máj 09, 2018 4:16:33 PM main.controller.Controller loginCustomer
+INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
+máj 09, 2018 4:18:31 PM main.controller.Controller registrateCustomer
+INFO: Input status registration: 1 Account status1
+máj 09, 2018 4:18:31 PM main.controller.Controller registrateCustomer
+INFO: Verify registration data status:  true
+máj 09, 2018 4:18:31 PM main.controller.Controller registrateCustomer
+INFO: Verify Passwords status: true
+máj 09, 2018 4:18:31 PM main.controller.Controller registrateCustomer
+INFO: Question is: What is your favorite color ?
+máj 09, 2018 4:18:31 PM main.controller.Controller registrateCustomer
+INFO: Control question ID: 1
+máj 09, 2018 4:18:31 PM main.controller.Controller registrateCustomer
+INFO: New Customer ID: 17
+>>>>>>> 2269a09eb6a320b7d08b4c8c7b22ef063dd9a78d
