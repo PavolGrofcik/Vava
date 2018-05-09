@@ -167,6 +167,37 @@ public class Controller {
 		return url;
 	}
 	
+	// Metóda vráti všetky eventy, na ktoré sa prihlásený používateľ prihlásil
+	@SuppressWarnings("unchecked")
+	public ArrayList<Event> getUserRegisteredEvents(){
+		LOGGER.entering(this.getClass().getName(), "getUserRegisteredEvents");
+		
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		ArrayList<Event> events = null;
+		
+		try {
+			Query query = session.createNamedQuery("FROM CustomerEvent WHERE"
+					+ " customerId = :arg");
+			query.setParameter("arg", customerID);
+			
+			if(!query.getResultList().isEmpty()) {
+				events = (ArrayList<Event>) query.getResultList();
+			}
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate exception", e);
+			transaction.rollback();
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(this.getClass().getName(), "getUserRegisteredEvents");
+		return events;
+	}
+	
 	// Metóda vyfiltruje eventy podľa daných filtrov a vráti ich ako list
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> getEventList(TextField location, DatePicker date, Spinner<Integer> length,
