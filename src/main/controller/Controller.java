@@ -120,35 +120,41 @@ public class Controller {
 			
 			switch (status) {
 			case 0:
-				System.out.println("Nothing to filter");
 				return events;
 			case 1:
 				filter = "price <= " + price.getValue(); break;
 			case 2:
 				filter = "length <= " + length.getValue(); break;
 			case 3:
-				filter = "location = " + location.getText(); break;
+				filter = "location = " + "'" + location.getText() + "'"; break;
 			case 4:
-				filter = "start = " + date.getValue(); break;
+				filter = "start <= " + "'" + date.getValue() + "'"; break;
 			case 5: 
-				filter = "start = " + date.getValue() + " AND location = " + location.getText(); break;
+				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" +  location.getText()
+				+ "'"; break;
 			case 6:
-				filter = "start = " + date.getValue() + " AND location = " + location.getText() 
-				+ " AND length <= " + length.getValue(); break;
+				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText()
+				+ "'" + " AND length <= " + length.getValue(); break;
 			case 7:
-				filter = "start = " + date.getValue() + " AND location = " + location.getText() 
-				+ " AND price <= " + price.getValue(); break;
+				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText() 
+				+ "'" +  " AND price <= " + price.getValue(); break;
 			case 8:
-				filter = "start = " + date.getValue() + " AND location = " + location.getText() 
-				+ " AND price <= " + price.getValue() + " AND length <= " + length.getValue(); break;
+				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText() 
+				+ "'" + " AND price <= " + price.getValue() + " AND length <= " + length.getValue(); 
+				break;
 			case 9: 
 				filter = "length <= " + length.getValue() + " AND price <= " + price.getValue(); break;
 			case 10:
-				filter = "location = " + location.getText() + " AND price <= " + price.getValue(); break;
+				filter = "location = " + "'" + location.getText() + "'" + " AND price <= " + price.getValue();
+				break;
 			case 11:
-				filter = "location = " + location.getText() + " AND length <= " + length.getValue(); break;
+				filter = "location = " + "'" + location.getText() + "'" + " AND length <= " + length.getValue();
+				break;
 			case 12: 
-				filter = "location = " + location.getText() + " AND length <= " + length.getValue()
+				filter = "location = " + "'" + location.getText() + "'" + " AND length <= " + length.getValue()
+				+ " AND price <= " + price.getValue(); break;
+			case 13:
+				filter = "start <= " + "'" + date.getValue() + "'" +" AND length <= " + length.getValue() 
 				+ " AND price <= " + price.getValue(); break;
 			}
 			
@@ -894,8 +900,9 @@ public class Controller {
 			return 11; // Loc + length filter
 		}else if (localDate == null && !loc.isEmpty() && leng != 0 && pric != 0) {
 			return 12; // Loc + length + price filter
-		}	
-		
+		}else if( localDate != null && loc.isEmpty() && leng != 0 && pric != 0) {
+			return 13; // Date + price + length
+		}
 		return 0;
 	}
 	
