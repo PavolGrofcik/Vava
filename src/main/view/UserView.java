@@ -67,8 +67,11 @@ public class UserView extends Stage {
 	//table
 	
 	private Hyperlink showUpcomingEvents;
+	private Hyperlink showMyEvents;
 	private TableView<Event> eventsTable = new TableView<Event>();
+	private TableView<Event> myEventsTable = new TableView<Event>();
 	private ArrayList<Event> eventList = new ArrayList<Event>();
+	private ArrayList<Event> myEventList = new ArrayList<Event>();
 	private Button find = new Button();
 	private TextField locationnFilter = new TextField();
 	private DatePicker dateFilter = new DatePicker();
@@ -83,7 +86,7 @@ public class UserView extends Stage {
 	private CheckBox accept = new CheckBox();
 	Integer tmp=null;
 	
- 
+   
 
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/horyBack.jpeg");
@@ -131,6 +134,12 @@ public class UserView extends Stage {
 	    TableColumn height = new TableColumn(resource.getString("key1-21"));
         TableColumn insurance = new TableColumn(resource.getString("key1-22"));
         TableColumn price = new TableColumn(resource.getString("key1-23"));
+    	TableColumn location2 = new TableColumn(resource.getString("key1-18"));
+	    TableColumn date2 = new TableColumn(resource.getString("key1-19"));
+	    TableColumn length2 = new TableColumn(resource.getString("key1-20"));
+	    TableColumn height2 = new TableColumn(resource.getString("key1-21"));
+        TableColumn insurance2 = new TableColumn(resource.getString("key1-22"));
+        TableColumn price2 = new TableColumn(resource.getString("key1-23"));
         locationLabel = new Label(resource.getString("key1-25"));
     	dateLabel = new Label(resource.getString("key1-26"));
     	lengthLabel = new Label(resource.getString("key1-27"));
@@ -155,6 +164,26 @@ public class UserView extends Stage {
         height.setResizable(false);
         insurance.setResizable(false);
         price.setResizable(false);
+        
+        location2.setPrefWidth(200);
+        date2.setPrefWidth(200);
+        length2.setPrefWidth(90);
+        height2.setPrefWidth(90);
+        insurance2.setPrefWidth(90);
+        price2.setPrefWidth(85);
+        location2.setCellValueFactory(new PropertyValueFactory<>("location"));
+        date2.setCellValueFactory(new PropertyValueFactory<>("start"));
+        length2.setCellValueFactory(new PropertyValueFactory<>("length"));
+        height2.setCellValueFactory(new PropertyValueFactory<>("height"));
+        insurance2.setCellValueFactory(new PropertyValueFactory<>("insurance"));
+        price2.setCellValueFactory(new PropertyValueFactory<>("price"));
+        location2.setResizable(false);
+        date2.setResizable(false);
+        length2.setResizable(false);
+        height2.setResizable(false);
+        insurance2.setResizable(false);
+        price2.setResizable(false);
+        
         registerForEvent.setText(resource.getString("key1-29"));
         accept.setText(resource.getString("key1-30"));
         exit.setGraphic(exitView);
@@ -178,6 +207,7 @@ public class UserView extends Stage {
         alertAlreadyRegistrated.setTitle(resource.getString("key1-37"));
         alertAlreadyRegistrated.setHeaderText(null);
         alertAlreadyRegistrated.setContentText(resource.getString("key1-38"));
+        showMyEvents = new Hyperlink(resource.getString("key1-39"));
       
         
        /* eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
@@ -189,7 +219,7 @@ public class UserView extends Stage {
 		Pane addBalacePane = new Pane();
 		Pane eventsPane = new Pane();
 		Pane registerOnEventPane = new Pane();
-		
+		Pane myEventsPane = new Pane();
 	
 		pane.getChildren().add(iv);
 		
@@ -277,6 +307,12 @@ public class UserView extends Stage {
 		showUpcomingEvents.setTextFill(c);
 		showUpcomingEvents.setBorder(Border.EMPTY);
 		
+		pane.getChildren().add(showMyEvents);
+		setNodePosition((Node)showMyEvents,20, 250, 1, 1);
+		showMyEvents.setFont(Font.font(null, FontWeight.BOLD, 20));
+		showMyEvents.setTextFill(c);
+		showMyEvents.setBorder(Border.EMPTY);
+		
 		eventsPane.getChildren().add(find);
 		setNodePosition((Node)find,380, 460, 1.5, 1.5);
 		
@@ -344,8 +380,10 @@ public class UserView extends Stage {
 		    	accept.setSelected(false);
 			  if(eventsPane.isVisible())
 				  eventsPane.setVisible(false);
-			  else 
+			  else {
 				  eventsPane.setVisible(true);
+				  myEventsPane.setVisible(false);
+			  }
 			 }
 		});
 		
@@ -403,6 +441,40 @@ public class UserView extends Stage {
 		    });
 		    return row ;
 		});	
+		// moje eventy
+		showMyEvents.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	accept.setSelected(false);
+			  if(myEventsPane.isVisible())
+				  myEventsPane.setVisible(false);
+			  else {
+				  myEventList = controller.getUserRegisteredEvents();
+					if (myEventList == null) {
+						System.out.println("Empty list");
+					} else {
+						myEventsTable.getItems().clear();
+						for (int i = 0; i < myEventList.size(); i++) {
+							myEventsTable.getItems().add(myEventList.get(i));
+						}
+					}
+				  myEventsPane.setVisible(true);
+				  eventsPane.setVisible(false);
+			  }
+			 }
+		});
+		
+		
+		myEventsPane.setPrefSize(800,400);
+		myEventsPane.setId("funds");
+		pane.getChildren().add(myEventsPane);
+		setNodePosition((Node)myEventsPane, 610, 260, 1, 1);
+		myEventsPane.setVisible(false);
+		
+		myEventsPane.getChildren().add(myEventsTable);
+		setNodePosition((Node)myEventsTable,20, 20, 1, 1);
+		myEventsTable.setPrefSize(760,350);
+		myEventsTable.getColumns().addAll(location2,date2,length2,height2,insurance2,price2);
+		myEventsTable.setEditable(false);
 		
 		
 		
