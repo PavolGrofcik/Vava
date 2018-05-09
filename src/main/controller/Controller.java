@@ -72,9 +72,9 @@ public class Controller {
 			LOGGER.setLevel(Level.INFO);
 			
 		} catch (SecurityException e) {
-			LOGGER.log(Level.CONFIG, "Log config", e);
+			System.out.println("Config failed!");
 		} catch (IOException e) {
-			LOGGER.log(Level.CONFIG, "IOexception", e);
+			System.out.println("Config file path is wrong!");
 		}
 		System.out.println("Log level is: " + LOGGER.getLevel());
 	}
@@ -101,9 +101,6 @@ public class Controller {
 		if(!box.isSelected()) {
 			return -1;
 		}
-		
-		
-		
 		try {
 			
 			@SuppressWarnings("unchecked")
@@ -157,10 +154,7 @@ public class Controller {
 		try {
 			Event event = session.get(Event.class, eventID);
 			url = event.getUrl();
-<<<<<<< HEAD
-		
-=======
->>>>>>> c62de80065fe48ca21c04ac2de06b9d892ee577e
+
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);

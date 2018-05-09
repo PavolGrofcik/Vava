@@ -395,13 +395,6 @@ public class UserView extends Stage {
 		            int rowData = row.getItem().getId();
 		            tmp = rowData;
 		            engine.load(controller.getEventUrl(rowData));
-<<<<<<< HEAD
-
-		            engine.load(controller.getEventUrl(rowData));
-		            String url = controller.getEventUrl(rowData);
-
-=======
->>>>>>> c62de80065fe48ca21c04ac2de06b9d892ee577e
 		            addBalacePane.setVisible(false);
 		            eventsPane.setVisible(false);
 		            settingsPane.setVisible(false);
