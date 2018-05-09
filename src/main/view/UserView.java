@@ -132,6 +132,7 @@ public class UserView extends Stage {
         height.setCellValueFactory(new PropertyValueFactory<>("height"));
         insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
+        
         location.setResizable(false);
         date.setResizable(false);
         length.setResizable(false);
@@ -141,7 +142,9 @@ public class UserView extends Stage {
         registerForEvent.setText(resource.getString("key1-29"));
         exit.setGraphic(exitView);
         
-        eventList = controller.getEventList();
+       /* eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
+        		priceFilter);*/
+        eventList = null;
 	
 		Pane pane = new Pane();
 		Pane settingsPane = new Pane();
@@ -275,10 +278,16 @@ public class UserView extends Stage {
 		
 		find.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-		    	eventsTable.getItems().clear();
-		    	for(int i = 0;i<eventList.size();i++) {
-		    		eventsTable.getItems().add(eventList.get(i));
-		    	}
+		    	eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
+		        		priceFilter);
+				if (eventList == null) {
+					System.out.println("Empty list");
+				} else {
+					eventsTable.getItems().clear();
+					for (int i = 0; i < eventList.size(); i++) {
+						eventsTable.getItems().add(eventList.get(i));
+					}
+				}
 			 }
 		});
 		
