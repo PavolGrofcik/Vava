@@ -24,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import main.controller.Controller;
 import main.entities.Event;
@@ -75,6 +77,8 @@ public class UserView extends Stage {
 	private Label priceLabel;
 	private Button registerForEvent = new Button();
 	private Hyperlink exit = new Hyperlink();
+	
+   
 
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
