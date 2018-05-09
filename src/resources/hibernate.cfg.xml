@@ -23,6 +23,7 @@
 		<mapping class = "main.entities.Event" />
 		<mapping class = "main.entities.Account" />
 		<mapping class = "main.entities.ControlQuestion" />
+		<mapping class = "main.entities.CustomerEvent" />
 
 	</session-factory>
 </hibernate-configuration>

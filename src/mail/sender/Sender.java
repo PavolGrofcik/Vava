@@ -1,17 +1,8 @@
 package mail.sender;
-import java.io.FileInputStream;
-import java.io.InputStream;
+
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Set;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -30,7 +21,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 /**
- * Trieda odosiela request na obnovu hesla cez mail
+ * Trieda odosiela request na obnovu hesla cez mail,
+ * zároveň odošle QR kód pri registrácii nového zákazníka
  * @author grofc
  *
  */
@@ -42,7 +34,7 @@ public class Sender {
 	private static final String DEFAULT_ACCOUNT = "grofcik.pavol@gmail.com";
 	private static final String SUBJECT = "New registration in SkiGoSR";
 
-	
+	// Odoslanie nového hesla používateľovi
 	public static void sendGmailMessage(String account, String name, String passwd) {
 
 		Properties props = System.getProperties();
@@ -65,29 +57,22 @@ public class Sender {
 
 			Multipart multipart = new MimeMultipart("alternative");
 
-			// Create your text message part
 			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText("some text to send");
+			messageBodyPart.setText("New password");
 
-			// Add the text part to the multipart
 			multipart.addBodyPart(messageBodyPart);
 
-			// Create the html part
 			messageBodyPart = new MimeBodyPart();
 			String htmlMessage = "Hello " + name + ", \n \n " + // Text to send
 					"your password has been recently updated.\n" + " \n New Pasword is " + passwd + " . \n "
 					+ "If you have any questions, please send us an email.";
 			messageBodyPart.setContent(htmlMessage, "text/html");
 
-			// Add html part to multi part
 			multipart.addBodyPart(messageBodyPart);
 
-			// Associate multi-part with message
 			message.setContent(multipart);
 
-			// Send message
 			Transport transport = session.getTransport("smtp");
-			// LOGGER.log(Level.INFO, "Transport to is " + transport.toString());
 
 			transport.connect("smtp.gmail.com", USERNAME, PASSWORD);
 			transport.sendMessage(message, message.getAllRecipients());
@@ -111,9 +96,6 @@ public class Sender {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
  
-        System.out
-                .println("\n2nd ===> create Authenticator object to pass in Session.getInstance argument..");
- 
         Authenticator authentication = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(USERNAME, PASSWORD);
@@ -121,21 +103,18 @@ public class Sender {
         };
         Session session1 = Session.getInstance(props, authentication);
 
-		
         try {
-            System.out.println("\n3rd ===> generateAndSendEmail() starts..");
+            MimeMessage message = new MimeMessage(session1);
+            message.addHeader("Content-type", "text/HTML; charset=UTF-8");
+            message.addHeader("format", "flowed");
+            message.addHeader("Content-Transfer-Encoding", "8bit");
  
-            MimeMessage crunchifyMessage = new MimeMessage(session1);
-            crunchifyMessage.addHeader("Content-type", "text/HTML; charset=UTF-8");
-            crunchifyMessage.addHeader("format", "flowed");
-            crunchifyMessage.addHeader("Content-Transfer-Encoding", "8bit");
- 
-            crunchifyMessage.setFrom(new InternetAddress(toEmail,
+            message.setFrom(new InternetAddress(toEmail,
                     "SkiGoSR"));
-            crunchifyMessage.setReplyTo(InternetAddress.parse(toEmail, false));
-            crunchifyMessage.setSubject(SUBJECT, "UTF-8");
-            crunchifyMessage.setSentDate(new Date());
-            crunchifyMessage.setRecipients(Message.RecipientType.TO,
+            message.setReplyTo(InternetAddress.parse(toEmail, false));
+            message.setSubject(SUBJECT, "UTF-8");
+            message.setSentDate(new Date());
+            message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(toEmail, false));
  
             // Create the message body part
@@ -155,26 +134,20 @@ public class Sender {
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(filename);
-            // Trick is to add the content-id header here
+  
             messageBodyPart.setHeader("Content-ID", "image_id");
             multipart.addBodyPart(messageBodyPart);
  
-            System.out.println("\n4th ===> third part for displaying image in the email body..");
             messageBodyPart = new MimeBodyPart();
             messageBodyPart.setContent("<br><h3>Find below attached image</h3>"
                     + "<img src='cid:image_id'>", "text/html");
             
             multipart.addBodyPart(messageBodyPart);
-            crunchifyMessage.setContent(multipart);
- 
-            System.out.println("\n5th ===> Finally Send message..");
+            message.setContent(multipart);
  
             // Finally Send message
-            Transport.send(crunchifyMessage);
- 
-            System.out
-                    .println("\n6th ===> Email Sent Successfully With Image Attachment. Check your email now..");
-            System.out.println("\n7th ===> generateAndSendEmail() ends..");
+            Transport.send(message);
+
  
         } catch (MessagingException e) {
             e.printStackTrace();
