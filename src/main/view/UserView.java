@@ -357,7 +357,6 @@ public class UserView extends Stage {
 		    	eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
 		        		priceFilter);
 				if (eventList == null) {
-					System.out.println("Empty list");
 				} else {
 					eventsTable.getItems().clear();
 					for (int i = 0; i < eventList.size(); i++) {
@@ -442,6 +441,13 @@ public class UserView extends Stage {
 		    return row ;
 		});	
 		// moje eventy
+		
+		myEventsPane.getChildren().add(myEventsTable);
+		setNodePosition((Node)myEventsTable,20, 20, 1, 1);
+		myEventsTable.setPrefSize(760,350);
+		myEventsTable.getColumns().addAll(location2,date2,length2,height2,insurance2,price2);
+		myEventsTable.setEditable(false);
+		
 		showMyEvents.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
 		    	accept.setSelected(false);
@@ -449,9 +455,7 @@ public class UserView extends Stage {
 				  myEventsPane.setVisible(false);
 			  else {
 				  myEventList = controller.getUserRegisteredEvents();
-				  System.out.println("Len is: " + myEventList.size());
 					if (myEventList == null) {
-						System.out.println("Empty list");
 					} else {
 						myEventsTable.getItems().clear();
 						for (int i = 0; i < myEventList.size(); i++) {
@@ -471,12 +475,7 @@ public class UserView extends Stage {
 		setNodePosition((Node)myEventsPane, 610, 260, 1, 1);
 		myEventsPane.setVisible(false);
 		
-		myEventsPane.getChildren().add(myEventsTable);
-		setNodePosition((Node)myEventsTable,20, 20, 1, 1);
-		myEventsTable.setPrefSize(760,350);
-		myEventsTable.getColumns().addAll(location2,date2,length2,height2,insurance2,price2);
-		myEventsTable.setEditable(false);
-		
+	
 		
 		
 		// miesto pre settingpane

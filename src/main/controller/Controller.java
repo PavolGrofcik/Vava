@@ -194,7 +194,6 @@ public class Controller {
 					string +=  Integer.toString(events.get(i).getEventId()) + ",";
 					}
 				}
-				System.out.println("STr is : " + string);
 				
 				Query query2 = session.createQuery("FROM Event WHERE id IN(" + string + ")");
 				events2 = (ArrayList<Event>) query2.getResultList();
