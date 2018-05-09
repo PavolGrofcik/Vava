@@ -2,10 +2,6 @@ package main.view;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-<<<<<<< HEAD
-
-=======
->>>>>>> 7c4a9ba5eff851dc8792dbcc5fc094a05fb95e6e
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -131,10 +127,7 @@ public class UserView extends Stage {
         height.setCellValueFactory(new PropertyValueFactory<>("height"));
         insurance.setCellValueFactory(new PropertyValueFactory<>("insurance"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
-<<<<<<< HEAD
-      
-        //eventList = controller.getEventList();
-=======
+        
         location.setResizable(false);
         date.setResizable(false);
         length.setResizable(false);
@@ -142,8 +135,9 @@ public class UserView extends Stage {
         insurance.setResizable(false);
         price.setResizable(false);
         
-        eventList = controller.getEventList();
->>>>>>> 7c4a9ba5eff851dc8792dbcc5fc094a05fb95e6e
+       /* eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
+        		priceFilter);*/
+        eventList = null;
 	
 		Pane pane = new Pane();
 		pane.getChildren().add(iv);
@@ -273,10 +267,16 @@ public class UserView extends Stage {
 		
 		find.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
-		    	eventsTable.getItems().clear();
-		    	for(int i = 0;i<eventList.size();i++) {
-		    		eventsTable.getItems().add(eventList.get(i));
-		    	}
+		    	eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
+		        		priceFilter);
+				if (eventList == null) {
+					System.out.println("Empty list");
+				} else {
+					eventsTable.getItems().clear();
+					for (int i = 0; i < eventList.size(); i++) {
+						eventsTable.getItems().add(eventList.get(i));
+					}
+				}
 			 }
 		});
 		

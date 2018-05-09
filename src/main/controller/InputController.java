@@ -45,8 +45,8 @@ public class InputController {
 	// Metóda overí vstupy pri filtrovaní Tableview
 	public static int verifyFilterInput(TextField location, DatePicker date, Spinner<Integer> length,
 			Spinner<Integer> price) {
-		if(location.getText().isEmpty() || date.getValue() == null || length.getValue().toString().isEmpty()
-				|| price.getValue().toString().isEmpty()) {
+		if(location.getText().isEmpty() && date.getValue() == null && length.getValue().toString().isEmpty()
+				&& price.getValue().toString().isEmpty()) {
 			return 0;
 		}
 		

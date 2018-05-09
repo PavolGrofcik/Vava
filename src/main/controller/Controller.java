@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder.Case;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -103,10 +104,58 @@ public class Controller {
 		Transaction transaction = session.beginTransaction();
 		
 		ArrayList<Event> events = null;
+		int status = selectDataToFilter(location, date, length, price);
+		System.out.println("Filter Status is: " + status);
 		
 		try {
-			Query query = session.createQuery("FROM Event");
+			/*Query query = session.createQuery("FROM Event");
+			events = (ArrayList<Event>) query.getResultList();*/
+			String filter = null;
+			
+			//Pomocný výpis
+			if(date.getValue() != null) {
+				System.out.println("Formát dátumu DatePicker-a je: " + date.getValue());
+			}
+			System.out.println("Status is " + status);
+			
+			switch (status) {
+			case 0:
+				System.out.println("Nothing to filter");
+				return events;
+			case 1:
+				filter = "price <= " + price.getValue(); break;
+			case 2:
+				filter = "length <= " + length.getValue(); break;
+			case 3:
+				filter = "location = " + location.getText(); break;
+			case 4:
+				filter = "start = " + date.getValue(); break;
+			case 5: 
+				filter = "start = " + date.getValue() + " AND location = " + location.getText(); break;
+			case 6:
+				filter = "start = " + date.getValue() + " AND location = " + location.getText() 
+				+ " AND length <= " + length.getValue(); break;
+			case 7:
+				filter = "start = " + date.getValue() + " AND location = " + location.getText() 
+				+ " AND price <= " + price.getValue(); break;
+			case 8:
+				filter = "start = " + date.getValue() + " AND location = " + location.getText() 
+				+ " AND price <= " + price.getValue() + " AND length <= " + length.getValue(); break;
+			case 9: 
+				filter = "length <= " + length.getValue() + " AND price <= " + price.getValue(); break;
+			case 10:
+				filter = "location = " + location.getText() + " AND price <= " + price.getValue(); break;
+			case 11:
+				filter = "location = " + location.getText() + " AND length <= " + length.getValue(); break;
+			case 12: 
+				filter = "location = " + location.getText() + " AND length <= " + length.getValue()
+				+ " AND price <= " + price.getValue(); break;
+			}
+			
+			Query query = session.createQuery("FROM Event WHERE " + filter);
 			events = (ArrayList<Event>) query.getResultList();
+			
+			System.out.println("Event list length is: " + events.size());
 			
 			transaction.commit();
 		} catch (HibernateException e) {
@@ -822,9 +871,32 @@ public class Controller {
 		int pric = price.getValue().intValue();
 		
 		if(localDate == null && loc.isEmpty() && leng == 0 && pric != 0) {
-			return 1;
-		}else if( )
+			return 1; // Price filter
+		}else if(localDate == null && loc.isEmpty() && leng!= 0 && pric == 0 ) {
+			return 2; // Length filter
+		}else if(localDate == null && !loc.isEmpty() && leng == 0 && pric == 0) {
+			return 3; // Location filter
+		}else if (localDate != null && loc.isEmpty() && leng == 0 && pric == 0) {
+			return 4; // Date filter
+		}else if (localDate != null && !loc.isEmpty() && leng == 0 && pric == 0) {
+			return 5; // Date + loc filter
+		}else if (localDate != null && !loc.isEmpty() && leng != 0  && pric == 0) {
+			return 6; // Date + loc + leng filter
+		}else if (localDate != null && !loc.isEmpty() && leng == 0 && pric != 0) {
+			return 7; // Date + loc + pric filter
+		}else if (localDate != null && !loc.isEmpty() && leng != 0 && pric != 0) {
+			return 8; // Date + loc + leng + pric filter ALL
+		}else if (localDate == null && loc.isEmpty() && leng!= 0 && pric != 0) {
+			return 9; // Length + price filter
+		}else if (localDate == null && !loc.isEmpty() && leng == 0 && pric != 0) {
+			return 10; // Loc + price filter
+		}else if (localDate == null && !loc.isEmpty() && leng != 0 && pric == 0) {
+			return 11; // Loc + length filter
+		}else if (localDate == null && !loc.isEmpty() && leng != 0 && pric != 0) {
+			return 12; // Loc + length + price filter
+		}	
 		
+		return 0;
 	}
 	
 	private boolean verifyAnswers(String answer, String answerDB) {
