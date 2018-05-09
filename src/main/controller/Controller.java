@@ -102,7 +102,19 @@ public class Controller {
 			return -1;
 		}
 		
+		
+		
 		try {
+			
+			@SuppressWarnings("unchecked")
+			TypedQuery<CustomerEvent> query = session.createQuery("SELECT new CustomerEvent(eventId, customerId,"
+					+ "specification) FROM CustomerEvent WHERE customerId = :arg AND eventId = :arg2");
+			query.setParameter("arg", customerID);
+			query.setParameter("arg2", eventId);
+			
+			if(!query.getResultList().isEmpty()) {
+				return -3;
+			}
 			
 			CustomerEvent customerEvent = new CustomerEvent(eventId, customerID, true);
 			Event event = null;
