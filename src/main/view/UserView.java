@@ -13,7 +13,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
@@ -87,7 +86,7 @@ public class UserView extends Stage {
  
 
 	// praca s farbou a obrazkami
-	Image background = new Image("File:resource/userBack.png");
+	Image background = new Image("File:resource/horyBack.jpeg");
 	ImageView iv = new ImageView(background);
 	Image settingWheel = new Image("File:resource/userSetting.png");
 	ImageView settingView = new ImageView(settingWheel);
@@ -95,6 +94,8 @@ public class UserView extends Stage {
 	ImageView settingsBackgroundView = new ImageView(settingsBackground);
 	Image exitImage = new Image("File:resource/exit.png");
 	ImageView exitView = new ImageView(exitImage);
+	Image logo = new Image("File:resource/logo.png");
+	ImageView logoView = new ImageView(logo);
 	Color c = Color.web("#000000");
 	Color r = Color.web("#FF0000");
 
@@ -192,7 +193,6 @@ public class UserView extends Stage {
 	
 		pane.getChildren().add(iv);
 		
-		
 		// miesto pre balanc a ucet
 		
 		pane.getChildren().add(loggedUser);
@@ -268,7 +268,7 @@ public class UserView extends Stage {
 		eventsPane.setPrefSize(800,500);
 		eventsPane.setId("funds");
 		pane.getChildren().add(eventsPane);
-		setNodePosition((Node)eventsPane, 20, 260, 1, 1);
+		setNodePosition((Node)eventsPane, 610, 260, 1, 1);
 		eventsPane.setVisible(false);
 
 		pane.getChildren().add(showUpcomingEvents);
@@ -341,6 +341,7 @@ public class UserView extends Stage {
 		
 		showUpcomingEvents.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
+		    	accept.setSelected(false);
 			  if(eventsPane.isVisible())
 				  eventsPane.setVisible(false);
 			  else 
@@ -392,28 +393,8 @@ public class UserView extends Stage {
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            int rowData = row.getItem().getId();
-<<<<<<< HEAD
 		            tmp = rowData;
 		            engine.load(controller.getEventUrl(rowData));
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-		            tmp = rowData;
-		            engine.load(controller.getEventUrl(rowData));
-=======
-<<<<<<< HEAD
->>>>>>> 4e66f5f34dc022f511dc6e92b0cb9ba6580ddc95
-		            engine.load(controller.getEventUrl(rowData));
-		            String url = controller.getEventUrl(rowData);
-<<<<<<< HEAD
-
-=======
-		            System.out.println(url);
->>>>>>> 2c95cd562492afb9bbc08cce2fc9af3a493e5426
->>>>>>> 45b9bf2bb86ea6aff4dce34cd1c8dc0794d2a71b
->>>>>>> 4e66f5f34dc022f511dc6e92b0cb9ba6580ddc95
->>>>>>> 5a2db668b8745d33a850ad3873a0fe7f260a0f56
 		            addBalacePane.setVisible(false);
 		            eventsPane.setVisible(false);
 		            settingsPane.setVisible(false);
