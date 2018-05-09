@@ -26,6 +26,7 @@ public class CustomerEvent {
 
 	public CustomerEvent() {
 	}
+	
 
 	public CustomerEvent(int eventId, int customerId, boolean specification) {
 		super();
