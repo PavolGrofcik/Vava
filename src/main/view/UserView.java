@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -77,6 +78,8 @@ public class UserView extends Stage {
 	private Label priceLabel;
 	private Button registerForEvent = new Button();
 	private Hyperlink exit = new Hyperlink();
+	private CheckBox accept = new CheckBox();
+	Integer tmp=null;
 	
  
 
@@ -128,6 +131,7 @@ public class UserView extends Stage {
     	dateLabel = new Label(resource.getString("key1-26"));
     	lengthLabel = new Label(resource.getString("key1-27"));
     	priceLabel = new Label(resource.getString("key1-28"));
+
         location.setPrefWidth(200);
         date.setPrefWidth(200);
         length.setPrefWidth(90);
@@ -148,6 +152,7 @@ public class UserView extends Stage {
         insurance.setResizable(false);
         price.setResizable(false);
         registerForEvent.setText(resource.getString("key1-29"));
+        accept.setText(resource.getString("key1-30"));
         exit.setGraphic(exitView);
         
        /* eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
@@ -325,6 +330,21 @@ public class UserView extends Stage {
 		
 		registerOnEventPane.getChildren().add(registerForEvent);
 		setNodePosition((Node)registerForEvent,780, 750, 1.5, 1.5);
+		registerForEvent.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	int status = controller.registerToEvent(tmp,accept);
+		    	switch(status) {
+		    	case 1:break;
+		    	case-1:break;
+		    	case-2:break;
+		    	}
+			 }
+		});
+		
+		registerOnEventPane.getChildren().add(accept);
+		setNodePosition((Node)accept, 100, 750, 1, 1);
+		accept.setFont(Font.font(null, FontWeight.BOLD, 20));
+		accept.setTextFill(c);
 
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
@@ -347,8 +367,8 @@ public class UserView extends Stage {
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            int rowData = row.getItem().getId();
-		            String url = controller.getEventUrl(rowData);
-		            System.out.println(url);
+		            tmp = rowData;
+		            engine.load(controller.getEventUrl(rowData));
 		            addBalacePane.setVisible(false);
 		            eventsPane.setVisible(false);
 		            settingsPane.setVisible(false);
