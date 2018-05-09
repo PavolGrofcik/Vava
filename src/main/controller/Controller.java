@@ -34,6 +34,7 @@ import mail.sender.Sender;
 import main.entities.Account;
 import main.entities.ControlQuestion;
 import main.entities.Customer;
+import main.entities.CustomerEvent;
 import main.entities.Event;
 import qrcode.generator.QrGenerator;
 
@@ -91,7 +92,7 @@ public class Controller {
 	}
 	
 	// Metóda zaregistruje event pre prihláseného používateľa
-	public void registrateToEvent(Integer customerId, Integer eventId) {
+	public void registrateToEvent(int eventId) {
 		LOGGER.entering(this.getClass().getName(), "registerToEvent");
 		
 		Session session = factory.openSession();
@@ -99,13 +100,23 @@ public class Controller {
 		
 		try {
 			
+			CustomerEvent customerEvent = new CustomerEvent(eventId, customerID, true);
+			Event event = null;
+			Account account = null;
+			
+			event = session.get(Event.class, eventId);
+			account = session.get(Account.class, accountID);
+			
+			account.substractCash(event.getPrice());
+
+			session.save(customerEvent);
+			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception",e);
 			transaction.rollback();
 		}finally {
 			session.close();
 		}
-		
 		
 		LOGGER.exiting(this.getClass().getName(), "registerToEvent");
 		return;
@@ -122,7 +133,6 @@ public class Controller {
 			Event event = session.get(Event.class, eventID);
 			
 			url = event.getUrl();
-			
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);

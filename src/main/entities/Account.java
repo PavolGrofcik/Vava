@@ -144,6 +144,10 @@ public class Account {
 		this.cash += cash;
 	}
 	
+	public void substractCash(double cash) {
+		this.cash -= cash;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
