@@ -111,6 +111,29 @@ public class Controller {
 		return;
 	}
 	
+	// Metóda vráti url mapy daného eventu podľa ID
+	public String getEventUrl(int eventID) {
+		LOGGER.entering(this.getClass().getName(), "getEventUrl");
+		Session session = factory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		String url = null;
+		try {
+			Event event = session.get(Event.class, eventID);
+			
+			url = event.getUrl();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
+			transaction.rollback();
+		}finally {
+			session.close();
+		}
+		
+		LOGGER.exiting(this.getClass().getName(), "getEventUrl");
+		return url;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> getEventList(TextField location, DatePicker date, Spinner<Integer> length,
@@ -185,6 +208,8 @@ public class Controller {
 		LOGGER.exiting(this.getClass().getName(), "getEventList");
 		return events;
 	}
+	
+	
 	
 	public int registrateCustomer(TextField name, TextField surname, DatePicker birth, TextField telNumber,
 			TextField city, TextField email, TextField address, CheckBox female, CheckBox male, TextField username,
