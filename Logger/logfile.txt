@@ -1,2 +1,2 @@
-máj 09, 2018 1:26:59 PM main.controller.Controller loginCustomer
+máj 09, 2018 1:55:56 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
