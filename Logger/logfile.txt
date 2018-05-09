@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 May 09, 2018 2:55:00 PM main.controller.Controller loginCustomer
 INFO: Hashed passwd: ef2e06998a362fb551007b9c1c9f5fa9
+=======
+máj 09, 2018 2:55:31 PM main.controller.Controller loginCustomer
+INFO: Hashed passwd: 68e109f0f40ca72a15e05cc22786f8e6
+>>>>>>> cefb4e3b24f91522ee782d32258820c679ed5b26
