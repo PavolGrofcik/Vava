@@ -132,7 +132,8 @@ public class Controller {
 		try {
 			Event event = session.get(Event.class, eventID);
 			
-			url = event.getUrl();
+			url = '"' + event.getUrl() + '"';
+			System.out.println("Url is: " + url);
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
