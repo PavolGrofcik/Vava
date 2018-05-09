@@ -367,8 +367,17 @@ public class UserView extends Stage {
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            int rowData = row.getItem().getId();
+<<<<<<< HEAD
 		            tmp = rowData;
 		            engine.load(controller.getEventUrl(rowData));
+=======
+<<<<<<< HEAD
+		            engine.load(controller.getEventUrl(rowData));
+=======
+		            String url = controller.getEventUrl(rowData);
+		            System.out.println(url);
+>>>>>>> 2c95cd562492afb9bbc08cce2fc9af3a493e5426
+>>>>>>> 45b9bf2bb86ea6aff4dce34cd1c8dc0794d2a71b
 		            addBalacePane.setVisible(false);
 		            eventsPane.setVisible(false);
 		            settingsPane.setVisible(false);

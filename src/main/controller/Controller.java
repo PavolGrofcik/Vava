@@ -92,11 +92,15 @@ public class Controller {
 	}
 	
 	// Metóda zaregistruje event pre prihláseného používateľa
-	public void registrateToEvent(int eventId) {
+	public int registrateToEvent(int eventId, CheckBox box) {
 		LOGGER.entering(this.getClass().getName(), "registerToEvent");
 		
 		Session session = factory.openSession();
 		Transaction transaction = session.beginTransaction();
+		
+		if(!box.isSelected()) {
+			return -1;
+		}
 		
 		try {
 			
@@ -107,7 +111,16 @@ public class Controller {
 			event = session.get(Event.class, eventId);
 			account = session.get(Account.class, accountID);
 			
-			account.substractCash(event.getPrice());
+			double a,b; 
+			a = account.getCash();
+			b=event.getPrice();
+			
+			if(a - b < 0) {
+				//Nedostatok peňazí
+				return -2;
+			}else {
+				account.substractCash(event.getPrice());	
+			}
 
 			session.save(customerEvent);
 			transaction.commit();
@@ -119,7 +132,7 @@ public class Controller {
 		}
 		
 		LOGGER.exiting(this.getClass().getName(), "registerToEvent");
-		return;
+		return 1;
 	}
 	
 	// Metóda vráti url mapy daného eventu podľa ID
@@ -131,8 +144,12 @@ public class Controller {
 		String url = null;
 		try {
 			Event event = session.get(Event.class, eventID);
+			url = event.getUrl();
 			
+<<<<<<< HEAD
 			url =event.getUrl();
+=======
+>>>>>>> 45b9bf2bb86ea6aff4dce34cd1c8dc0794d2a71b
 			transaction.commit();
 		} catch (HibernateException e) {
 			LOGGER.log(Level.SEVERE, "Hibernate Exception", e);
@@ -145,6 +162,7 @@ public class Controller {
 		return url;
 	}
 	
+	// Metóda vyfiltruje eventy podľa daných filtrov a vráti ich ako list
 	@SuppressWarnings("unchecked")
 	public ArrayList<Event> getEventList(TextField location, DatePicker date, Spinner<Integer> length,
 			Spinner<Integer> price){
@@ -219,8 +237,7 @@ public class Controller {
 		return events;
 	}
 	
-	
-	
+	// Metóda registruje nového používateľa
 	public int registrateCustomer(TextField name, TextField surname, DatePicker birth, TextField telNumber,
 			TextField city, TextField email, TextField address, CheckBox female, CheckBox male, TextField username,
 			PasswordField password, PasswordField confirm, TextField answer, ComboBox<String> question) {
@@ -307,6 +324,7 @@ public class Controller {
 		return 1;
 	}
 	
+	// Metóda zmení údaje prihlásenému používateľovi
 	public int changeAccountSettings(PasswordField oldField, PasswordField passwdField, 
 			PasswordField confirmField, TextField telField, TextField emailField) {
 		
@@ -394,7 +412,8 @@ public class Controller {
 		return retVal;
 	}
 	
-	@SuppressWarnings({ "unused", "unchecked" })
+	// Metóda vráti control Question pre daného používateľa
+	@SuppressWarnings("unused")
 	public String getQuestionByUsername(TextField username) {
 		LOGGER.entering(this.getClass().getName(), "getQuestionByUsername");
 
@@ -410,6 +429,7 @@ public class Controller {
 		try {
 			Transaction transaction = session.beginTransaction();
 			
+			@SuppressWarnings("unchecked")
 			TypedQuery<Account> query = session.createQuery("SELECT new Account(controlQuestionId, "
 					+ "username, password) FROM Account WHERE username = :arg");
 			query.setParameter("arg", username.getText());
@@ -447,6 +467,7 @@ public class Controller {
 		return result;
 	}
 
+	// Metóda odošle a vytvorí nové heslo používateľovi, v prípade ak ho zabudol
 	@SuppressWarnings("unchecked")
 	public int sendNewPassword(TextField username, TextField answer, TextField question) {
 		LOGGER.entering(this.getClass().getName(), "sendNewPassword");
@@ -524,6 +545,7 @@ public class Controller {
 		return 1;
 	}
 
+	// Metóda slúži na prihlásenie zákazníka do IS
 	public int loginCustomer(TextField username, PasswordField password) throws NoSuchAlgorithmException {
 		LOGGER.entering(this.getClass().getName(), "loginCustomer");
 		
@@ -584,6 +606,7 @@ public class Controller {
 		return 1;
 	}
 	
+	// Metóda vráti list control Questions pri registrácii novéh používateľa
 	@SuppressWarnings("unchecked")
 	public java.util.List<String> getControlQuestions(){
 		Session session = factory.openSession();
@@ -616,6 +639,7 @@ public class Controller {
 		return questions;
 	}
 	
+	// Metóda zmení heslo prihlásenému používateľovi
 	private int changePassword(String password, String confirmPass) {
 		LOGGER.entering(this.getClass().getName(), "changePasswords");	
 		Session session = factory.openSession();
@@ -756,6 +780,7 @@ public class Controller {
 		return question_id;
 	}
 	
+	// Metóda overí či username pri registrácii už je v DB
 	private int verifyUniqueUsername(String username) {
 		LOGGER.entering(this.getClass().getName(), "verifyUniqueUsername");
 		Session session = factory.openSession();
@@ -784,6 +809,7 @@ public class Controller {
 		return status;
 	}
 		
+	// Metóda zmení dáta používateľa podľa status - input data
 	private int changeData(String email, String telNumber, int status) {
 		LOGGER.entering(this.getClass().getName(), "changeData");	
 		Session session = factory.openSession();
@@ -827,6 +853,7 @@ public class Controller {
 		return 1;
 	}
 	
+	// Metóda overí či sa heslá zhodujú
 	private boolean checkPassword(String password) {
 		LOGGER.entering(this.getClass().getName(), "checkPassword");	
 		Session session = factory.openSession();
@@ -914,7 +941,7 @@ public class Controller {
 		return -1; //Error encountered
 	}
 	
-	//Ošetriť
+
 	private int selectDataToFilter(TextField location, DatePicker date, Spinner<Integer> length,
 			Spinner<Integer> price) {
 		
