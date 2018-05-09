@@ -128,18 +128,18 @@ public class Controller {
 			case 3:
 				filter = "location = " + "'" + location.getText() + "'"; break;
 			case 4:
-				filter = "start <= " + "'" + date.getValue() + "'"; break;
+				filter = "start >= " + "'" + date.getValue() + "'"; break;
 			case 5: 
-				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" +  location.getText()
+				filter = "start >= " + "'" + date.getValue() + "'" + " AND location = " + "'" +  location.getText()
 				+ "'"; break;
 			case 6:
-				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText()
+				filter = "start >= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText()
 				+ "'" + " AND length <= " + length.getValue(); break;
 			case 7:
-				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText() 
+				filter = "start >= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText() 
 				+ "'" +  " AND price <= " + price.getValue(); break;
 			case 8:
-				filter = "start <= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText() 
+				filter = "start >= " + "'" + date.getValue() + "'" + " AND location = " + "'" + location.getText() 
 				+ "'" + " AND price <= " + price.getValue() + " AND length <= " + length.getValue(); 
 				break;
 			case 9: 
@@ -154,7 +154,7 @@ public class Controller {
 				filter = "location = " + "'" + location.getText() + "'" + " AND length <= " + length.getValue()
 				+ " AND price <= " + price.getValue(); break;
 			case 13:
-				filter = "start <= " + "'" + date.getValue() + "'" +" AND length <= " + length.getValue() 
+				filter = "start >= " + "'" + date.getValue() + "'" +" AND length <= " + length.getValue() 
 				+ " AND price <= " + price.getValue(); break;
 			}
 			
