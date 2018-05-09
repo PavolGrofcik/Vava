@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -72,6 +73,8 @@ public class UserView extends Stage {
 	private Label dateLabel;
 	private Label lengthLabel;
 	private Label priceLabel;
+	private Button registerForEvent = new Button();
+	private Hyperlink exit = new Hyperlink();
 
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
@@ -80,6 +83,8 @@ public class UserView extends Stage {
 	ImageView settingView = new ImageView(settingWheel);
 	Image settingsBackground = new Image("File:resource/wood.png");
 	ImageView settingsBackgroundView = new ImageView(settingsBackground);
+	Image exitImage = new Image("File:resource/exit.png");
+	ImageView exitView = new ImageView(exitImage);
 	Color c = Color.web("#000000");
 	Color r = Color.web("#FF0000");
 
@@ -134,12 +139,18 @@ public class UserView extends Stage {
         height.setResizable(false);
         insurance.setResizable(false);
         price.setResizable(false);
+        registerForEvent.setText(resource.getString("key1-29"));
+        exit.setGraphic(exitView);
         
        /* eventList = controller.getEventList(locationnFilter, dateFilter, lengthFilter,
         		priceFilter);*/
         eventList = null;
 	
 		Pane pane = new Pane();
+		Pane settingsPane = new Pane();
+		Pane addBalacePane = new Pane();
+		Pane eventsPane = new Pane();
+		Pane registerOnEventPane = new Pane();
 		pane.getChildren().add(iv);
 		
 		// miesto pre balanc a ucet
@@ -167,7 +178,7 @@ public class UserView extends Stage {
 		balanceText.setText(controller.getUserBalance());
 		
 		
-		Pane addBalacePane = new Pane();
+		
 		pane.getChildren().add(addBalacePane);
 		setNodePosition((Node)addBalacePane, 10, 100, 1, 1);
 		addBalacePane.setId("funds");
@@ -213,7 +224,7 @@ public class UserView extends Stage {
 
 		// miesto pre eventy
 		
-		Pane eventsPane = new Pane();
+		
 		eventsPane.setPrefSize(800,500);
 		eventsPane.setId("funds");
 		pane.getChildren().add(eventsPane);
@@ -297,9 +308,44 @@ public class UserView extends Stage {
 			 }
 		});
 		
+		registerOnEventPane.getChildren().add(exit);
+		setNodePosition((Node)exit,630, 630, 0.2, 0.2);
+		exit.setBorder(Border.EMPTY);
+		
+		registerOnEventPane.getChildren().add(registerForEvent);
+		setNodePosition((Node)registerForEvent,380, 750, 1.5, 1.5);
+
+		exit.setOnAction(new EventHandler<ActionEvent>() {
+		    public void handle(ActionEvent e) {
+		    	registerOnEventPane.setVisible(false);
+			 }
+		});
+		
+		registerOnEventPane.setPrefSize(800,800);
+		registerOnEventPane.setId("setting");
+		pane.getChildren().add(registerOnEventPane);
+		setNodePosition((Node)registerOnEventPane, 600, 100, 1, 1);
+		registerOnEventPane.setVisible(false);
+		
+		eventsTable.setRowFactory( tv -> {
+		    TableRow<Event> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		            int rowData = row.getItem().getId();
+		            System.out.println(rowData);
+		            eventsPane.setVisible(false);
+		            settingsPane.setVisible(false);
+		            registerOnEventPane.setVisible(true);
+		        }
+		    });
+		    return row ;
+		});	
+		
+		
+		
 		// miesto pre settingpane
 		
-		Pane settingsPane = new Pane();
+		
 		settingsPane.setPrefSize(490,560);
 		settingsPane.setId("setting");
 		pane.getChildren().add(settingsPane);
