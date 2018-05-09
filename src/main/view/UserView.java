@@ -69,8 +69,8 @@ public class UserView extends Stage {
 	private Button find = new Button();
 	private TextField locationnFilter = new TextField();
 	private DatePicker dateFilter = new DatePicker();
-	private Spinner<Integer> lengthFilter = new Spinner<Integer>(0,2000,10,1);
-	private Spinner<Integer> priceFilter = new Spinner<Integer>(0,2000,5,1);
+	private Spinner<Integer> lengthFilter = new Spinner<Integer>(0,2000,0,1);
+	private Spinner<Integer> priceFilter = new Spinner<Integer>(0,2000,0,1);
 	private Label locationLabel;
 	private Label dateLabel;
 	private Label lengthLabel;
@@ -78,7 +78,7 @@ public class UserView extends Stage {
 	private Button registerForEvent = new Button();
 	private Hyperlink exit = new Hyperlink();
 	
-   
+ 
 
 	// praca s farbou a obrazkami
 	Image background = new Image("File:resource/userBack.png");
@@ -99,6 +99,10 @@ public class UserView extends Stage {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Scene setNewUserScene(Stage window,Scene scene,PasswordField pwd,ResourceBundle resource) {
+		
+		final WebView  browser = new WebView();
+		final WebEngine engine = browser.getEngine();
+		
 		
 		link = new Hyperlink(resource.getString("key1-1"));
 		settingText = new Label(resource.getString("key1-2"));
@@ -155,7 +159,10 @@ public class UserView extends Stage {
 		Pane addBalacePane = new Pane();
 		Pane eventsPane = new Pane();
 		Pane registerOnEventPane = new Pane();
+		
+	
 		pane.getChildren().add(iv);
+		
 		
 		// miesto pre balanc a ucet
 		
@@ -313,11 +320,11 @@ public class UserView extends Stage {
 		});
 		
 		registerOnEventPane.getChildren().add(exit);
-		setNodePosition((Node)exit,630, 630, 0.2, 0.2);
+		setNodePosition((Node)exit,1430, 630, 0.2, 0.2);
 		exit.setBorder(Border.EMPTY);
 		
 		registerOnEventPane.getChildren().add(registerForEvent);
-		setNodePosition((Node)registerForEvent,380, 750, 1.5, 1.5);
+		setNodePosition((Node)registerForEvent,780, 750, 1.5, 1.5);
 
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 		    public void handle(ActionEvent e) {
@@ -325,18 +332,24 @@ public class UserView extends Stage {
 			 }
 		});
 		
-		registerOnEventPane.setPrefSize(800,800);
+		registerOnEventPane.setPrefSize(1600,800);
 		registerOnEventPane.setId("setting");
 		pane.getChildren().add(registerOnEventPane);
-		setNodePosition((Node)registerOnEventPane, 600, 100, 1, 1);
+		setNodePosition((Node)registerOnEventPane, 200, 100, 1, 1);
 		registerOnEventPane.setVisible(false);
+		
+		registerOnEventPane.getChildren().add(browser);
+		setNodePosition((Node)browser,20,20,1,1);
+		browser.setPrefSize(1560,700);
 		
 		eventsTable.setRowFactory( tv -> {
 		    TableRow<Event> row = new TableRow<>();
 		    row.setOnMouseClicked(event -> {
 		        if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 		            int rowData = row.getItem().getId();
-		            System.out.println(rowData);
+		           // url = controller.geturl(rowdata);
+		            engine.load("https://drive.google.com/open?id=18Hf65Ry2DaYoIfd2ONu_1CbfjulqkFEr&usp=sharing");
+		            addBalacePane.setVisible(false);
 		            eventsPane.setVisible(false);
 		            settingsPane.setVisible(false);
 		            registerOnEventPane.setVisible(true);
