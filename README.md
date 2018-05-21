@@ -1,7 +1,7 @@
 # Vava
 Repozitár určený na semestrálny projekt z VAVA
 Tento repozitár slúži na kolaboráciu pri vývoji
-softwaroveho produktu.
+softwaroveho produktu SkiGoSR.
 
 Autori Pavol Grofčík Michal Hebán
 # SkiGo
