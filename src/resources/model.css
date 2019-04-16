@@ -1,0 +1,37 @@
+@font-face {
+    src: url("Ailerons-Typeface.otf"),
+}
+
+#header{ 
+	-fx-font-size: 140px;
+	-fx-font-weight: bold;
+	-fx-font-family: "Ailerons";
+	-fx-font-color: #0000FF;
+}
+
+#login{
+	-fx-font-size:12px;
+	-fx-padding: 3px 18px;
+}
+
+#forget_password{
+	-fx-font-size:12px;
+	-fx-padding: 3px 18px;
+}
+#setting{
+	-fx-background-image: url("File:resource/plain.png");
+ 	-fx-border-color: white;
+ 	-fx-border-width: 2;
+}
+
+#funds{
+	-fx-background-image: url("File:resource/plain.png");
+ 	-fx-border-color: white;
+ 	-fx-border-width: 2;
+}
+
+
+#register{
+	-fx-font-size:12px;
+	-fx-padding: 3px 18px;
+}
